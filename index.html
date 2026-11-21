@@ -136,13 +136,6 @@ details>:not(summary):last-child{margin-bottom:12px}
 .steps ol,.steps ul{margin:6px 0 8px;padding-left:22px}.steps li{margin-bottom:5px}.steps p{margin:6px 0}
 .rule-tag{display:inline-block;padding:1px 9px;border-radius:99px;background:var(--panel);border:1px solid var(--line);font-size:12.5px;font-weight:650;margin-bottom:6px}
 
-/* lithuanian words */
-.learn{border:1px solid var(--line2);background:var(--panel2);border-radius:14px;padding:14px 18px 12px;margin:18px 0 0}
-.learn>b{font-size:14.5px}
-.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0 28px;margin-top:6px}
-.words div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line2)}
-.words b{font-weight:650}.words span{color:var(--mute);text-align:right}
-.learn .m{margin-top:10px}
 
 /* interview + AI */
 .card{border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:14px 0;background:var(--panel)}
@@ -214,11 +207,6 @@ dialog.dlg h4{margin:14px 0 4px;font-size:14px}
 .qtype{display:inline-block;margin-right:8px;padding:1px 8px;border-radius:99px;background:var(--panel2);border:1px solid var(--line2);font-size:11.5px;font-weight:600;color:var(--mute);vertical-align:middle;letter-spacing:.02em}
 
 /* pronunciation */
-.spk{display:inline-grid;place-items:center;width:28px;height:28px;padding:0;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--link);cursor:pointer;flex:none;vertical-align:middle;margin-left:6px}
-.spk:hover{border-color:var(--link)}
-.spk svg{width:15px;height:15px;fill:currentColor}
-.spk.busy{background:var(--link);color:var(--panel);border-color:var(--link)}
-.words div>b{display:flex;align-items:center;gap:2px}
 .tts{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
 .tts .row{margin:6px 0}
 .tts select{height:30px;border:1px solid var(--line);border-radius:9px;background:var(--panel);padding:0 8px;font-size:13px}
@@ -413,6 +401,88 @@ pre,.ivcode,code{max-width:100%}
 @media(max-height:520px){.topbar{position:static}#tabs{position:static}}
 /* touch: 16px inputs stop iOS from zooming in on focus */
 @media(pointer:coarse){input,select,textarea{font-size:16px}}
+
+/* ===== v14: flashcards ===== */
+.fc-top{display:flex;gap:12px 20px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.fc-top h3{margin:0}.fc-top .note{margin:4px 0 0}
+.fc-stats{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:flex-end}
+.fc-stats>div{display:flex;flex-direction:column;min-width:64px}.fc-stats b{font-size:24px;line-height:1.1}.fc-stats span{font-size:12px;color:var(--mute)}
+.fc-bars{display:flex;gap:3px;align-items:flex-end;height:36px;margin-left:auto}.fc-bars i{display:block;width:9px;background:var(--ok);border-radius:2px;opacity:.85}
+.fc-decks table{width:100%;border-collapse:collapse}.fc-decks th{font-size:12px;color:var(--mute);font-weight:600;text-align:left;padding:4px 8px;border-bottom:1px solid var(--line)}
+.fc-decks td{padding:7px 8px;border-bottom:1px solid var(--line2)}
+.fc-decks th.fc-c,.fc-decks td.fc-c{text-align:right;width:64px;font-variant-numeric:tabular-nums;color:var(--mute)}
+.fc-c.n{color:#3b82f6!important;font-weight:700}.fc-c.l{color:#d97706!important;font-weight:700}.fc-c.r{color:var(--ok)!important;font-weight:700}
+.fc-name{font-weight:600;overflow-wrap:anywhere}.fc-go{text-align:right;white-space:nowrap}.fc-go .btn{margin-left:4px}
+.fc-tg{display:inline-block;width:22px;background:none;border:0;color:var(--mute);cursor:pointer;font-size:13px;padding:0}
+.fc-help{margin:8px 0 8px 18px;line-height:1.6}
+.fc-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:2px 0 12px}.fc-sp{flex:1}
+.fc-title{font-size:16px;overflow-wrap:anywhere}
+.fc-cnt{display:inline-flex;gap:14px;font-size:14px;color:var(--mute)}.fc-cnt .on{text-decoration:underline;color:var(--ink)}.fc-cnt b{font-variant-numeric:tabular-nums}
+.fc-card{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:clamp(16px,3vw,32px);min-height:min(46vh,360px);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.fc-face{width:100%;font-size:clamp(17px,1.5vw+11px,23px);line-height:1.55;text-align:center;overflow-wrap:anywhere;outline:0}
+.fc-face img{max-width:100%;max-height:52vh;height:auto;object-fit:contain}
+.fc-face pre,.fc-face code{text-align:left;font-family:var(--mono);font-size:.85em;white-space:pre-wrap}
+.fc-face pre{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;overflow:auto}
+.fc-face table{margin:8px auto;border-collapse:collapse;text-align:left}.fc-face td,.fc-face th{border:1px solid var(--line);padding:4px 8px}
+.fc-face hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+.fc-face ul,.fc-face ol{text-align:left;display:inline-block;margin:6px 0}
+.fc-face audio{max-width:100%;margin:6px 0}
+.fc-cloze{color:#2563eb;font-weight:700}.fc-miss{color:var(--mute);font-size:.8em}
+#fc-act{margin-top:12px}#fc-act .row{justify-content:center}
+.fc-showbtn{min-width:min(100%,320px);height:48px;font-size:16px}
+.fc-rate{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:640px;margin:0 auto}
+.fc-rate .btn{display:flex;flex-direction:column;align-items:center;height:auto;padding:8px 6px;gap:2px;font-size:15px}
+.fc-rate .btn span{font-size:12px;color:var(--mute)}.fc-rate .btn kbd{font-size:11px}
+.fc-r1{border-color:#e11d48!important}.fc-r3{border-color:var(--ok)!important}.fc-r4{border-color:#3b82f6!important}
+.fc-done{padding:12px 4px}.fc-done h3{margin-bottom:6px}
+.fc-pbar{height:10px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:10px 0 4px}.fc-pbar i{display:block;height:100%;width:0;background:var(--ok);transition:width .15s}
+@keyframes fcpulse{0%,100%{opacity:.35}50%{opacity:1}}
+.fc-chk{display:inline-flex;gap:8px;align-items:center;font-size:14px;margin:6px 0}
+.fci-item{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0;background:var(--panel2)}
+.fci-tbl{overflow-x:auto;margin:8px 0}.fci-tbl table{border-collapse:collapse;font-size:13px}.fci-tbl td,.fci-tbl th{border:1px solid var(--line);padding:4px 6px;vertical-align:top;max-width:200px;overflow-wrap:anywhere}
+.fci-deck{display:block;margin:8px 0;font-size:14px}.fci-deck input{margin-left:8px;width:min(100%,320px)}
+.fc-ok{color:var(--ok)}
+dialog.fc-dlg input[type=number]{height:36px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);padding:0 10px;font-size:15px}
+dialog.fc-dlg textarea{border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);padding:8px 10px;font:inherit;width:100%;resize:vertical}
+.fcb-row{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:8px 0}.fcb-h{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}.fcb-t{font-weight:600;overflow-wrap:anywhere;flex:1 1 240px}.fcb-m{font-size:12px;color:var(--mute)}
+.fcb-body{border-top:1px dashed var(--line);margin:8px 0;padding-top:8px;overflow-wrap:anywhere}.fcb-body img{max-width:100%}.fcb-a{display:flex;gap:6px;margin-top:6px}
+@media(max-width:700px){
+  .fc-go .btn[data-cram]{display:none}.fc-decks th:last-child{width:70px}
+  .fc-card{min-height:30vh;padding:16px}
+  .fc-face{font-size:18px}
+  .fc-rate{grid-template-columns:repeat(2,1fr)}
+  .fc-bars{margin-left:0}
+}
+
+/* ===== v15: compact day bar, so the content is the main thing ===== */
+main{padding-top:12px}
+.today{gap:4px 12px;flex-wrap:wrap;align-items:center}
+.day-id{gap:6px}.day-word{font-size:14px}
+#dnum{font-size:26px;letter-spacing:-.03em}
+.day-of{font-size:14px}
+.phase{flex:1 1 220px;min-width:0;max-width:none;display:flex;gap:8px;align-items:baseline}
+.phase b{display:inline;font-size:14px;white-space:nowrap}
+.phase span{font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.day-ctl{gap:6px}.day-ctl .btn:not(.icon){height:32px}
+.overall{margin-top:6px;gap:4px 12px;font-size:12.5px}
+.overall .meter{height:4px;flex:1 1 120px}
+#grid{margin:10px 0 12px}
+#grid[hidden]{display:none!important}
+#tabs{margin-top:10px}
+@media(max-width:700px){main{padding-top:8px}.phase{flex:1 1 100%}.today{gap:2px 10px}#grid{margin:8px -16px 10px}}
+/* ===== v15: flashcards - AI panel, go-through mode ===== */
+.fc-prog{display:block;font-size:11.5px;font-weight:500;color:var(--mute)}
+.fc-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}.fc-nav .btn{min-width:120px;height:44px}
+.fc-navopts{justify-content:center;margin-top:10px}
+.fc-ai{border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:12px 14px;margin-top:14px}
+.fc-ai[hidden]{display:none}
+.fc-ai-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}.fc-ai-head select{max-width:100%;height:32px}
+.fc-ai-quick{margin:6px 0}
+.fc-ai-chat{max-height:min(55vh,520px);overflow:auto;margin:8px 0}
+.fc-ai-in{display:flex;gap:8px;align-items:flex-end}.fc-ai-in textarea{flex:1;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);padding:8px 10px;font:inherit;resize:vertical}
+.fc-ai-key{margin:6px 0}.fc-ai-key input{height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);padding:0 10px;min-width:220px}
+.fc-ai .msg.err:empty{display:none}
+@media(max-width:700px){.fc-nav .btn{flex:1 1 40%;min-width:0}.fc-ai-in{flex-direction:column;align-items:stretch}}
 </style><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"></head><body>
 <a class="skip" href="#tabs">Skip to the subject tabs</a><div id="live" class="sr" aria-live="polite"></div>
 <header class="topbar"><div class="topbar-in">
@@ -442,6 +512,7 @@ pre,.ivcode,code{max-width:100%}
       <button class="btn icon" id="pv" aria-label="Previous day">‹</button>
       <button class="btn icon" id="nx" aria-label="Next day">›</button>
       <button class="btn" id="dn"></button>
+      <button class="btn btn-sm" id="days-toggle" aria-expanded="false" aria-controls="grid" title="Show or hide the 60-day grid">Days ▾</button>
     </div>
   </div>
   <div class="overall">
@@ -451,13 +522,14 @@ pre,.ivcode,code{max-width:100%}
     <button class="linkbtn" id="clr" title="Clear the answers you typed today">Clear today's answers</button>
   </div>
   <div id="wkbar"></div>
-  <div id="grid" role="group" aria-label="Choose a day"></div>
+  <div id="grid" role="group" aria-label="Choose a day" hidden></div>
   <nav id="tabs" role="tablist" aria-label="Subjects"></nav>
-  <section id="m" role="tabpanel"></section><section id="p" role="tabpanel"></section><section id="a" role="tabpanel"></section><section id="l" role="tabpanel"></section><section id="iv" role="tabpanel"></section><section id="scr" role="tabpanel"></section><section id="ans" role="tabpanel"></section><section id="c" role="tabpanel"></section><section id="ai" role="tabpanel"></section><section id="st" role="tabpanel"></section>
+  <section id="p" role="tabpanel"></section><section id="a" role="tabpanel"></section><section id="fc" role="tabpanel"></section><section id="iv" role="tabpanel"></section><section id="scr" role="tabpanel"></section><section id="ans" role="tabpanel"></section><section id="c" role="tabpanel"></section><section id="ai" role="tabpanel"></section><section id="st" role="tabpanel"></section>
 </main>
 <dialog id="expdlg" class="dlg" aria-labelledby="ex-h"><h3 id="ex-h">Export a backup</h3>
 <p class="m">The backup contains all your progress and your API key. Protect it with a passphrase so nobody who finds the file can read the key. There is no recovery if you forget the passphrase.</p>
 <div class="f2"><label>Passphrase (8 characters or more)<input type="password" id="ex-pass" autocomplete="new-password"></label><label>Repeat the passphrase<input type="password" id="ex-pass2" autocomplete="new-password"></label></div>
+<div id="ex-fc" hidden><p class="m" id="ex-fcinfo"></p><label class="fc-chk"><input type="checkbox" id="ex-media" checked> Include card images and sound</label></div>
 <div class="msg" id="ex-msg" role="status"></div>
 <div class="row"><button class="btn on" id="ex-enc">Download encrypted backup</button><button class="btn btn-sm" id="ex-plain">Download without encryption</button><button class="btn btn-sm" id="ex-cancel">Cancel</button></div></dialog>
 <dialog id="impdlg" class="dlg" aria-labelledby="im-h"><h3 id="im-h">Encrypted backup</h3><p class="m">Enter the passphrase you used when you exported this file.</p>
@@ -479,193 +551,13 @@ const li=s=>s.split("|").map(x=>`<li>${x}</li>`).join("");
 const tagged=(tag,notes)=>`<span class='rule-tag'>${tag}</span><ol>${li(notes)}</ol>`;
 
 // Weekly focus banners (index 0..4)
-const F=["Weeks 1-2 · Foundations: mental arithmetic, core sequences, Python basics, Netmiko fundamentals, survival Lithuanian",
-         "Weeks 3-4 · Advanced Python & Netmiko: regex, OOP, generators, TextFSM, multi-vendor sessions, mass config, Lithuanian cases",
+const F=["Weeks 1-2 · Foundations: Python basics, network calculations, Netmiko fundamentals",
+         "Weeks 3-4 · Advanced Python & Netmiko: regex, OOP, generators, TextFSM, multi-vendor sessions, mass config",
          "Weeks 5-6 · Ansible & Network APIs: playbooks, Jinja2, roles, REST/RESTCONF/NETCONF, NetBox, Catalyst Center, Meraki, Postman",
-         "Weeks 7-8 · Multi-step automation architectures: pipelines, concurrency, pagination, error handling, Lithuanian fluency",
+         "Weeks 7-8 · Multi-step automation architectures: pipelines, concurrency, pagination, error handling",
          "Final mastery (days 57-60) · Mixed review of every track, speed and precision"];
 const weekIdx=d=>d<=14?0:d<=28?1:d<=42?2:d<=56?3:4;
 
-// Daily Lithuanian themes (one per day)
-const T=["Greetings & courtesy","Basic phrases & understanding","Pronouns","Question words","Numbers 1-9","Numbers, ordinals","Family 1","Family 2 & people","Time words","Days of the week",
-"Food & drink 1","Food & drink 2","Eating & shopping verbs","Restaurant","Body","Health","Home","Furniture","Everyday objects","Colours",
-"Adjectives 1","Adjectives 2","City","Transport","Directions","Travel verbs","Travel & hotel","Weather & sky","Nature","Animals",
-"Time units","Months","Months, seasons, holidays","Workplace","Work verbs","IT & internet","Networking hardware","Technical vocabulary","IT verbs","Technical abstract",
-"Education","Learning verbs","Core verbs","Daily-routine verbs","Clothes","Feelings","Abstract nouns","Connectors","Prepositions","Frequency adverbs",
-"Quantity words","Society & culture","Money & banking","Polite phrases","Survival phrases","Workplace phrases","Professional abstract","Abstract adjectives","Advanced verbs","Fluency review"];
-
-// 540 words: exactly 9 per day, one line per day. Format  lt:en;lt:en;...
-const WD=[
-"labas:hello;laba diena:good day;viso gero:goodbye;ačiū:thank you;prašau:please / you're welcome;atsiprašau:sorry / excuse me;taip:yes;ne:no;sveiki:hello (formal / plural)",
-"kaip sekasi:how are you;gerai:well / fine;blogai:badly;labai:very;nesuprantu:I don't understand;suprantu:I understand;nežinau:I don't know;žinau:I know;padėkite:help me (formal)",
-"aš:I;tu:you (singular);jis:he;ji:she;mes:we;jūs:you (plural / formal);jie:they (masc.);jos:they (fem.);tai:this / that / it",
-"kas:who / what;ką:whom / what (acc.);kur:where;kada:when;kodėl:why;kaip:how;kiek:how much / how many;koks:what kind of;kuris:which",
-"vienas:one;du:two;trys:three;keturi:four;penki:five;šeši:six;septyni:seven;aštuoni:eight;devyni:nine",
-"dešimt:ten;dvidešimt:twenty;trisdešimt:thirty;šimtas:hundred;tūkstantis:thousand;nulis:zero;pirmas:first;antras:second;paskutinis:last",
-"šeima:family;mama:mom;tėtis:dad;brolis:brother;sesuo:sister;vaikas:child;vyras:man / husband;moteris:woman / wife;žmogus:person",
-"draugas:friend (m.);draugė:friend (f.);senelis:grandfather;močiutė:grandmother;sūnus:son;duktė:daughter;dėdė:uncle;teta:aunt;kaimynas:neighbour",
-"šiandien:today;vakar:yesterday;rytoj:tomorrow;dabar:now;vėliau:later;anksti:early;vėlai:late;visada:always;niekada:never",
-"pirmadienis:Monday;antradienis:Tuesday;trečiadienis:Wednesday;ketvirtadienis:Thursday;penktadienis:Friday;šeštadienis:Saturday;sekmadienis:Sunday;savaitė:week;savaitgalis:weekend",
-"duona:bread;pienas:milk;vanduo:water;kava:coffee;arbata:tea;sūris:cheese;mėsa:meat;žuvis:fish;kiaušinis:egg",
-"sriuba:soup;obuolys:apple;bulvė:potato;daržovė:vegetable;vaisius:fruit;cukrus:sugar;druska:salt;sultys:juice;alus:beer",
-"valgyti:to eat;gerti:to drink;gaminti:to cook / to produce;pirkti:to buy;mokėti:to pay / to know how;norėti:to want;mėgti:to like;skanus:tasty;alkanas:hungry",
-"restoranas:restaurant;kavinė:café;meniu:menu;sąskaita:bill / account;staliukas:small table;pusryčiai:breakfast;pietūs:lunch;vakarienė:dinner;užkandis:snack",
-"galva:head;akis:eye;ausis:ear;nosis:nose;burna:mouth;ranka:hand / arm;koja:leg / foot;širdis:heart;nugara:back",
-"sveikas:healthy;ligonis:sick person;skausmas:pain;gydytojas:doctor;vaistai:medicine;ligoninė:hospital;vaistinė:pharmacy;pavargęs:tired;temperatūra:fever / temperature",
-"namas:house;butas:flat;kambarys:room;virtuvė:kitchen;vonia:bathtub / bathroom;miegamasis:bedroom;durys:door;langas:window;stogas:roof",
-"stalas:table;kėdė:chair;lova:bed;spinta:wardrobe;sofa:sofa;lempa:lamp;veidrodis:mirror;siena:wall;grindys:floor",
-"raktas:key;telefonas:phone;kompiuteris:computer;knyga:book;popierius:paper;rašiklis:pen;krepšys:bag;pinigai:money;kortelė:card",
-"raudonas:red;mėlynas:blue;žalias:green;geltonas:yellow;juodas:black;baltas:white;pilkas:grey;rudas:brown;oranžinis:orange",
-"didelis:big;mažas:small;geras:good;blogas:bad;naujas:new;senas:old;gražus:beautiful;ilgas:long;trumpas:short",
-"karštas:hot;šaltas:cold;šiltas:warm;greitas:fast;lėtas:slow;brangus:expensive;pigus:cheap;lengvas:easy / light;sunkus:difficult / heavy",
-"miestas:city;gatvė:street;aikštė:square;tiltas:bridge;parkas:park;parduotuvė:shop;turgus:market;bažnyčia:church;muziejus:museum",
-"autobusas:bus;traukinys:train;mašina:car;dviratis:bicycle;lėktuvas:aeroplane;taksi:taxi;stotis:station;oro uostas:airport;bilietas:ticket",
-"kairė:left;dešinė:right;tiesiai:straight ahead;toli:far;arti:near;čia:here;ten:there;šalia:next to;priešais:opposite",
-"eiti:to go (on foot);važiuoti:to go (by vehicle);atvykti:to arrive;išvykti:to leave / to depart;grįžti:to return;laukti:to wait;ieškoti:to look for;rasti:to find;sustoti:to stop (come to a halt)",
-"viešbutis:hotel;kelionė:trip;pasas:passport;bagažas:luggage;žemėlapis:map;adresas:address;rezervacija:reservation;atostogos:holiday / vacation;turistas:tourist",
-"saulė:sun;mėnulis:moon;dangus:sky;lietus:rain;sniegas:snow;vėjas:wind;debesis:cloud;oras:weather / air;žvaigždė:star",
-"upė:river;ežeras:lake;jūra:sea;miškas:forest;kalnas:mountain;medis:tree;gėlė:flower;žolė:grass;paplūdimys:beach",
-"šuo:dog;katė:cat;arklys:horse;karvė:cow;paukštis:bird;voverė:squirrel;lapė:fox;vilkas:wolf;kiškis:hare",
-"metai:year;mėnuo:month;diena:day;naktis:night;rytas:morning;vakaras:evening;valanda:hour;minutė:minute;sekundė:second",
-"sausis:January;vasaris:February;kovas:March;balandis:April;gegužė:May;birželis:June;liepa:July;rugpjūtis:August;rugsėjis:September",
-"spalis:October;lapkritis:November;gruodis:December;pavasaris:spring;vasara:summer;ruduo:autumn;žiema:winter;šventė:holiday / celebration;gimtadienis:birthday",
-"darbas:work / job;biuras:office;įmonė:company;vadovas:manager;kolega:colleague;klientas:client;susitikimas:meeting;atlyginimas:salary;sutartis:contract",
-"dirbti:to work;padėti:to help;siųsti:to send;gauti:to receive / to get;rašyti:to write;skaityti:to read;skambinti:to call;atsakyti:to answer;klausti:to ask",
-"internetas:internet;tinklas:network;serveris:server;programa:program / app;failas:file;slaptažodis:password;vartotojas:user;paskyra:account (user);el. paštas:email",
-"duomenys:data;saugumas:security;ryšys:connection / link;prietaisas:device;maršrutizatorius:router;komutatorius:switch (network);ugniasienė:firewall;kabelis:cable;belaidis:wireless",
-"konfigūracija:configuration;sąsaja:interface;protokolas:protocol;užklausa:request / query;atsakymas:answer / response;klaida:error / mistake;pranešimas:message / notification;atsarginė kopija:backup;versija:version",
-"diegti:to install;paleisti:to start / to run;sustabdyti:to stop (something);tikrinti:to check;taisyti:to fix;keisti:to change;išsaugoti:to save;ištrinti:to delete;prisijungti:to log in / to connect",
-"automatinis:automatic;saugus:safe / secure;prieinamas:available / accessible;neveikiantis:not working;paruoštas:ready / prepared;atnaujinimas:update;problema:problem;sprendimas:solution;priežastis:cause / reason",
-"mokykla:school;universitetas:university;mokytojas:teacher;studentas:student;pamoka:lesson;egzaminas:exam;klausimas:question;pratimas:exercise;žodynas:dictionary",
-"mokytis:to study / to learn;mokyti:to teach;suprasti:to understand;prisiminti:to remember;pamiršti:to forget;kartoti:to repeat;kalbėti:to speak;girdėti:to hear;matyti:to see",
-"turėti:to have;daryti:to do / to make;būti:to be;gyventi:to live;sakyti:to say;duoti:to give;imti:to take;žinoti:to know;galėti:to be able to",
-"bėgti:to run;šokti:to jump / to dance;sėdėti:to sit;stovėti:to stand;gulėti:to lie;miegoti:to sleep;keltis:to get up;praustis:to wash oneself;rengtis:to get dressed",
-"drabužiai:clothes;marškiniai:shirt;kelnės:trousers;suknelė:dress;striukė:jacket;batai:shoes;kepurė:hat;kojinės:socks;akiniai:glasses",
-"laimingas:happy;liūdnas:sad;piktas:angry;išsigandęs:scared;nustebęs:surprised;ramus:calm;džiaugtis:to be glad;bijoti:to fear;mylėti:to love",
-"laikas:time;gyvenimas:life;pasaulis:world;tiesa:truth;laisvė:freedom;taika:peace;viltis:hope;idėja:idea;prasmė:meaning",
-"ir:and;bet:but;arba:or;nes:because;todėl:therefore;jeigu:if;kai:when / while;kad:that / so that;nors:although",
-"į:into / to;iš:from / out of;ant:on;po:under / after;prie:near / at;su:with;be:without;apie:about;per:through / during",
-"dažnai:often;kartais:sometimes;retai:rarely;tuoj:soon / immediately;jau:already;dar:still / yet;tik:only;taip pat:also;visur:everywhere",
-"daug:many / much;mažai:few / little;visi:all;kai kas:something / someone;nieko:nothing;kiekvienas:every / each;kitas:other / next;toks:such;pats:self / same",
-"šalis:country;valstybė:state;vyriausybė:government;įstatymas:law;gyventojas:resident;kultūra:culture;istorija:history;kalba:language;tauta:nation",
-"kaina:price;nemokamas:free (no cost);nuolaida:discount;mokestis:fee / tax;bankas:bank;paskola:loan;taupyti:to save (money);išleisti:to spend (money) / to release;kvitas:receipt",
-"malonu susipažinti:nice to meet you;sėkmės:good luck;su gimtadieniu:happy birthday;gero apetito:enjoy your meal;į sveikatą:cheers / bless you;labanakt:good night;iki:bye (informal);iki pasimatymo:see you later;viso geriausio:all the best",
-"kiek kainuoja:how much does it cost;kur yra:where is;ar galite padėti:can you help;pakartokite, prašau:repeat please;kalbu truputį lietuviškai:I speak a little Lithuanian;ar kalbate angliškai:do you speak English;nesuprantu lietuviškai:I don't understand Lithuanian;lėčiau, prašau:slower please;kaip tai vadinasi:what is this called",
-"turiu klausimą:I have a question;tuoj grįšiu:I'll be right back;susisieksime:we will be in touch;gero darbo:have a good day at work;nėra problemos:no problem;viskas veikia:everything works;kas nutiko:what happened;pabandykime dar kartą:let's try again;reikia pagalbos:help is needed",
-"tikslas:goal;planas:plan;rezultatas:result;patirtis:experience;įgūdis:skill;galimybė:opportunity / possibility;atsakomybė:responsibility;sėkmė:success;pažanga:progress",
-"svarbus:important;būtinas:necessary;galimas:possible;tikras:real;aiškus:clear;paprastas:simple;sudėtingas:complicated;tinkamas:suitable;pavojingas:dangerous",
-"nuspręsti:to decide;pradėti:to begin;baigti:to finish;tęsti:to continue;bandyti:to try;padaryti:to accomplish / to make;sutikti:to meet / to agree;pasakyti:to tell;išmokti:to learn (complete)",
-"susitarti:to agree / to arrange;pasiruošti:to prepare oneself;susipažinti:to get acquainted;apsvarstyti:to consider;paaiškinti:to explain;pasidalyti:to share;įsitikinti:to make sure;atsipalaiduoti:to relax;džiaugsmas:joy"
-];
-const W=[];
-WD.forEach((l,i)=>l.split(";").forEach(p=>{const k=p.indexOf(":");W.push([p.slice(0,k).trim(),p.slice(k+1).trim(),i+1])}));
-// Lithuanian grammar: [prompt, answer, explanation html]
-const gr=(q,a,tag,notes)=>[q,a,tagged(tag,notes)];
-const G=[
-// ---- Present tense (Esamasis laikas)
-gr("Aš ___ (dirbti) Vilniuje.","dirbu","Present · 1st conjugation (-a-)","Infinitive dirbti → 3rd-person stem <code>dirb-</code>.|1sg ending <code>-u</code>: aš <b>dirbu</b>. Paradigm: dirbu, dirbi, dirba, dirbame, dirbate, dirba."),
-gr("Tu ___ (skaityti) knygą.","skaitai","Present · 3rd conjugation (-o-)","Skaityti: 3rd person is <code>skaito</code>, so the stem is skait-.|2sg ending after stem in -a-/-o- type verbs: <code>-ai</code> → tu <b>skaitai</b>."),
-gr("Mes ___ (kalbėti) lietuviškai.","kalbame","Present · 1pl","Kalbėti → 3rd person <code>kalba</code>, stem kalb-.|1pl ending <code>-ame</code> → mes <b>kalbame</b>."),
-gr("Jūs ___ (norėti) kavos.","norite","Present · 2pl (-i- verbs)","Norėti → noriu, nori, nori, norime, <b>norite</b>.|2pl takes <code>-ite</code> in the -i- conjugation. Note: norėti governs the genitive (kavos)."),
-gr("Aš ___ (eiti) į darbą.","einu","Present · irregular stem","Eiti has present stem <code>ein-</code>: einu, eini, eina, einame, einate, eina.|1sg → aš <b>einu</b>."),
-gr("Ji ___ (turėti) mašiną.","turi","Present · -i- conjugation","Turėti → turiu, turi, turi, turime, turite, turi.|In the -i- conjugation 2sg and 3rd person are identical: ji <b>turi</b>."),
-gr("Jūs ___ (būti) namie.","esate","Present · būti","Būti is irregular: esu, esi, yra, esame, <b>esate</b>, yra.|2pl takes <code>-ate</code>."),
-gr("Jūs ___ (gerti) vandenį.","geriate","Present · 1st conjugation with -ia-","Gerti → geriu, geri, geria, geriame, <b>geriate</b>, geria.|The stem is geri-; 2pl adds <code>-ate</code>."),
-// ---- Accusative (Galininkas)
-gr("Aš matau ___ (draugas).","draugą","Accusative sg · masculine -as","Direct object of matyti → accusative.|Masculine <code>-as</code> → <code>-ą</code>: draugas → <b>draugą</b>."),
-gr("Aš perku ___ (duona).","duoną","Accusative sg · feminine -a","Perku takes a direct object → accusative.|Feminine <code>-a</code> → <code>-ą</code>: duona → <b>duoną</b>."),
-gr("Aš matau ___ (katė).","katę","Accusative sg · feminine -ė","Feminine <code>-ė</code> → <code>-ę</code>: katė → <b>katę</b>.|Remember: nasal vowels ą ę į ų are written but pronounced as long vowels."),
-gr("Aš skaitau ___ (laikraštis).","laikraštį","Accusative sg · -is","Masculine <code>-is</code> → <code>-į</code>: laikraštis → <b>laikraštį</b>.|Same pattern: obuolys → obuolį, sūris → sūrį."),
-gr("Aš matau ___ (moteris).","moterį","Accusative sg · feminine -is","Feminine <code>-is</code> → <code>-į</code>: moteris → <b>moterį</b>.|Genitive would be moters, so don't confuse the stems."),
-gr("Aš matau ___ (šuo).","šunį","Accusative sg · irregular -uo","Stem of šuo is <code>šun-</code> (gen. šuns).|Accusative adds <code>-į</code>: <b>šunį</b>. Same pattern: vanduo → vandenį, mėnuo → mėnesį."),
-gr("Turiu du ___ (brolis).","brolius","Accusative pl · -is","Verb turėti + object → accusative; numerals 2-9 agree in case with the noun.|Plural accusative of <code>-is</code> nouns is <code>-ius</code>: broliai → <b>brolius</b>."),
-gr("Turiu dvi ___ (sesuo).","seseris","Accusative pl · sesuo","Feminine numeral dvi + accusative plural.|Plural stem seser-, accusative plural <code>-is</code>: <b>seseris</b>."),
-// ---- Genitive (Kilmininkas)
-gr("Tai ___ (brolis) knyga.","brolio","Genitive sg · possession","'Whose book?' → genitive.|Masculine <code>-is</code> → <code>-io</code>: brolis → <b>brolio</b>."),
-gr("Noriu ___ (kava) - some coffee (partitive).","kavos","Genitive sg · partitive","Norėti with a mass noun (an unspecified quantity) takes the genitive.|Feminine <code>-a</code> → <code>-os</code>: kava → <b>kavos</b>."),
-gr("Neturiu ___ (laikas).","laiko","Genitive sg · after negation","Negated transitive verbs take the genitive instead of the accusative.|Masculine <code>-as</code> → <code>-o</code>: laikas → <b>laiko</b>."),
-gr("Stiklinė ___ (vanduo).","vandens","Genitive sg · measure / container","A container of something takes the genitive of the content.|Vanduo has stem vanden-, genitive <b>vandens</b>."),
-gr("Dešimt ___ (knyga).","knygų","Genitive pl · after 10-19, tens","Numerals 10-19 and round tens require the genitive plural.|Feminine <code>-a</code> → <code>-ų</code>: knyga → <b>knygų</b>."),
-gr("Nėra ___ (pienas).","pieno","Genitive sg · nėra","The existential negation <code>nėra</code> ('there isn't') takes the genitive.|pienas → <b>pieno</b>."),
-gr("Aš esu iš ___ (Vilnius).","Vilniaus","Genitive · preposition iš","<code>iš</code> (from / out of) governs the genitive.|Masculine <code>-ius</code> → <code>-iaus</code>: Vilnius → <b>Vilniaus</b>."),
-gr("Knyga yra ant ___ (stalas).","stalo","Genitive · preposition ant","<code>ant</code> (on) governs the genitive.|stalas → <b>stalo</b>."),
-// ---- Locative (Vietininkas)
-gr("Aš gyvenu ___ (Kaunas).","Kaune","Locative sg · -as","'Where?' → locative (Kur?).|Masculine <code>-as</code> → <code>-e</code>: Kaunas → <b>Kaune</b>."),
-gr("Aš dirbu ___ (biuras).","biure","Locative sg · -as","Biuras → <b>biure</b>. Pattern: -as → -e (darbas → darbe, miestas → mieste)."),
-gr("Aš gyvenu ___ (Lietuva).","Lietuvoje","Locative sg · feminine -a","Feminine <code>-a</code> → <code>-oje</code>: Lietuva → <b>Lietuvoje</b>.|Same: mokykla → mokykloje, Klaipėda → Klaipėdoje."),
-gr("Puodelis yra ___ (virtuvė).","virtuvėje","Locative sg · feminine -ė","Feminine <code>-ė</code> → <code>-ėje</code>: virtuvė → <b>virtuvėje</b>."),
-gr("Mes gyvename ___ (Vilnius).","Vilniuje","Locative sg · -ius","Masculine <code>-ius</code> → <code>-iuje</code>: Vilnius → <b>Vilniuje</b>."),
-gr("Jis yra ___ (kambarys).","kambaryje","Locative sg · -ys","Masculine <code>-ys</code> → <code>-yje</code>: kambarys → <b>kambaryje</b>."),
-gr("Mes esame ___ (namai).","namuose","Locative pl · pluralia tantum","Namai is always plural. Locative plural ending <code>-uose</code>: <b>namuose</b>.|Also: Šiauliai → Šiauliuose."),
-// ---- Prepositions and case government
-gr("Einu į ___ (parduotuvė).","parduotuvę","Preposition į → accusative","<code>į</code> (into / to, direction) governs the accusative.|parduotuvė → <b>parduotuvę</b>."),
-gr("Važiuoju į ___ (Vilnius).","Vilnių","Preposition į → accusative","Vilnius is a -ius noun, accusative <code>-ių</code>.|į <b>Vilnių</b>."),
-gr("Gyvenu prie ___ (jūra).","jūros","Preposition prie → genitive","<code>prie</code> (near / at) governs the genitive.|Feminine <code>-a</code> → <code>-os</code>: jūra → <b>jūros</b>."),
-gr("Esu be ___ (pinigai).","pinigų","Preposition be → genitive","<code>be</code> (without) governs the genitive.|Plural genitive of pinigai: <b>pinigų</b>."),
-gr("Kalbame apie ___ (darbas).","darbą","Preposition apie → accusative","<code>apie</code> (about) governs the accusative.|darbas → <b>darbą</b>."),
-gr("Knyga yra po ___ (stalas).","stalu","Preposition po → instrumental (location)","Po + instrumental = 'under' (static location).|Masculine <code>-as</code> → <code>-u</code>: stalas → <b>stalu</b>."),
-// ---- Instrumental (Įnagininkas)
-gr("Važiuoju ___ (autobusas).","autobusu","Instrumental sg · means of transport","Instrumental answers 'with what / by what?'.|Masculine <code>-as</code> → <code>-u</code>: <b>autobusu</b>."),
-gr("Rašau ___ (rašiklis).","rašikliu","Instrumental sg · tool","Masculine <code>-is</code> → <code>-iu</code>: rašiklis → <b>rašikliu</b>."),
-gr("Dirbu ___ (kompiuteris).","kompiuteriu","Instrumental sg · tool","Dirbti + tool takes the instrumental: kompiuteris → <b>kompiuteriu</b>."),
-gr("Aš dirbu ___ (gydytojas).","gydytoju","Instrumental · profession","Professions after dirbti, būti (as a role) take the instrumental.|gydytojas → <b>gydytoju</b>."),
-gr("Jis dirba ___ (inžinierius).","inžinieriumi","Instrumental sg · -ius","Masculine <code>-ius</code> → <code>-iumi</code>: <b>inžinieriumi</b>."),
-gr("Einu su ___ (sesuo).","seserimi","Instrumental sg · sesuo","Su + instrumental ('with'). Stem seser-, instrumental <code>-imi</code>: <b>seserimi</b>."),
-gr("Kalbu su ___ (draugai).","draugais","Instrumental pl","Plural instrumental of -as nouns ends in <code>-ais</code>: draugai → <b>draugais</b>."),
-// ---- Dative (Naudininkas)
-gr("Duodu knygą ___ (draugas).","draugui","Dative sg · recipient","Indirect object → dative.|Masculine <code>-as</code> → <code>-ui</code>: draugas → <b>draugui</b>."),
-gr("Rašau laišką ___ (mama).","mamai","Dative sg · feminine -a","Feminine <code>-a</code> → <code>-ai</code>: mama → <b>mamai</b>."),
-gr("Skambinu ___ (brolis).","broliui","Dative sg · -is","Skambinti takes the dative. <code>-is</code> → <code>-iui</code>: brolis → <b>broliui</b>."),
-gr("___ (aš) patinka kava.","Man","Dative of pronouns","'I like coffee' = 'coffee pleases me': experiencer in dative.|aš → <b>man</b>; tu → tau; jis → jam; ji → jai; mes → mums; jūs → jums."),
-gr("___ (jis) skauda galvą.","Jam","Dative of pronouns","Pain constructions put the sufferer in the dative: jis → <b>jam</b>."),
-gr("Duodu dovaną ___ (sesuo).","seseriai","Dative sg · sesuo","Stem seser-, dative <code>-iai</code>: <b>seseriai</b>."),
-// ---- Past tense (Būtasis kartinis laikas)
-gr("Vakar jis ___ (dirbti).","dirbo","Past · 3rd person","Past stem = infinitive stem dirb-.|3rd person ending <code>-o</code> (singular and plural): jis/jie <b>dirbo</b>."),
-gr("Vakar aš ___ (būti) darbe.","buvau","Past · būti","būti → buvau, buvai, buvo, buvome, buvote, buvo.|1sg → <b>buvau</b>."),
-gr("Praėjusią savaitę mes ___ (skaityti) knygą.","skaitėme","Past · 1pl","Skaityti → past stem skaitė-.|1pl <code>-me</code>: mes <b>skaitėme</b>. (1sg is skaičiau, with t → č before -iau.)"),
-gr("Tu ___ (eiti) į parduotuvę vakar.","ėjai","Past · eiti","Past stem ėj-: ėjau, <b>ėjai</b>, ėjo, ėjome, ėjote, ėjo."),
-gr("Jūs ___ (matyti) filmą.","matėte","Past · 2pl","Matyti → past stem matė-.|2pl <code>-te</code>: jūs <b>matėte</b>."),
-gr("Vakar aš ___ (turėti) laiko.","turėjau","Past · 1sg","Turėti → turėjau, turėjai, turėjo, turėjome, turėjote, turėjo."),
-// ---- Future tense (Būsimasis laikas)
-gr("Rytoj aš ___ (dirbti).","dirbsiu","Future · 1sg","Future = infinitive stem + <code>-s-</code> + personal ending: dirb + s + iu → <b>dirbsiu</b>."),
-gr("Rytoj jis ___ (būti) namie.","bus","Future · būti","būti → būsiu, būsi, <b>bus</b>, būsime, būsite, bus.|3rd person is just <code>bus</code>."),
-gr("Rytoj mes ___ (eiti) į kiną.","eisime","Future · eiti","eiti → eisiu, eisi, eis, <b>eisime</b>, eisite, eis."),
-gr("Rytoj tu ___ (matyti) Joną.","matysi","Future · -ys-","Verbs in -yti (3rd person -o/-ė) insert <code>-ys-</code>: matyti → matysiu, <b>matysi</b>, matys."),
-gr("Rytoj jūs ___ (skaityti) laišką.","skaitysite","Future · 2pl","Stem skait- + <code>-ys-</code> + <code>-ite</code>: jūs <b>skaitysite</b>."),
-gr("Rytoj aš ___ (turėti) laiko.","turėsiu","Future · turėti","Turėti → turėsiu, turėsi, turės, turėsime, turėsite, turės."),
-// ---- Reflexive verbs (-si / -s-)
-gr("Aš ___ (mokytis) lietuvių kalbos.","mokausi","Reflexive · present","The reflexive particle <code>-si</code> attaches to the verb ending: aš mokau-<b>si</b>.|Paradigm: mokausi, mokaisi, mokosi, mokomės, mokotės."),
-gr("Jis ___ (keltis) septintą valandą.","keliasi","Reflexive · 3rd person","3rd person: stem keli- + <code>-a</code> + <code>-si</code> → <b>keliasi</b>."),
-gr("Mes ___ (praustis) rytą.","prausiamės","Reflexive · 1pl","1pl: prausia-<code>me</code> + <code>s</code> → <b>prausiamės</b> (the ending lengthens to -mės)."),
-gr("Tu ___ (rengtis).","rengiesi","Reflexive · 2sg","2sg: rengi + <code>-esi</code> → <b>rengiesi</b>."),
-gr("Vakar aš ___ (mokytis).","mokiausi","Reflexive · past","Past 1sg: mokiau + si → <b>mokiausi</b>."),
-gr("Rytoj aš ___ (mokytis).","mokysiuosi","Reflexive · future","Future 1sg: mokysiu + <code>-osi</code> → <b>mokysiuosi</b>."),
-// ---- Vocative (Šauksmininkas)
-gr("Vocative of Jonas: ___, ateik!","Jonai","Vocative · -as","Masculine <code>-as</code> → <code>-ai</code>: Jonas → <b>Jonai</b>. Likewise Vytautas → Vytautai."),
-gr("Vocative of brolis: ___!","broli","Vocative · -is","Masculine <code>-is</code> → <code>-i</code>: brolis → <b>broli</b>. Also tėtis → tėti."),
-gr("Vocative of mokytojas: Gerbiamas ___!","mokytojau","Vocative · -jas","<code>-jas</code> → <code>-jau</code>: mokytojas → <b>mokytojau</b>."),
-gr("Vocative of Giedrė: ___!","Giedre","Vocative · -ė","Feminine <code>-ė</code> → <code>-e</code>: Giedrė → <b>Giedre</b>."),
-gr("Vocative of Rūta: ___!","Rūta","Vocative · feminine -a","Feminine <code>-a</code> nouns keep the same form: Rūta (vocative) = Rūta (nominative). Stress may shift."),
-// ---- Adjective agreement
-gr("Tai ___ (gražus) katė.","graži","Adjective agreement · fem. sg","Adjectives agree in gender, number and case.|gražus (m.) → <b>graži</b> (f.)."),
-gr("Dvi ___ (didelis) katės.","didelės","Adjective agreement · fem. pl","Plural feminine nominative ends in <code>-ės</code>: didelė → <b>didelės</b>."),
-gr("Tai ___ (geras) draugai.","geri","Adjective agreement · m. pl","Masculine plural nominative <code>-i</code>: geras → <b>geri</b> (draugai)."),
-gr("Aš matau ___ (didelis) namą.","didelį","Adjective agreement · accusative","Adjective follows the noun's case. Accusative masc. sg of -is adj.: didelis → <b>didelį</b>."),
-// ---- Participles (Dalyviai)
-gr("Present active participle of skaityti: ___ žmogus (reading person).","skaitantis","Present active participle","Formed from 3rd-person stem + <code>-antis</code>: skait(o) → <b>skaitantis</b>."),
-gr("Past active participle of dirbti: ___ žmogus (one who has worked).","dirbęs","Past active participle","Past stem + <code>-ęs</code> (masc.): dirbti → <b>dirbęs</b>; fem. dirbusi."),
-gr("Present passive participle of daryti: ___ darbas (work being done).","daromas","Present passive participle","3rd-person stem + <code>-mas</code>: daro → <b>daromas</b>."),
-gr("Past passive participle of padaryti: ___ darbas (completed work).","padarytas","Past passive participle","Infinitive stem + <code>-tas</code>: padaryti → <b>padarytas</b>."),
-gr("Past active participle of valgyti: ___ vaikas.","valgęs","Past active participle","Valgyti → past stem valg- + <code>-ęs</code>: <b>valgęs</b>."),
-// ---- Negation and sentence syntax
-gr("Aš ___ (būti, neig.) namie.","nesu","Negation · prefix ne-","Add <code>ne-</code> to the verb: esu → <b>nesu</b>. Būti is special: yra → nėra."),
-gr("Aš nematau ___ (katė).","katės","Negation + genitive","A negated transitive verb switches its object to the genitive: katė → <b>katės</b>."),
-gr("Translate: I don't have a car. → Neturiu ___","mašinos","Negation + genitive","Pronoun aš is optional (the ending shows the person).|Object after negated verb: mašina → <b>mašinos</b>."),
-gr("Translate: I live in Vilnius. → Gyvenu ___","Vilniuje","Sentence order · locative","Lithuanian word order is flexible; the subject pronoun is usually dropped.|Place → locative: <b>Vilniuje</b>."),
-gr("Translate: I am reading a book. → Skaitau ___","knygą","Sentence order · accusative","Direct object in accusative: knyga → <b>knygą</b>."),
-gr("Translate: Where do you live? → Kur ___ (tu)?","gyveni","Questions · kur + verb","Question words need no auxiliary. Present 2sg of gyventi: <b>gyveni</b>."),
-gr("Turiu trisdešimt ___ (diena).","dienų","Numerals 10-19, tens → genitive pl","Trisdešimt (30) is followed by the genitive plural: diena → <b>dienų</b>.")
-];
 // Pure Python track: [code, expected output, explanation html]. Multi-line output is typed with spaces between lines.
 const p=(code,a,tag,notes)=>[code,a,tagged(tag,notes)];
 const P=[
@@ -2367,68 +2259,6 @@ const PG=[
  I=>{let a=I(1,5),b=I(6,12),r=[];for(let i=a;i<b;i++)r.push(i);return[`print("-".join(str(i) for i in range(${a},${b})))`,r.join("-"),tagged("join + generator",`Numbers ${a}..${b-1} converted to str and joined with '-'.|Result: <b>${r.join("-")}</b>.`)]}
 ];
 
-// Maths
-const LV=d=>Math.min(4,Math.ceil(d/15));
-function genAddition(I,lv){
-  let a,b;if(lv<=2){a=I(245,898);b=I(176,989)}else{a=I(1250,6890);b=I(875,5480)}
-  const sum=a+b,q=`${a} + ${b}`;
-  const steps=tagged("Mental addition",`Split ${b} into parts: ${b-(b%100)} + ${Math.floor((b%100)/10)*10} + ${b%10}.|Add left to right: ${a} + ${b-(b%100)} = ${a+b-(b%100)}.|Then + ${Math.floor((b%100)/10)*10} = ${a+b-(b%10)}, then + ${b%10} = <b>${sum}</b>.`);
-  return[q,sum,steps];
-}
-function genSubtraction(I,lv){
-  let a,b;if(lv<=2){a=I(512,995);b=I(187,a-65)}else{a=I(2100,8500);b=I(680,a-150)}
-  const diff=a-b,q=`${a} − ${b}`,h=Math.floor(b/100)*100,t=Math.floor((b%100)/10)*10;
-  const steps=tagged("Left-to-right subtraction",`Take away the hundreds part: ${a} − ${h} = ${a-h}.|Take away the tens: ${a-h} − ${t} = ${a-h-t}.|Take away the units: ${a-h-t} − ${b%10} = <b>${diff}</b>.`);
-  return[q,diff,steps];
-}
-function genMultiplication(I,lv){
-  let a,b;
-  if(lv===1){a=I(26,94);b=I(6,9)}
-  else if(lv===2){a=I(19,68);b=I(12,28)}
-  else if(lv===3){const sp=[15,25,11,19,12];b=sp[I(0,sp.length-1)];a=I(24,86)}
-  else{a=I(34,89);b=I(23,67)}
-  const prod=a*b,q=`${a} × ${b}`,bt=Math.floor(b/10)*10,bu=b%10;let steps;
-  if(b===25)steps=tagged("Shortcut ×25",`×25 = ×100 ÷ 4.|${a} × 100 = ${a*100}; ${a*100} ÷ 4 = <b>${prod}</b>.`);
-  else if(b===11)steps=tagged("Shortcut ×11",`×11 = ×10 + the number.|${a*10} + ${a} = <b>${prod}</b>.`);
-  else steps=tagged("Partitioning",`Split ${b} = ${bt} + ${bu}.|${a} × ${bt} = ${a*bt}; ${a} × ${bu} = ${a*bu}.|Total ${a*bt} + ${a*bu} = <b>${prod}</b>.`);
-  return[q,prod,steps];
-}
-function genDivision(I,lv){
-  let dv,qt;if(lv<=2){dv=I(4,14);qt=I(18,65)}else{dv=I(12,32);qt=I(24,85)}
-  const dd=dv*qt,q=`${dd} ÷ ${dv}`,qT=Math.floor(qt/10)*10,qU=qt%10;
-  const steps=tagged("Chunk division",`Take a friendly chunk: ${dv} × ${qT} = ${dv*qT}.|Remainder: ${dd} − ${dv*qT} = ${dd-dv*qT}; ${dd-dv*qT} ÷ ${dv} = ${qU}.|Combine ${qT} + ${qU} = <b>${qt}</b>.`);
-  return[q,qt,steps];
-}
-function genSquare(I){
-  const n=I(12,48),r=Math.round(n/10)*10,dd=Math.abs(n-r),ans=n*n;
-  const steps=tagged("Difference of squares",`n² = (n − d)(n + d) + d², with d = distance to the nearest ten (${r}).|d = ${dd}: (${n-dd})(${n+dd}) + ${dd*dd} = ${(n-dd)*(n+dd)} + ${dd*dd} = <b>${ans}</b>.`);
-  return[`${n}²`,ans,steps];
-}
-function genPercent(I){
-  const ps=[5,10,15,20,25,30,40,60,75],pc=ps[I(0,ps.length-1)],n=I(2,40)*20,ans=n*pc/100;
-  const steps=tagged("Percentages",`10% of ${n} = ${n/10}; 1% = ${n/100}.|${pc}% = ${pc} × ${n/100} = <b>${ans}</b>.`);
-  return[`${pc}% of ${n}`,ans,steps];
-}
-function maths(d){
-  const lv=LV(d),r=rng(d*7919+1),I=(a,b)=>ri(r,a,b);
-  const A=()=>genAddition(I,lv),B=()=>genSubtraction(I,lv),M=()=>genMultiplication(I,lv),D=()=>genDivision(I,lv),S=()=>genSquare(I),C=()=>genPercent(I);
-  const mix=[[A,A,A,B,B,B,M,M,D,D],[A,A,A,B,B,B,M,M,D,D],[A,A,B,B,M,M,D,D,S,C],[A,A,B,M,M,D,D,S,S,C]][lv-1];
-  shuf(mix,r).forEach((fn,i)=>{const[q,a,s]=fn();Q("#m",`${i+1}.  ${q} = ?`,a,s)});
-}
-function logic(d){
-  const lv=LV(d),r=rng(d*104729+3),I=(a,b)=>ri(r,a,b);
-  const K=[
-   ()=>{let s=I(12,45),k=I(4,13);const q=[0,1,2,3,4].map(i=>s+i*k),a=s+5*k;return[q,a,tagged("Arithmetic sequence",`Differences: ${q[1]} − ${q[0]} = +${k}, constant.|Next term: ${q[4]} + ${k} = <b>${a}</b>.`)]},
-   ()=>{let s=I(2,12),k=I(2,5),a=[s];for(let i=0;i<5;i++)a.push(a[i]+k+i);return[a.slice(0,5),a[5],tagged("Growing differences",`Gaps: +${k}, +${k+1}, +${k+2}, +${k+3}: each gap grows by 1.|Next gap +${k+4}: ${a[4]} + ${k+4} = <b>${a[5]}</b>.`)]},
-   ()=>{let s=I(2,5),k=I(2,3);const q=[0,1,2,3,4].map(i=>s*k**i),a=s*k**5;return[q,a,tagged("Geometric progression",`Ratio ${q[1]} ÷ ${q[0]} = ${k}.|Next: ${q[4]} × ${k} = <b>${a}</b>.`)]},
-   ()=>{let A=I(4,22),B=I(50,85),p=I(3,7),q=I(2,5),a=[];for(let i=0;i<6;i++)a.push(i%2?B+(i>>1)*q:A+(i>>1)*p);return[a.slice(0,5),a[5],tagged("Interleaved sequences",`Odd positions: ${a[0]}, ${a[2]}, ${a[4]} (+${p}).|Even positions: ${a[1]}, ${a[3]}, ? (+${q}) → ${a[3]} + ${q} = <b>${a[5]}</b>.`)]},
-   ()=>{let a=[I(1,5),I(2,7)];for(let i=2;i<6;i++)a.push(a[i-1]+a[i-2]);return[a.slice(0,5),a[5],tagged("Fibonacci-type",`Each term is the sum of the previous two.|${a[3]} + ${a[4]} = <b>${a[5]}</b>.`)]}
-  ];
-  const av=[[0],[0,1,2],[0,1,2,3],[0,1,2,3,4]][lv-1];
-  $("#m").insertAdjacentHTML("beforeend","<h4>Logic: number sequences</h4>");
-  for(let i=0;i<4;i++){const[arr,ans,st]=K[av[i===0?av.length-1:I(0,av.length-1)]]();Q("#m",`${i+1}. What comes next?  ${arr.join(", ")}, ?`,ans,st)}
-}
-
 // Daily plan per track
 const PLAN0=d=>d<=14?{py:8,pg:3,nm:3,an:0,ap:0,sc:0}
   :d<=28?{py:6,pg:2,nm:6,an:0,ap:0,sc:0}
@@ -2478,13 +2308,11 @@ function ensureV6(){
 }
 function ensureState(){
   const o=v=>v&&typeof v==="object"&&!Array.isArray(v);
+  ensureFc();
   if(!Array.isArray(S.done))S.done=[];if(!Array.isArray(S.custom))S.custom=[];if(!Array.isArray(S.chat))S.chat=[];
   if(!o(S.sub))S.sub={};if(!o(S.answers))S.answers={};if(!o(S.iv))S.iv={};
   if(!(S.day>=1&&S.day<=60))S.day=1;
   if(!o(S.time))S.time={};if(!o(S.when))S.when={};if(!o(S.scr))S.scr={};
-  S.tts=Object.assign({mode:"auto",slow:false,model:"gemini-3.8-flash-tts",voice:"Kore"},o(S.tts)?S.tts:{});
-  if(!["auto","browser","translate","gemini"].includes(S.tts.mode))S.tts.mode="auto";
-  S.tts.slow=!!S.tts.slow;S.tts.model=String(S.tts.model||"gemini-3.8-flash-tts");S.tts.voice=String(S.tts.voice||"Kore");
   S.target=Number.isFinite(+S.target)&&+S.target>0?Math.min(600,Math.round(+S.target)):60;
   if(typeof S.lastExport!=="string")S.lastExport="";
   if(!isYmd(S.firstSeen))S.firstSeen=ymd();
@@ -2497,7 +2325,7 @@ function ensureState(){
   for(const k of Object.keys(S.scr))if(!S.scr[k])delete S.scr[k];
   ensureReview();ensureV6();ensureCrs();
 }
-let curTab="m",prevTab="m",lastTick=0,tickCount=0;
+let curTab="p",prevTab="p",lastTick=0,tickCount=0;
 function credit(sec){
   if(!(sec>0))return;
   const k=ymd(),t=S.time[k]||(S.time[k]={});
@@ -2522,7 +2350,7 @@ function cleanHtml(html){   // allow only simple formatting; a backup file must 
 }
 function cleanRq(e){
   if(!e||typeof e!=="object"||Array.isArray(e))return null;
-  const sec=["#p","#a","#l","#c"].includes(e.sec)?e.sec:null,type=e.type==="mc"||e.type==="q"?e.type:null;
+  const sec=["#p","#a","#c"].includes(e.sec)?e.sec:null,type=e.type==="mc"||e.type==="q"?e.type:null;
   if(!sec||!type||typeof e.text!=="string"||!e.text||e.text.length>2000)return null;
   const r={sec,type,text:e.text,steps:cleanHtml(e.steps).slice(0,6000),code:typeof e.code==="string"?e.code.slice(0,3000):"",
     topic:typeof e.topic==="string"&&e.topic?e.topic.slice(0,60):"Other",box:Math.max(0,Math.min(3,Math.floor(+e.box)||0)),due:isYmd(e.due)?e.due:ymd()};
@@ -2540,7 +2368,7 @@ function ensureReview(){
   const o=v=>v&&typeof v==="object"&&!Array.isArray(v);
   if(!o(S.acc))S.acc={};
   for(const k of Object.keys(S.acc)){const v=S.acc[k],a=Math.floor(+(v&&v.a)),c=Math.floor(+(v&&v.c));
-    if(!(a>0)||!(c>=0)||k.length>60)delete S.acc[k];else S.acc[k]={a:Math.min(a,1e6),c:Math.min(c,a)}}
+    if(!(a>0)||!(c>=0)||k.length>60||/^(Lithuanian|Mental arithmetic|Logic sequences|Maths)/.test(k))delete S.acc[k];else S.acc[k]={a:Math.min(a,1e6),c:Math.min(c,a)}}
   if(!o(S.seen))S.seen={};
   const sk=Object.keys(S.seen);if(sk.length>6000)sk.slice(0,sk.length-5000).forEach(k=>delete S.seen[k]);
   if(!o(S.rq))S.rq={};
@@ -2596,7 +2424,7 @@ function noteAct(e){
   lastAct=Date.now();
   if(S.auto&&!timerInterval&&!manualPause){
     const t=e&&e.target;
-    if(t&&t.closest&&t.closest(".q,#mockdlg,#wkdlg"))startTimer(true);
+    if(t&&t.closest&&t.closest(".q,#mockdlg,#wkdlg,#fc-study"))startTimer(true);
   }
 }
 ["keydown","pointerdown","input","wheel","touchmove"].forEach(ev=>document.addEventListener(ev,noteAct,{capture:true,passive:true}));
@@ -2604,8 +2432,8 @@ document.addEventListener("visibilitychange",()=>{if(document.hidden&&S.auto&&ti
 updAutoBtn();
 
 // ---- Per-subject completion. S.sub[day] = {m,p,a,l: 1}. A day is complete when all four are done (S.done stays in sync).
-const SUBJ=[["m","Maths and logic","Maths"],["p","Python","Python"],["a","Automation","Automation"],["l","Lithuanian","Lithuanian"]];
-const ALLSUB={m:1,p:1,a:1,l:1};
+const SUBJ=[["p","Python","Python"],["a","Automation","Automation"]];
+const ALLSUB={p:1,a:1};
 const peek=d=>S.sub[d]||(S.done.includes(d)?ALLSUB:{});            // read-only; days finished in the old version count as fully done
 const dayFull=d=>SUBJ.every(([k])=>peek(d)[k]);
 const subOf=d=>{if(!S.sub[d])S.sub[d]=S.done.includes(d)?Object.assign({},ALLSUB):{};return S.sub[d]};
@@ -2645,16 +2473,16 @@ function updBadges(){
   updExtraBadges();
   document.querySelectorAll("#grid .port").forEach((b,i)=>{
     const n=i+1,p=peek(n),cnt=SUBJ.filter(([k])=>p[k]).length;
-    b.classList.toggle("full",cnt===4);b.classList.toggle("cur",n===d);
+    b.classList.toggle("full",cnt===SUBJ.length);b.classList.toggle("cur",n===d);
     b.querySelectorAll(".led").forEach((l,j)=>l.classList.toggle("on",!!p[SUBJ[j][0]]));
-    b.setAttribute("aria-label",`Day ${n}: ${cnt} of 4 subjects done`);
+    b.setAttribute("aria-label",`Day ${n}: ${cnt} of ${SUBJ.length} subjects done`);
     if(n===d)b.setAttribute("aria-current","true");else b.removeAttribute("aria-current");
   });
   const full=dayFull(d),dn=$("#dn");dn.textContent=full?"Reopen day":"Mark all done";dn.classList.toggle("on",!full&&SUBJ.every(([k])=>$("#"+k+" .done-btn.ready")||pk[k]));
   let n=0;for(let i=1;i<=60;i++){const p=peek(i);SUBJ.forEach(([k])=>{if(p[k])n++})}
   const days=S.done.filter(x=>x>=1&&x<=60).length;
-  $("#ovbar b").style.width=(n/240*100)+"%";
-  $("#ovtxt").textContent=`${n} of 240 daily subjects done, ${days} of 60 days complete`;
+  $("#ovbar b").style.width=(n/(60*SUBJ.length)*100)+"%";
+  $("#ovtxt").textContent=`${n} of ${60*SUBJ.length} daily subjects done, ${days} of 60 days complete`;
   calcStreak();
 }
 
@@ -2721,36 +2549,14 @@ function auto(d){
   autoExtra(d,pl);
 }
 const enAcc=e=>{const s=new Set([e]);const c=e.replace(/\(.*?\)/g,"").trim();s.add(c);c.split(" / ").forEach(p=>s.add(p.trim()));return[...s].filter(Boolean)};
-function lt(d){
-  const r=rng(d*31+5),nw=W.filter(x=>x[2]===d),prev=W.filter(x=>x[2]<d),nxt=W.filter(x=>x[2]===d+1);
-  const recent=shuf(prev.filter(x=>x[2]>=d-8),r).slice(0,3),old=shuf(prev.filter(x=>x[2]<d-8),r).slice(0,3);
-  let rev=recent.concat(old);if(rev.length<6)rev=rev.concat(shuf(prev.filter(x=>!rev.includes(x)),r).slice(0,6-rev.length));
-  head("#l","l","Lithuanian",`Today's theme: ${T[d-1]}`,"25 min",
-    '<div class="learn"><b>New words today</b><div class="words">'+nw.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")+'</div>'
-    +(nxt.length?`<p class="m">Tomorrow: ${nxt.map(x=>x[0]).join(", ")}</p>`:"")+'</div>');
-  sub("#l","Meaning (Lithuanian → English)");
-  nw.forEach(x=>Q("#l",`What does “${x[0]}” mean in English?`,enAcc(x[1]),tagged("Vocabulary",`<b>${x[0]}</b> = ${x[1]}.|Day ${d} theme: ${T[d-1]}.`)));
-  sub("#l","Recall (English → Lithuanian)");
-  nw.forEach(x=>Q("#l",`Type the Lithuanian for “${x[1]}”`,x[0],tagged("Spelling recall",`${x[1]} → <b>${x[0]}</b>.|Diacritics are optional in the answer box (ą→a, č→c, ė→e, š→s, ž→z).`)));
-  if(rev.length){
-    sub("#l","Spaced review (earlier days)");
-    rev.forEach((x,i)=>i%2===0
-      ?Q("#l",`Review: how do you say “${x[1]}” in Lithuanian?`,x[0],tagged("Spaced recall",`${x[1]} → <b>${x[0]}</b> (learned on day ${x[2]}).`))
-      :Q("#l",`Review: what does “${x[0]}” mean?`,enAcc(x[1]),tagged("Spaced recall",`<b>${x[0]}</b> = ${x[1]} (learned on day ${x[2]}).`)));
-  }
-  sub("#l","Grammar: cases, tenses, reflexives, participles, syntax");
-  for(let j=0;j<3;j++){const g=G[(3*d-3+j)%G.length];Q("#l",g[0],g[1],g[2])}
-}
-
 function render(){
   const d=S.day;QC=0;
   $("#dnum").textContent=d;$("#day").setAttribute("aria-label","Day "+d+" of 60");
   const fp=F[weekIdx(d)].split(" · ");$("#phase").textContent=fp[0];$("#focus").textContent=fp.slice(1).join(" · ");
   $("#pv").disabled=d<=1;$("#nx").disabled=d>=60;
-  head("#m","m","Maths and logic","Mental arithmetic, then number sequences. Level "+LV(d)+" of 4.","15 min");
   head("#p","p","Python","Data structures, comprehensions, regex, files, OOP and error handling.","15 min");
   head("#a","a","Automation","Realistic operational scenarios. Open the hint for a step-by-step explanation.");
-  QTOPIC="Mental arithmetic";maths(d);QTOPIC="Logic sequences";logic(d);QTOPIC=null;py(d);auto(d);QTOPIC=null;lt(d);ltExtra(d);reviewBlocks();decorateLT();
+  QTOPIC=null;py(d);auto(d);QTOPIC=null;reviewBlocks();
   wkBar();announce("Day "+d+" of 60");updBadges();save();
 }
 $("#clr").onclick=()=>{
@@ -2759,10 +2565,10 @@ $("#clr").onclick=()=>{
   save();render();
 };
 for(let i=1;i<=60;i++){
-  const b=document.createElement("button");b.className="port";b.innerHTML=`<span>${i}</span><span class="leds"><i class="led"></i><i class="led"></i><i class="led"></i><i class="led"></i></span>`;
+  const b=document.createElement("button");b.className="port";b.innerHTML=`<span>${i}</span><span class="leds"><i class="led"></i><i class="led"></i></span>`;
   b.onclick=()=>{S.day=i;render()};$("#grid").append(b);
 }
-[["m","Maths"],["p","Python"],["a","Automation"],["l","Lithuanian"],["iv","Interview"],["scr","Scripts"],["ans","Ansible"],["c","Course"],["ai","AI tutor"],["st","Stats"]].forEach(([k,n],i)=>{
+[["p","Python"],["a","Automation"],["fc","Flashcards"],["iv","Interview"],["scr","Scripts"],["ans","Ansible"],["c","Course"],["ai","AI tutor"],["st","Stats"]].forEach(([k,n],i)=>{
   const b=document.createElement("button");b.className="tab-btn";b.dataset.sec=k;b.setAttribute("role","tab");b.id="tab-"+k;b.setAttribute("aria-controls",k);
   b.innerHTML=`<span class="tab-top"><span class="tab-name">${n}</span><i class="tab-led"></i></span><span class="tab-count"></span><span class="tab-bar"><b></b></span>`;
   b.onclick=()=>{curTab=k;tabHook(k);document.querySelectorAll("section").forEach(x=>x.classList.toggle("show",x.id==k));document.querySelectorAll("#tabs .tab-btn").forEach(y=>{y.classList.toggle("active",y==b);y.setAttribute("aria-selected",y==b?"true":"false");y.tabIndex=y==b?0:-1});announce(n+" tab")};
@@ -2959,8 +2765,8 @@ $("#imp").onclick=()=>$("#impf").click();
 $("#impf").onchange=e=>{if(e.target.files[0])importBackup(e.target.files[0]);e.target.value=""};
 
 // ================= v4 additions =================
-const TABS=["m","p","a","l","iv","scr","ans","c","ai","st"];
-const AREAS=[["m","Maths"],["p","Python"],["a","Automation"],["l","Lithuanian"],["iv","Interview"],["scr","Scripts"],["ans","Ansible"],["c","Course"],["ai","AI tutor"],["st","Other"]];
+const TABS=["p","a","fc","iv","scr","ans","c","ai","st"];
+const AREAS=[["p","Python"],["a","Automation"],["fc","Flashcards"],["iv","Interview"],["scr","Scripts"],["ans","Ansible"],["c","Course"],["ai","AI tutor"],["st","Other"]];
 const fmtMin=s=>{const m=Math.round(s/60);return m<60?m+" min":Math.floor(m/60)+" h "+String(m%60).padStart(2,"0")+" min"};
 const dsum=k=>Object.values(S.time[k]||{}).reduce((a,b)=>a+b,0);
 const lastDays=(n,offset=0)=>{const a=[];for(let i=n-1;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i-offset*n);a.push(ymd(d))}return a};
@@ -3025,15 +2831,13 @@ function bucket(html,config){   // map a question's tag to a short topic name
 }
 function topicOf(sec,steps){
   if(QTOPIC)return QTOPIC;
-  if(sec==="#l"){const t=tagOf(steps);return/^(Vocabulary|Spelling recall|Spaced recall)$/.test(t)?"Lithuanian vocabulary":/^(Dictation|Listening)$/.test(t)?"Lithuanian listening":"Lithuanian grammar"}
-  return({"#m":"Maths and logic","#p":"Python basics","#a":"Automation practice"})[sec]||"Other";
+  return({"#p":"Python basics","#a":"Automation practice"})[sec]||"Other";
 }
 function trackQ(o){
   const topic=(o.topic||topicOf(o.sec,o.steps)).slice(0,60);
   if(S.seen[o.key])return;                       // only the first attempt counts
   S.seen[o.key]=1;
   const a=S.acc[topic]||(S.acc[topic]={a:0,c:0});a.a++;if(o.ok)a.c++;
-  if(o.sec==="#m")return;                        // maths numbers are random each day, so there is nothing to review
   const id=hash(o.sec+o.text+(o.code||"")),e=S.rq[id],rev=o.key.startsWith("rv_");
   if(rev&&e){
     if(o.ok){e.box++;if(e.box>=RV_DAYS.length)delete S.rq[id];else e.due=addDays(ymd(),RV_DAYS[e.box])}
@@ -3054,7 +2858,7 @@ function dueItems(){      // snapshot once per calendar day so the block stays p
   const t=ymd();
   if(S.rv.date!==t){
     const items=[];
-    ["#p","#a","#l","#c"].forEach(sec=>Object.entries(S.rq).filter(([id,e])=>e.sec===sec&&e.due<=t)
+    ["#p","#a","#c"].forEach(sec=>Object.entries(S.rq).filter(([id,e])=>e.sec===sec&&e.due<=t)
       .sort((x,y)=>(x[1].due<y[1].due?-1:x[1].due>y[1].due?1:x[1].box-y[1].box)).slice(0,RV_MAX)
       .forEach(([id,e])=>items.push(Object.assign({id},e))));
     S.rv={date:t,items};save();
@@ -3063,7 +2867,7 @@ function dueItems(){      // snapshot once per calendar day so the block stays p
 }
 function reviewBlocks(){
   const items=dueItems();
-  ["#p","#a","#l"].forEach(sec=>{
+  ["#p","#a"].forEach(sec=>{
     const mine=items.filter(x=>x.sec===sec);if(!mine.length)return;
     const el=$(sec),before=[...el.children],anchor=el.querySelector("h4");
     sub(sec,"Review: questions you missed earlier");
@@ -3076,117 +2880,12 @@ function reviewBlocks(){
     if(anchor)[...el.children].filter(c=>!before.includes(c)).forEach(c=>el.insertBefore(c,anchor));
   });
 }
-function ltExtra(d){   // listening questions that use the speaker buttons
-  const r=rng(d*53+11),nw=W.filter(x=>x[2]===d),prev=W.filter(x=>x[2]<d);
-  const dict=shuf(nw,r).slice(0,2),hear=shuf(prev,r).slice(0,2);
-  if(!dict.length&&!hear.length)return;
-  sub("#l","Listening: press the speaker, then type what you hear");
-  QTOPIC="Lithuanian listening";
-  const spk=(w)=>{const q=$("#l").lastElementChild;chip(q,"Listening");addSpk(q.querySelector(".t"),w,true)};
-  dict.forEach((x,i)=>{Q("#l",`Dictation ${i+1}: type the Lithuanian word you hear.`,x[0],tagged("Dictation",`You heard <b>${x[0]}</b> (${x[1]}).|Diacritics are optional in the answer box.`));spk(x[0])});
-  hear.forEach((x,i)=>{Q("#l",`Listening ${i+1}: type the English meaning of the word you hear.`,enAcc(x[1]),tagged("Listening",`<b>${x[0]}</b> = ${x[1]} (learned on day ${x[2]}).`));spk(x[0])});
-  QTOPIC=null;
-}
-
-// ---------- Lithuanian pronunciation ----------
-const SPK_SVG='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6v4h3l4 3V3L5 6H2zm9.5-1.5a4.5 4.5 0 0 1 0 7l-.8-.9a3.3 3.3 0 0 0 0-5.2l.8-.9zM13 2.5a7 7 0 0 1 0 11l-.8-.9a5.8 5.8 0 0 0 0-9.2l.8-1z"/></svg>';
-const TTS_LABEL={browser:"browser voice",translate:"Google Translate voice",gemini:"Gemini voice"};
-let curAudio=null,spkToken=0,sayToken=0;
-const gCache=new Map();
-function ttsStat(msg,err){const s=$("#ttsstat");if(s){s.textContent=msg;s.classList.toggle("err",!!err)}if(err)toast("No voice worked. See Voice settings in the Lithuanian box.")}
-function stopSpeech(){spkToken++;try{speechSynthesis.cancel()}catch(e){}if(curAudio){try{curAudio.pause()}catch(e){}curAudio=null}}
-const ltVoice=()=>("speechSynthesis" in window?speechSynthesis.getVoices():[]).find(v=>/^lt([-_]|$)/i.test(v.lang));
-function ttsBrowser(text,slow,onStart){
-  return new Promise((res,rej)=>{
-    if(!("speechSynthesis" in window))return rej(new Error("speech is not supported here"));
-    const v=ltVoice();if(!v)return rej(new Error("this browser has no Lithuanian voice"));
-    const u=new SpeechSynthesisUtterance(text);u.voice=v;u.lang=v.lang;u.rate=slow?0.6:0.9;
-    let st=false;window._utt=u;
-    u.onstart=()=>{st=true;onStart()};u.onend=()=>res();
-    u.onerror=e=>(e.error==="canceled"||e.error==="interrupted")?res():rej(new Error(e.error||"speech error"));
-    speechSynthesis.speak(u);
-    setTimeout(()=>{if(!st){try{speechSynthesis.cancel()}catch(e){}rej(new Error("the voice did not start"))}},4000);
-  });
-}
-function playUrl(url,onStart){
-  return new Promise((res,rej)=>{
-    const a=new Audio(url);curAudio=a;let st=false;
-    a.onplaying=()=>{st=true;onStart()};a.onended=()=>res();a.onpause=()=>{if(st)res()};
-    a.onerror=()=>rej(new Error("the audio could not be loaded"));
-    a.play().catch(e=>rej(new Error(e.name==="NotAllowedError"?"the browser blocked playback":(e.message||e.name))));
-    setTimeout(()=>{if(!st){a.pause();rej(new Error("timed out"))}},7000);
-  });
-}
-const ttsTranslate=(text,slow,onStart)=>playUrl("https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=lt&ttsspeed="+(slow?"0.3":"1")+"&q="+encodeURIComponent(text),onStart);
-function pcmToWav(b64,mime){
-  const rate=+((/rate=(\d+)/.exec(mime||"")||[])[1])||24000,bin=atob(b64),n=bin.length,buf=new ArrayBuffer(44+n),v=new DataView(buf);
-  const w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i))};
-  w(0,"RIFF");v.setUint32(4,36+n,true);w(8,"WAVEfmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
-  v.setUint32(24,rate,true);v.setUint32(28,rate*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,"data");v.setUint32(40,n,true);
-  for(let i=0;i<n;i++)v.setUint8(44+i,bin.charCodeAt(i));
-  return new Blob([buf],{type:"audio/wav"});
-}
-async function speak(text,btn){
-  stopSpeech();const my=spkToken,engines={browser:ttsBrowser,translate:ttsTranslate,gemini:ttsGemini};
-  const order=S.tts.mode==="auto"?["browser","translate","gemini"]:[S.tts.mode],errs=[];let started=false;
-  if(btn)btn.classList.add("busy");ttsStat("Loading…");
-  for(const name of order){
-    if(my!==spkToken)break;
-    try{
-      await engines[name](text,S.tts.slow,()=>{started=true;ttsStat("Playing with "+TTS_LABEL[name])});
-      if(my===spkToken)ttsStat("Played with "+TTS_LABEL[name]);
-      errs.length=0;break;
-    }catch(e){if(started)break;errs.push(TTS_LABEL[name]+": "+e.message)}
-  }
-  if(btn)btn.classList.remove("busy");
-  if(my===spkToken&&!started&&errs.length)ttsStat("No voice worked. "+errs.join(" · "),true);
-  return started;
-}
-function addSpk(host,word,secret){
-  const b=document.createElement("button");b.type="button";b.className="spk";b.innerHTML=SPK_SVG;
-  b.title=secret?"Play the audio":"Hear “"+word+"”";b.setAttribute("aria-label",secret?"Play the audio":"Pronounce "+word);
-  b.onclick=e=>{e.preventDefault();e.stopPropagation();sayToken++;speak(word,b)};
-  host.append(b);
-}
-function ttsDiag(){
-  const vs="speechSynthesis" in window?speechSynthesis.getVoices():[],lt=vs.filter(v=>/^lt([-_]|$)/i.test(v.lang));
-  return `This browser lists ${vs.length} voice${vs.length===1?"":"s"}; Lithuanian: ${lt.length?lt.map(v=>v.name).join(", "):"none"}.`;
-}
-function decorateLT(){
-  stopSpeech();
-  const box=$("#l .learn");if(!box)return;
-  box.querySelectorAll(".words div").forEach(div=>{const b=div.querySelector("b");if(b)addSpk(b,b.firstChild.textContent)});
-  $("#l").querySelectorAll(".q .t").forEach(t=>{const m=t.textContent.match(/(?:Review: what does|What does) “(.+?)” mean/);if(m)addSpk(t,m[1])});
-  box.insertAdjacentHTML("beforeend",`<div class="tts"><div class="row">
-    <button class="btn btn-sm" id="sayall">▶ Say all new words</button><button class="btn btn-sm" id="saytest">Test voice</button>
-    <label class="chk"><input type="checkbox" id="ttsslow"> Slow</label>
-    <select id="ttsmode" aria-label="Voice source"><option value="auto">Auto: browser, then Google Translate, then Gemini</option><option value="browser">Browser voice only</option><option value="translate">Google Translate voice</option><option value="gemini">Gemini voice (uses your AI Studio key)</option></select></div>
-    <div class="ttsstat" id="ttsstat" role="status">Press a speaker button to hear a word.</div>
-    <details><summary>Voice settings and diagnostics</summary><div class="steps"><p class="m" id="ttsdiag"></p>
-    <p class="m">Windows has no Lithuanian voice, and as far as I know Chrome's online "Google" voices do not include Lithuanian either. So Auto falls back to the Google Translate voice and then to Gemini text-to-speech with your API key. If one fails, the status line above says why.</p>
-    <div class="row"><label class="note">Gemini TTS model</label><input type="text" id="ttsmodel"><label class="note">Voice name</label><input type="text" id="ttsvoice" style="min-width:110px"></div>
-    <div class="row"><span class="note" id="cachestat"></span><button class="btn btn-sm" id="cachefill">Save today's words (Gemini)</button><button class="btn btn-sm" id="cacheclear">Clear saved audio</button></div></div></details></div>`);
-  $("#ttsmode").value=S.tts.mode;$("#ttsslow").checked=S.tts.slow;$("#ttsmodel").value=S.tts.model;$("#ttsvoice").value=S.tts.voice;
-  const diag=()=>{const e=$("#ttsdiag");if(e)e.textContent=ttsDiag()};diag();
-  if("speechSynthesis" in window)speechSynthesis.onvoiceschanged=diag;
-  $("#ttsmode").onchange=e=>{S.tts.mode=e.target.value;save()};
-  $("#ttsslow").onchange=e=>{S.tts.slow=e.target.checked;save()};
-  $("#ttsmodel").onchange=e=>{S.tts.model=e.target.value.trim()||"gemini-3.8-flash-tts";save()};
-  $("#ttsvoice").onchange=e=>{S.tts.voice=e.target.value.trim()||"Kore";save()};
-  $("#saytest").onclick=()=>{sayToken++;speak("Labas rytas, kaip sekasi?")};
-  cacheUi();
-  $("#sayall").onclick=async()=>{
-    const my=++sayToken,words=[...box.querySelectorAll(".words div")].map(d=>d.querySelector("b").firstChild.textContent);
-    for(const w of words){if(my!==sayToken)break;const ok=await speak(w);if(!ok||my!==sayToken)break;await new Promise(r=>setTimeout(r,500))}
-  };
-}
-
 // ---------- Backup nudge ----------
 function totalSeconds(){return Object.keys(S.time).reduce((a,k)=>a+dsum(k),0)}
 function buildNudge(){
   const el=$("#nudge");if(!el)return;
   const base=S.lastExport?new Date(S.lastExport):new Date(S.firstSeen+"T00:00:00"),days=Math.floor((Date.now()-base.getTime())/864e5);
-  const hasWork=Object.keys(S.answers).length||S.done.length||Object.keys(S.sub).length||S.custom.length||totalSeconds()>0;
+  const hasWork=Object.keys(S.answers).length||S.done.length||Object.keys(S.sub).length||S.custom.length||S.fcN>0||totalSeconds()>0;
   if(!(days>=7&&hasWork&&Date.now()>S.nudgeUntil)){el.hidden=true;return}
   el.hidden=false;
   el.innerHTML=`<span class="nt"><b>${S.lastExport?`Your last backup was ${days} days ago.`:"You have not exported a backup yet."}</b> Your progress lives only in this browser; clearing site data or switching computers would lose it.</span>
@@ -3280,7 +2979,7 @@ function buildStats0(){
     save();buildStats();updBadges();toast(`${m>0?"Added":"Removed"} ${Math.abs(m)} min`);
   };
 }
-const curTabOrDefault=()=>["m","p","a","l","iv","scr","ans","c","ai"].includes(prevTab)?prevTab:"m";
+const curTabOrDefault=()=>["p","a","fc","iv","scr","ans","c","ai"].includes(prevTab)?prevTab:"p";
 function refreshStatsLive(){if(curTab==="st")buildStats();updBadges()}
 function updExtraBadges(){
   updCourseBadge();
@@ -3294,6 +2993,7 @@ function updExtraBadges(){
 function tabHook(k){
   if(k!=="st")prevTab=k;
   else setTimeout(buildStats,0);
+  if(k==="fc")setTimeout(buildFc,0);
 }
 
 // ---------- Scripts library ----------
@@ -3447,8 +3147,9 @@ function openToday(){
   ${D.subs.map(s=>row(`${s.done?"✓":"○"} ${esc(s.name)}`,`<button class="btn btn-sm" data-go="sub:${s.k}">${s.done?"Review":"Open"}</button>`)).join("")}
   ${D.firstOpen&&D.firstOpen!==D.day?row(`First unfinished day: <b>Day ${D.firstOpen}</b>`,`<button class="btn btn-sm" data-go="day:${D.firstOpen}">Go there</button>`):""}
   <h4>Review and practice</h4>
-  ${row(D.due?`<b>${D.due}</b> question${D.due>1?"s":""} due for review today (they appear in the Python, Automation, Lithuanian and Course tabs)`:"No review questions due today.")}
+  ${row(D.due?`<b>${D.due}</b> question${D.due>1?"s":""} due for review today (they appear in the Python, Automation and Course tabs)`:"No review questions due today.")}
   ${D.iv?row(`Interview: ${D.ivLeft} scenario${D.ivLeft>1?"s":""} left. Next: <b>${esc(D.iv.t)}</b>`,`<button class="btn btn-sm" data-go="iv:${D.iv.id}">Open</button>`):""}
+  <div id="td-fc"></div>
   <h4>Next lessons</h4>
   ${D.lessons.map(L=>L.next?row(`${esc(L.g.t.replace("Quick course: ",""))} (${L.done} of ${L.n} done)<br><span class="note">${esc(L.next.title)}</span>`,`<button class="btn btn-sm" data-go="card:${L.tab}:${L.next.id}">Open</button>`):row(`${esc(L.g.t.replace("Quick course: ",""))}: all ${L.n} lessons done ✓`)).join("")}
   ${D.crs?row(`Course tab: next is <b>day ${D.crs}</b>, ${esc(CRS[D.crs-1].title)}`,`<button class="btn btn-sm" data-go="crs:${D.crs}">Open</button>`):row("Course tab: all 60 days done ✓")}
@@ -3460,14 +3161,13 @@ function openToday(){
     if(k==="sub")showTab(a);else if(k==="day")goDay(+a);else if(k==="iv")goIv(a);else if(k==="card")goCard(a,c);else if(k==="crs")goCrs(+a);else if(k==="export")exportBackup();
   });
   $("#td-close").onclick=()=>dlg.close();
-  dlg.showModal();
+  dlg.showModal();fcTodayFill();
 }
 // ---- Search (key /)
 let _sidx=null;
 function searchIndex(){
   if(_sidx)return _sidx;const A=[];
   const add=(type,title,sub,extra,go)=>A.push({type,title,sub,hay:snorm(title+" "+sub+" "+(extra||"")),go});
-  W.forEach(w=>add("Lithuanian",`${w[0]}: ${w[1]}`,`Day ${w[2]}`,"",()=>{S.day=w[2];save();render();showTab("l")}));
   SCR.forEach(s=>add("Python script",s.title,s.desc,s.tags.join(" ")+" "+s.files.map(f=>f.name+" "+f.code).join(" "),()=>goCard("scr",s.id)));
   ANS.forEach(s=>add("Ansible playbook",s.title,s.desc,s.tags.join(" ")+" "+s.files.map(f=>f.name+" "+f.code).join(" "),()=>goCard("ans",s.id)));
   Object.values(QCG).forEach(arr=>arr.forEach(g=>g.a().forEach(s=>add("Lesson",s.title,g.t.replace("Quick course: ","")+". "+s.desc,s.tags.join(" ")+" "+s.files.map(f=>f.name+" "+f.code).join(" "),()=>goCard(QCTAB(g),s.id)))));
@@ -3566,10 +3266,11 @@ setTimeout(snapAuto,2500);
 // ---------- Keyboard shortcuts ----------
 document.body.insertAdjacentHTML("beforeend",`<dialog id="help"><h3>Keyboard shortcuts</h3><table>
 <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>Previous / next day (on the Course tab: previous / next course day)</td></tr>
-<tr><td><kbd>1</kbd> … <kbd>9</kbd>, <kbd>0</kbd></td><td>Maths, Python, Automation, Lithuanian, Interview, Scripts, Ansible, Course, AI tutor, Stats (0)</td></tr>
+<tr><td><kbd>1</kbd> … <kbd>9</kbd></td><td>Python, Automation, Flashcards, Interview, Scripts, Ansible, Course, AI tutor, Stats</td></tr>
 <tr><td><kbd>S</kbd></td><td>Start / pause the stopwatch</td></tr>
 <tr><td><kbd>N</kbd></td><td>Switch day / night theme</td></tr>
 <tr><td><kbd>T</kbd></td><td>Today: what to do next</td></tr>
+<tr><td><kbd>Space</kbd> <kbd>1</kbd>-<kbd>4</kbd> <kbd>U</kbd></td><td>Flashcards: show answer, rate Again/Hard/Good/Easy, undo</td></tr>
 <tr><td><kbd>/</kbd></td><td>Search words, commands, scripts, lessons and scenarios</td></tr>
 <tr><td><kbd>?</kbd></td><td>Show this help</td></tr>
 <tr><td><kbd>↑</kbd> <kbd>↓</kbd> <kbd>A</kbd>…<kbd>D</kbd></td><td>On a multiple choice question: move between the options / choose one</td></tr>
@@ -3588,7 +3289,7 @@ document.addEventListener("keydown",e=>{
   if((k==="ArrowLeft"||k==="ArrowRight")&&t&&t.closest&&t.closest("[role=tablist],[role=radiogroup]"))return;
   if(k==="ArrowLeft"){e.preventDefault();if(curTab==="c")crsGo(S.crs.day-1);else if(S.day>1){S.day--;render()}}
   else if(k==="ArrowRight"){e.preventDefault();if(curTab==="c")crsGo(S.crs.day+1);else if(S.day<60){S.day++;render()}}
-  else if(/^[0-9]$/.test(k)){e.preventDefault();showTab(TABS[(+k+9)%10])}
+  else if(/^[1-9]$/.test(k)&&TABS[+k-1]){e.preventDefault();showTab(TABS[+k-1])}
   else if(k==="s"||k==="S"){e.preventDefault();$("#timer-toggle").click()}
   else if(k==="n"||k==="N"){e.preventDefault();$("#theme").click()}
   else if(k==="?"){e.preventDefault();$("#help").showModal()}
@@ -3596,7 +3297,7 @@ document.addEventListener("keydown",e=>{
   else if(k==="/"){e.preventDefault();openSearch()}
 });
 $("#pv").title="Previous day (←)";$("#nx").title="Next day (→)";
-TABS.forEach((k,i)=>{const b=$(`.tab-btn[data-sec="${k}"]`);if(b)b.title=b.querySelector(".tab-name").textContent+" ("+((i+1)%10)+")"});
+TABS.forEach((k,i)=>{const b=$(`.tab-btn[data-sec="${k}"]`);if(b)b.title=b.querySelector(".tab-name").textContent+" ("+(i+1)+")"});
 window.addEventListener("pagehide",()=>save());
 document.addEventListener("visibilitychange",()=>{if(document.hidden)save();else buildNudge()});
 
@@ -4030,31 +3731,54 @@ function markExported(){S.lastExport=new Date().toISOString();S.nudgeUntil=0;sav
 function exportBackup(){
   const dlg=$("#expdlg");$("#ex-pass").value="";$("#ex-pass2").value="";$("#ex-msg").textContent="";$("#ex-msg").className="msg";
   $("#ex-enc").disabled=!canCrypto();if(!canCrypto())$("#ex-msg").textContent="Encryption is not available in this browser here. You can still download a plain backup.";
+  const fc=$("#ex-fc");fc.hidden=true;
+  fcHasCards().then(has=>{if(!has)return;fc.hidden=false;$("#ex-fcinfo").textContent=`This backup will include your ${fcN(S.fcN||0)} flashcards. It is saved as a compressed .bgbak file.`});
   dlg.showModal();$("#ex-pass").focus();
 }
 function wireBackup(){
   $("#ex-cancel").onclick=()=>$("#expdlg").close();
-  $("#ex-plain").onclick=()=>{
-    markExported();saveJson({app:"daily-brain-gym",version:5,exportedAt:new Date().toISOString(),data:S});
-    $("#expdlg").close();toast("Backup downloaded (not encrypted)");
+  $("#ex-plain").onclick=async()=>{
+    const m=$("#ex-msg");
+    try{
+      if(await fcHasCards()){
+        m.className="msg";m.textContent="Preparing the backup…";
+        const blob=await fcBuildBackup({pass:null,media:$("#ex-media").checked,progress:t=>{m.textContent=t}});
+        markExported();dl("brain-gym-backup-"+ymd()+".bgbak",blob);$("#expdlg").close();toast("Backup downloaded (not encrypted)");return;
+      }
+      markExported();saveJson({app:"daily-brain-gym",version:5,exportedAt:new Date().toISOString(),data:S});
+      $("#expdlg").close();toast("Backup downloaded (not encrypted)");
+    }catch(e){m.className="msg err";m.textContent="Could not create the backup: "+e.message}
   };
   $("#ex-enc").onclick=async()=>{
     const p=$("#ex-pass").value,m=$("#ex-msg");m.className="msg err";
     if(p.length<8){m.textContent="Use a passphrase of at least 8 characters.";return}
     if(p!==$("#ex-pass2").value){m.textContent="The two passphrases do not match.";return}
     m.className="msg";m.textContent="Encrypting…";
-    try{markExported();saveJson(await encryptPayload({app:"daily-brain-gym",version:5,exportedAt:new Date().toISOString(),data:S},p));$("#expdlg").close();toast("Encrypted backup downloaded. Do not lose the passphrase.")}
+    try{
+      if(await fcHasCards()){
+        const blob=await fcBuildBackup({pass:p,media:$("#ex-media").checked,progress:t=>{m.textContent=t}});
+        markExported();dl("brain-gym-backup-"+ymd()+"-encrypted.bgbak",blob);$("#expdlg").close();toast("Encrypted backup downloaded. Do not lose the passphrase.");return;
+      }
+      markExported();saveJson(await encryptPayload({app:"daily-brain-gym",version:5,exportedAt:new Date().toISOString(),data:S},p));$("#expdlg").close();toast("Encrypted backup downloaded. Do not lose the passphrase.")}
     catch(e){m.className="msg err";m.textContent="Could not encrypt: "+e.message}
   };
   $("#im-cancel").onclick=()=>$("#impdlg").close();
   $("#im-go").onclick=async()=>{
     const m=$("#im-msg"),j=window._pendingImport;m.className="msg";m.textContent="Decrypting…";
+    if(j&&j.fcFile){const f=j.fcFile,pw=$("#im-pass").value;$("#impdlg").close();window._pendingImport=null;fcRestoreFlow(f,pw);return}
     try{const pay=await decryptPayload(j,$("#im-pass").value);$("#impdlg").close();window._pendingImport=null;applyImport(pay)}
     catch(e){m.className="msg err";m.textContent=e.message}
   };
   $("#im-pass").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("#im-go").click()}});
 }
 function importBackup(file){
+  file.slice(0,12).arrayBuffer().then(buf=>{
+    const h=new Uint8Array(buf),txt=new TextDecoder().decode(h.subarray(0,10));
+    if((h[0]===0x1f&&h[1]===0x8b)||(h[0]===66&&h[1]===71&&h[2]===67&&h[3]===69)||txt==='{"t":"hdr"')return fcImportBackup(file,h);
+    importJsonBackup(file);
+  }).catch(()=>importJsonBackup(file));
+}
+function importJsonBackup(file){
   const rd=new FileReader();
   rd.onload=()=>{
     let j;try{j=JSON.parse(rd.result)}catch(e){alert("Import failed: this is not a JSON file.");return}
@@ -4065,71 +3789,26 @@ function importBackup(file){
   };
   rd.readAsText(file);
 }
-function applyImport(j){
+function applyImport(j,skipConfirm){
   try{
     const d=j&&j.app==="daily-brain-gym"?j.data:j;
     if(!d||typeof d!=="object"||!("answers" in d||"done" in d||"day" in d))throw new Error("This file does not look like a Brain Gym backup.");
-    if(!confirm("Replace your current progress, custom scenarios, chat and API key with this backup?"))return;
+    if(!skipConfirm&&!confirm("Replace your current progress, custom scenarios, chat and API key with this backup?"))return;
     snapTake("Before import");
     S={day:1,done:[],sub:{},answers:{},custom:[],iv:{},apiKey:"",model:"gemini-3.8-flash",chat:[],theme:"auto"};
     Object.assign(S,d);
     if(!Array.isArray(S.done))S.done=[];if(!Array.isArray(S.custom))S.custom=[];if(!Array.isArray(S.chat))S.chat=[];
     if(!S.sub||typeof S.sub!=="object"||Array.isArray(S.sub))S.sub={};if(!S.answers||typeof S.answers!=="object")S.answers={};if(!S.iv||typeof S.iv!=="object")S.iv={};
     ensureState();updAutoBtn();
-    save();applyTheme();buildIV();buildAI();buildScr();buildCourse();buildStats();buildNudge();render();alert("Backup restored ✓");
+    save();applyTheme();buildIV();buildAI();buildScr();buildCourse();buildStats();buildNudge();render();fcSyncCount();alert("Backup restored ✓");
   }catch(e){alert("Import failed: "+e.message)}
 }
-// ---------- Saved Gemini audio (IndexedDB) ----------
-let _adb=null;
-const idb=()=>_adb||(_adb=new Promise(res=>{try{const q=indexedDB.open("brainGymAudio",1);q.onupgradeneeded=()=>q.result.createObjectStore("wav");q.onsuccess=()=>res(q.result);q.onerror=q.onblocked=()=>res(null)}catch(e){res(null)}}));
-const idbDo=(mode,fn)=>idb().then(db=>!db?null:new Promise(res=>{try{const tx=db.transaction("wav",mode),rq=fn(tx.objectStore("wav"));tx.oncomplete=()=>res(rq&&"result" in rq?rq.result:true);tx.onerror=tx.onabort=()=>res(null)}catch(e){res(null)}}));
-const audioGet=k=>idbDo("readonly",s=>s.get(k)),audioPut=(k,v)=>idbDo("readwrite",s=>s.put(v,k)),audioCount=()=>idbDo("readonly",s=>s.count()),audioClear=()=>idbDo("readwrite",s=>s.clear());
-var AUDIO_MAX=400;
-async function audioPrune(){
-  const n=await audioCount();if(!(n>AUDIO_MAX))return;
-  const db=await idb();if(!db)return;
-  const all=await new Promise(res=>{const out=[];try{const rq=db.transaction("wav","readonly").objectStore("wav").openCursor();rq.onsuccess=()=>{const c=rq.result;if(c){out.push([c.key,(c.value&&c.value.t)||0]);c.continue()}else res(out)};rq.onerror=()=>res([])}catch(e){res([])}});
-  all.sort((a,b)=>a[1]-b[1]).slice(0,n-Math.floor(AUDIO_MAX*0.85)).forEach(([k])=>idbDo("readwrite",s=>s.delete(k)));
-}
-async function geminiClip(text,slow){
-  const ck=[text,slow,S.tts.voice,S.tts.model].join("|");let url=gCache.get(ck);if(url)return url;
-  const hit=await audioGet(ck);
-  if(hit&&hit.b){url=URL.createObjectURL(hit.b);gCache.set(ck,url);return url}
-  if(!S.apiKey)throw new Error("no API key saved in the AI tutor tab");
-  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(S.tts.model)}:generateContent`,{
-    method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":S.apiKey},
-    body:JSON.stringify({contents:[{parts:[{text:`Say ${slow?"slowly and ":""}clearly in Lithuanian: ${text}`}]}],
-      generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:S.tts.voice}}}}})});
-  let j={};try{j=await r.json()}catch(e){}
-  if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));
-  const parts=(((j.candidates||[])[0]||{}).content||{}).parts||[],inl=(parts.find(x=>x.inlineData)||{}).inlineData;
-  if(!inl||!inl.data)throw new Error("the response contained no audio");
-  const blob=pcmToWav(inl.data,inl.mimeType);url=URL.createObjectURL(blob);gCache.set(ck,url);
-  audioPut(ck,{b:blob,t:Date.now()}).then(audioPrune);
-  return url;
-}
-async function ttsGemini(text,slow,onStart){return playUrl(await geminiClip(text,slow),onStart)}
-async function cacheUi(){
-  const st=$("#cachestat");if(!st)return;
-  const show=async()=>{const n=await audioCount();st.textContent=n===null?"Saved audio is not available in this browser.":`${n} saved clip${n===1?"":"s"} (kept on this computer, not in the backup).`};
-  await show();
-  $("#cacheclear").onclick=async()=>{if(!confirm("Delete all saved Gemini audio?"))return;await audioClear();gCache.forEach(u=>{try{URL.revokeObjectURL(u)}catch(e){}});gCache.clear();show()};
-  $("#cachefill").onclick=async()=>{
-    const words=[...document.querySelectorAll("#l .learn .words div b")].map(b=>b.firstChild.textContent);
-    if(!S.apiKey){st.textContent="Add your API key in the AI tutor tab first.";return}
-    let done=0;for(const w of words){
-      try{st.textContent=`Saving ${done+1} of ${words.length}…`;await geminiClip(w,S.tts.slow);done++}catch(e){st.textContent="Stopped: "+e.message;return}
-    }
-    st.textContent=`Saved ${done} word${done===1?"":"s"} for offline use.`;setTimeout(show,2500);
-  };
-}
-
 // ---------- Weekly check-ins (review days) ----------
 const WK_DAYS=[7,14,21,28,35,42,49,56,60];
 const wkFrom=R=>{const i=WK_DAYS.indexOf(R);return i<=0?1:WK_DAYS[i-1]+1};
-const WK_PLAN={py:3,au:4,mc:1,cf:1,lv:3,gr:2};
+const WK_PLAN={py:4,au:5,mc:3,cf:2};
 function wkItems(R){
-  const from=wkFrom(R),r=rng(R*7919+3),P_={py:[],au:[],mc:[],cf:[],lv:[],gr:[]};
+  const from=wkFrom(R),r=rng(R*7919+3),P_={py:[],au:[],mc:[],cf:[]};
   for(let d=from;d<=R;d++){
     const pl=PLAN(d);let s=startOf("py",d);
     for(let j=0;j<pl.py;j++){const it=P[(s+j)%P.length];P_.py.push({type:"q",sec:"#p",text:"What does it print?",ans:it[1],steps:it[2],code:it[0],topic:"Python basics"})}
@@ -4137,11 +3816,6 @@ function wkItems(R){
       const s0=startOf(t,d);for(let j=0;j<pl[t];j++){const it=arr[(s0+j)%arr.length];P_.au.push({type:"q",sec:"#a",text:it[0],ans:it[1],steps:it[2],code:it[3],topic:tp})}});
     let s2=startOf("mc",d);for(let j=0;j<pl.mc;j++){const it=MCs[(s2+j)%MCs.length];P_.mc.push({type:"mc",sec:"#a",text:it[0],right:it[1],wrong:it[2],steps:it[3],code:it[4],topic:bucket(it[3])})}
     s2=startOf("cf",d);for(let j=0;j<pl.cf;j++){const it=CFs[(s2+j)%CFs.length];P_.cf.push({type:"q",sec:"#a",text:it[0],ans:it[1],steps:it[2],code:it[3],topic:bucket(it[2],true)})}
-    W.filter(x=>x[2]===d).forEach((x,i)=>{
-      P_.lv.push({type:"q",sec:"#l",text:`What does “${x[0]}” mean in English?`,ans:enAcc(x[1]),steps:tagged("Vocabulary",`<b>${x[0]}</b> = ${x[1]}.|Learned on day ${d}.`),topic:"Lithuanian vocabulary"});
-      P_.lv.push({type:"q",sec:"#l",text:`Type the Lithuanian for “${x[1]}”`,ans:x[0],steps:tagged("Spelling recall",`${x[1]} → <b>${x[0]}</b>.|Diacritics are optional.`),topic:"Lithuanian vocabulary"});
-    });
-    for(let j=0;j<3;j++){const g=G[(3*d-3+j)%G.length];P_.gr.push({type:"q",sec:"#l",text:g[0],ans:g[1],steps:g[2],topic:"Lithuanian grammar"})}
   }
   const out=[];Object.keys(WK_PLAN).forEach(k=>{const seen=new Set();shuf(P_[k],r).filter(it=>{const id=it.text+(it.code||"");if(seen.has(id))return false;seen.add(id);return true}).slice(0,WK_PLAN[k]).forEach(it=>out.push(it))});
   return out;
@@ -4159,9 +3833,9 @@ function openWk(R){
   const dlg=$("#wkdlg"),from=wkFrom(R),items=wkItems(R);
   dlg.innerHTML=`<h3>Weekly check-in: days ${from} to ${R}</h3><p class="m">${items.length} questions drawn from what you studied in these days. Answer everything, then press Finish. The score is saved and shown as a trend in the Stats tab. Misses join your review queue.</p>
   <div id="wk-body"></div><div class="row"><button class="btn on" id="wk-fin">Finish and grade</button><button class="btn btn-sm" id="wk-redo">Clear my answers</button><button class="btn btn-sm" id="wk-close">Close</button></div><div id="wk-res" role="status"></div>`;
-  const body=$("#wk-body"),hs={py:"Python",au:"Automation",lt:"Lithuanian"};let lastSec="";
+  const body=$("#wk-body"),hs={py:"Python",au:"Automation"};let lastSec="";
   items.forEach((it,i)=>{
-    const g=it.sec==="#p"?"Python":it.sec==="#a"?"Automation":"Lithuanian";
+    const g=it.sec==="#p"?"Python":"Automation";
     if(g!==lastSec){lastSec=g;body.insertAdjacentHTML("beforeend","<h4>"+g+"</h4>")}
     QHOST="#wk-body";QKEY=`wk_${R}_${i}`;QTOPIC=it.topic;
     if(it.type==="mc")QM(it.sec,it.text,it.right,it.wrong,it.steps,it.code);else Q(it.sec,it.text,it.ans,it.steps,it.code);
@@ -4479,6 +4153,1269 @@ function updCourseBadge(){
   document.querySelectorAll("#cgrid .cg").forEach((b,i)=>{const d=i+1;if(d===n&&!S.crs.done.includes(d)&&(ok||S.crs.lab[n]))b.classList.add("part")});
 }
 
+// ---------- Flashcards (v14): storage in IndexedDB, so tens of thousands of cards fit ----------
+// localStorage holds about 5 MB, so cards never go there. Scheduling data is small and kept in memory while the tab is open;
+// card text, images and the review log stay in the database and are read when needed.
+const FC={db:null,sched:new Map(),decks:new Map(),cfg:{newPerDay:20,revPerDay:200},loaded:false,loading:null};
+const FC_NAME="brainGymCards";
+function fcOpen(){
+  if(FC.db)return Promise.resolve(FC.db);
+  if(FC._p)return FC._p;
+  return FC._p=new Promise((res,rej)=>{
+    if(!window.indexedDB){FC._p=null;return rej(new Error("This browser has no IndexedDB, so flashcards cannot be stored here."))}
+    const r=indexedDB.open(FC_NAME,1);
+    r.onupgradeneeded=()=>{const d=r.result;
+      d.createObjectStore("cards",{keyPath:"id",autoIncrement:true}).createIndex("key","key");
+      d.createObjectStore("sched",{keyPath:"id"});
+      d.createObjectStore("ftx",{keyPath:"id"});
+      d.createObjectStore("decks",{keyPath:"id",autoIncrement:true});
+      d.createObjectStore("media",{keyPath:"name"});
+      d.createObjectStore("revlog",{keyPath:"n",autoIncrement:true}).createIndex("d","d");
+      d.createObjectStore("meta",{keyPath:"k"});
+    };
+    r.onsuccess=()=>{FC.db=r.result;FC.db.onversionchange=()=>{FC.db.close();FC.db=null;FC._p=null};res(FC.db)};
+    r.onerror=()=>{FC._p=null;rej(r.error||new Error("Could not open the flashcard database"))};
+    r.onblocked=()=>{FC._p=null;rej(new Error("The flashcard database is open in another tab. Close the other tab and try again."))};
+  });
+}
+const fcReq=r=>new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+const fcTxDone=tx=>new Promise((res,rej)=>{tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);tx.onabort=()=>rej(tx.error||new Error("The database write was cancelled (storage full?)"))});
+async function fcStore(name,mode){const d=await fcOpen();return d.transaction(name,mode||"readonly").objectStore(name)}
+async function fcGet(store,key){return fcReq((await fcStore(store)).get(key))}
+async function fcCount(store){return fcReq((await fcStore(store)).count())}
+// Read a whole store in key-ordered pages so that very large stores never sit in memory in one piece.
+async function fcEachPage(store,size,cb){
+  const d=await fcOpen();let last=null;
+  for(;;){
+    const os=d.transaction(store).objectStore(store);
+    const rows=await fcReq(os.getAll(last===null?undefined:IDBKeyRange.lowerBound(last,true),size));
+    if(!rows.length)break;
+    await cb(rows);
+    const kp=os.keyPath;last=rows[rows.length-1][kp];
+    if(rows.length<size)break;
+  }
+}
+// The review day rolls over at 4 am, as in Anki.
+const fcDay=(t=Date.now())=>Math.floor((t-new Date(t).getTimezoneOffset()*60000-4*36e5)/864e5);
+const fcDayYmd=n=>{const d=new Date((n*864e5)+4*36e5+12*36e5);return d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0")+"-"+String(d.getUTCDate()).padStart(2,"0")};
+async function fcLoad(force){
+  if(FC.loaded&&!force)return;
+  if(FC.loading&&!force)return FC.loading;
+  return FC.loading=(async()=>{
+    const d=await fcOpen();
+    FC.sched=new Map();FC.decks=new Map();
+    await fcEachPage("sched",5000,rows=>{for(const s of rows)FC.sched.set(s.id,s)});
+    const decks=await fcReq(d.transaction("decks").objectStore("decks").getAll());
+    decks.forEach(x=>FC.decks.set(x.id,x));
+    const cfg=await fcGet("meta","cfg");
+    if(cfg&&cfg.v)FC.cfg=Object.assign({newPerDay:20,revPerDay:200},fcCleanCfg(cfg.v));
+    FC.loaded=true;S.fcN=FC.sched.size;save();
+  })().finally(()=>{FC.loading=null});
+}
+function fcCleanCfg(v){const n=(x,a,b,dflt)=>Number.isFinite(+x)?Math.max(a,Math.min(b,Math.floor(+x))):dflt;return{newPerDay:n(v&&v.newPerDay,0,9999,20),revPerDay:n(v&&v.revPerDay,0,9999,200)}}
+async function fcSaveCfg(){const os=await fcStore("meta","readwrite");await fcReq(os.put({k:"cfg",v:FC.cfg}))}
+// Find a deck by its full name ("ENARSI::OSPF"), or create it.
+async function fcDeckId(name){
+  name=String(name||"Default").replace(/\s*::\s*/g,"::").trim().slice(0,120)||"Default";
+  for(const d of FC.decks.values())if(d.name===name)return d.id;
+  const os=await fcStore("decks","readwrite");const id=await fcReq(os.add({name}));FC.decks.set(id,{id,name});return id;
+}
+const fcPlain=h=>String(h||"").replace(/<br\s*\/?>|<\/(p|div|li|tr)>/gi," ").replace(/<[^>]*>/g," ").replace(/&nbsp;/g," ").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&amp;/g,"&").replace(/\s+/g," ").trim();
+// Write cards in one transaction. items: [{key,deck,f,b,tags,s?}] where s is optional starting schedule from Anki.
+async function fcAddCards(items){
+  if(!items.length)return 0;
+  const d=await fcOpen(),tx=d.transaction(["cards","sched","ftx"],"readwrite"),cs=tx.objectStore("cards"),ss=tx.objectStore("sched"),fs=tx.objectStore("ftx");
+  const added=[];
+  for(const it of items){
+    const rec={key:it.key,deck:it.deck,f:it.f,b:it.b,tags:it.tags||""};
+    const rq=cs.add(rec);
+    rq.onsuccess=()=>{
+      const id=rq.result,sc=Object.assign({id,deck:it.deck,st:0,due:id,ivl:0,ease:2.5,reps:0,lapses:0,susp:0,step:0},it.s||{});sc.id=id;sc.deck=it.deck;
+      if(sc.st===0)sc.due=id;
+      ss.put(sc);fs.put({id,t:fcPlain(it.f+" "+it.b+" "+rec.tags).toLowerCase().slice(0,3000)});added.push(sc);
+    };
+  }
+  await fcTxDone(tx);
+  added.forEach(s=>FC.sched.set(s.id,s));
+  S.fcN=FC.sched.size;
+  return added.length;
+}
+async function fcPutSched(s,log){
+  const d=await fcOpen(),tx=d.transaction(log?["sched","revlog"]:["sched"],"readwrite");
+  tx.objectStore("sched").put(s);
+  let rq=null;if(log)rq=tx.objectStore("revlog").add(log);
+  await fcTxDone(tx);
+  FC.sched.set(s.id,s);
+  return rq?rq.result:null;
+}
+async function fcDeleteCards(ids){
+  const d=await fcOpen();
+  for(let i=0;i<ids.length;i+=2000){
+    const part=ids.slice(i,i+2000),tx=d.transaction(["cards","sched","ftx"],"readwrite");
+    for(const id of part){tx.objectStore("cards").delete(id);tx.objectStore("sched").delete(id);tx.objectStore("ftx").delete(id);FC.sched.delete(id)}
+    await fcTxDone(tx);
+  }
+  S.fcN=FC.sched.size;save();
+}
+async function fcClearAll(){
+  const d=await fcOpen(),names=["cards","sched","ftx","decks","media","revlog"],tx=d.transaction(names,"readwrite");
+  names.forEach(n=>tx.objectStore(n).clear());
+  await fcTxDone(tx);
+  FC.sched=new Map();FC.decks=new Map();S.fcN=0;S.fcDays={};save();
+}
+// Called from ensureState(): make sure the two small counters kept in localStorage are sane.
+function ensureFc(){
+  const o=v=>v&&typeof v==="object"&&!Array.isArray(v);
+  S.fcN=Number.isFinite(+S.fcN)&&+S.fcN>0?Math.min(5e6,Math.floor(+S.fcN)):0;
+  if(!o(S.fcDays))S.fcDays={};
+  S.fcModel=/^[A-Za-z0-9._-]{1,60}$/.test(String(S.fcModel||""))?String(S.fcModel):"";
+  S.fcBoth=!!S.fcBoth;
+  const ks=Object.keys(S.fcDays).sort();
+  for(const k of ks){const v=Math.floor(+S.fcDays[k]);if(!isYmd(k)||!(v>0))delete S.fcDays[k];else S.fcDays[k]=Math.min(v,100000)}
+  const keep=Object.keys(S.fcDays).sort();if(keep.length>400)keep.slice(0,keep.length-400).forEach(k=>delete S.fcDays[k]);
+}
+async function fcAsk(){   // ask the browser not to evict the database when space is tight
+  try{if(navigator.storage&&navigator.storage.persist&&!(await navigator.storage.persisted()))await navigator.storage.persist()}catch(e){}
+}
+// ---------- Flashcards: safe HTML, Anki templates, cloze, images and sound ----------
+// Cards come from files, so card HTML is never trusted. fcClean() rebuilds it from an allow-list: no scripts, no event
+// handlers, no links, no external images. Images and sound may only point at a plain file name, which is looked up in the
+// card database and shown from a local blob: address.
+const FC_TAGS=new Set(["B","I","U","EM","STRONG","SUB","SUP","BR","P","DIV","SPAN","UL","OL","LI","PRE","CODE","TABLE","THEAD","TBODY","TR","TD","TH","H1","H2","H3","H4","H5","H6","HR","IMG","AUDIO","FONT","DETAILS","SUMMARY","BLOCKQUOTE","SMALL","S","DEL","MARK"]);
+const FC_DROP=new Set(["SCRIPT","STYLE","IFRAME","OBJECT","EMBED","LINK","META","FORM","TEMPLATE","NOSCRIPT","SVG","MATH","TITLE","HEAD","BASE","INPUT","BUTTON","SELECT","TEXTAREA","VIDEO","CANVAS","APPLET"]);
+const FC_CSS=new Set(["color","background-color","font-weight","font-style","text-decoration","text-align"]);
+function fcStyle(st){
+  const out=[];
+  String(st||"").split(";").forEach(d=>{
+    const i=d.indexOf(":");if(i<0)return;
+    const p=d.slice(0,i).trim().toLowerCase(),v=d.slice(i+1).trim();
+    if(FC_CSS.has(p)&&/^[#a-z0-9(),.\s%-]{1,60}$/i.test(v)&&!/url|expression|javascript|import/i.test(v))out.push(p+":"+v);
+  });
+  return out.join(";");
+}
+const fcMediaName=v=>{v=String(v||"").trim();try{v=decodeURIComponent(v)}catch(e){}return/^[^:\/\\<>"'?#]{1,200}$/.test(v)?v:""};
+function fcClean(html){
+  const doc=new DOMParser().parseFromString("<body>"+String(html==null?"":html)+"</body>","text/html");   // inert document: nothing in it runs or loads
+  const out=document.createElement("div");
+  const walk=(src,dst)=>{
+    for(const n of Array.from(src.childNodes)){
+      if(n.nodeType===3){dst.appendChild(document.createTextNode(n.nodeValue));continue}
+      if(n.nodeType!==1)continue;
+      const tag=n.tagName.toUpperCase();
+      if(FC_DROP.has(tag))continue;
+      if(!FC_TAGS.has(tag)){walk(n,dst);continue}
+      const e=document.createElement(tag.toLowerCase());
+      const st=fcStyle(n.getAttribute("style"));if(st)e.setAttribute("style",st);
+      if(tag==="FONT"){const c=(n.getAttribute("color")||"").trim();if(/^[#a-z0-9]{3,20}$/i.test(c))e.setAttribute("color",c)}
+      if(tag==="IMG"){
+        const m=fcMediaName(n.getAttribute("src")||n.getAttribute("data-m"));if(!m){e.setAttribute("alt","(image)");}else e.setAttribute("data-m",m);
+        const alt=n.getAttribute("alt");if(alt)e.setAttribute("alt",alt.slice(0,200));
+        ["width","height"].forEach(a=>{const v=parseInt(n.getAttribute(a),10);if(v>0&&v<4000)e.setAttribute(a,String(v))});
+        dst.appendChild(e);continue;
+      }
+      if(tag==="AUDIO"){const m=fcMediaName(n.getAttribute("src")||n.getAttribute("data-m"));if(m){e.setAttribute("data-m",m);e.setAttribute("controls","");dst.appendChild(e)}continue}
+      if(tag==="HR"||tag==="BR"){dst.appendChild(e);continue}
+      walk(n,e);dst.appendChild(e);
+    }
+  };
+  walk(doc.body,out);
+  return out.innerHTML;
+}
+// Anki writes sound as [sound:file.mp3]; turn it into an audio tag that fcClean then makes safe.
+const fcSound=h=>String(h).replace(/\[sound:([^\]]+)\]/g,(m,f)=>`<audio src="${String(f).replace(/"/g,"")}" controls></audio>`);
+// ---- cloze: {{c1::answer::hint}}
+function fcCloze(text,ord,answer){
+  return String(text).replace(/\{\{c(\d+)::([\s\S]*?)(?:::([\s\S]*?))?\}\}/g,(m,n,t,h)=>{
+    if(+n!==ord)return t;
+    return answer?`<span class="fc-cloze">${t}</span>`:`<span class="fc-cloze">[${h?h:"..."}]</span>`;
+  });
+}
+// ---- Anki card templates: {{Field}}, {{FrontSide}}, {{#Field}}...{{/Field}}, {{^Field}}...{{/Field}}, {{cloze:Field}}, {{text:Field}}
+function fcTemplate(tpl,fields,ctx){
+  const val=name=>Object.prototype.hasOwnProperty.call(fields,name)?String(fields[name]):"";
+  let s=String(tpl||""),prev;
+  let guard=0;
+  do{prev=s;
+    s=s.replace(/\{\{([#^])\s*([^{}]+?)\s*\}\}([\s\S]*?)\{\{\/\s*\2\s*\}\}/g,(m,t,name,inner)=>{
+      const has=fcPlain(val(name))!==""||/<img|\[sound:/i.test(val(name));
+      return (t==="#")===has?inner:"";
+    });
+  }while(s!==prev&&++guard<20);
+  return s.replace(/\{\{([^{}]+?)\}\}/g,(m,inner)=>{
+    const parts=inner.split(":").map(x=>x.trim()),name=parts.pop(),filters=parts;
+    if(name==="FrontSide")return ctx.front||"";
+    if(name==="Tags")return ctx.tags||"";
+    if(name==="Deck"||name==="Subdeck")return ctx.deck||"";
+    if(name==="Card")return ctx.card||"";
+    if(name==="Type"||name==="")return"";
+    let v=val(name);
+    for(const f of filters){
+      if(f==="cloze")v=fcCloze(v,ctx.ord,ctx.answer);
+      else if(f==="text")v=fcPlain(v);
+      else if(f==="hint")v=v?`<details><summary>Hint</summary>${v}</details>`:"";
+      else if(f==="type")return"";
+    }
+    return v;
+  });
+}
+// ---- showing a card: clean the HTML, then fill in images and sound from the database
+const FC_URLS=new Map();
+async function fcMediaUrl(name){
+  if(FC_URLS.has(name))return FC_URLS.get(name);
+  let r;try{r=await fcGet("media",name)}catch(e){r=null}
+  const u=r&&r.blob?URL.createObjectURL(r.blob):"";
+  FC_URLS.set(name,u);return u;
+}
+function fcFreeUrls(){FC_URLS.forEach(u=>u&&URL.revokeObjectURL(u));FC_URLS.clear()}
+async function fcShow(el,html){
+  el.innerHTML=fcClean(fcSound(html));
+  const jobs=[];
+  el.querySelectorAll("[data-m]").forEach(m=>jobs.push(fcMediaUrl(m.getAttribute("data-m")).then(u=>{
+    if(u)m.setAttribute("src",u);
+    else if(m.tagName==="IMG"){m.replaceWith(Object.assign(document.createElement("span"),{className:"fc-miss",textContent:"[missing image: "+m.getAttribute("data-m")+"]"}))}
+    else m.remove();
+  })));
+  await Promise.all(jobs);
+}
+const fcText=t=>esc(String(t==null?"":t)).replace(/\r?\n/g,"<br>");
+// ---------- Flashcards: reading Anki packages (.apkg) and text exports (.txt, .tsv, .csv) ----------
+const FC_NEWFMT="This package uses Anki's newest format, which a browser cannot read. In Anki choose File → Export, set Format to \"Anki Deck Package (*.apkg)\", tick \"Support older Anki versions\", and export again. Or export as \"Notes in Plain Text (*.txt)\" and import that file.";
+const fcYield=()=>new Promise(r=>setTimeout(r,0));
+// 53-bit string hash: card keys must not collide even across tens of thousands of cards
+function fcHash(s){let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}
+  h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);
+  return(4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
+// ---- zip (an .apkg is a zip). Only the parts we need are read from disk, so big packages do not fill memory.
+async function fcZipIndex(file){
+  const tl=Math.min(file.size,66000),tail=new DataView(await file.slice(file.size-tl).arrayBuffer());
+  let p=-1;for(let i=tl-22;i>=0;i--)if(tail.getUint32(i,true)===0x06054b50){p=i;break}
+  if(p<0)throw new Error("This is not a zip file, and an .apkg package is one.");
+  const n=tail.getUint16(p+10,true),cdSize=tail.getUint32(p+12,true),cdOff=tail.getUint32(p+16,true);
+  if(n===0xFFFF||cdOff===0xFFFFFFFF||cdSize===0xFFFFFFFF)throw new Error("This package is bigger than 4 GB, which this reader does not support.");
+  const cd=new DataView(await file.slice(cdOff,cdOff+cdSize).arrayBuffer()),dec=new TextDecoder(),ents=new Map();let o=0;
+  for(let i=0;i<n;i++){
+    if(o+46>cd.byteLength||cd.getUint32(o,true)!==0x02014b50)throw new Error("The zip index is damaged.");
+    const nl=cd.getUint16(o+28,true),el=cd.getUint16(o+30,true),cl=cd.getUint16(o+32,true);
+    const name=dec.decode(new Uint8Array(cd.buffer,cd.byteOffset+o+46,nl));
+    ents.set(name,{name,flags:cd.getUint16(o+8,true),method:cd.getUint16(o+10,true),csz:cd.getUint32(o+20,true),usz:cd.getUint32(o+24,true),off:cd.getUint32(o+42,true)});
+    o+=46+nl+el+cl;
+  }
+  return ents;
+}
+async function fcZipBlob(file,e){
+  if(e.flags&1)throw new Error("This package is password protected.");
+  const h=new DataView(await file.slice(e.off,e.off+30).arrayBuffer());
+  if(h.getUint32(0,true)!==0x04034b50)throw new Error("The zip file is damaged.");
+  const start=e.off+30+h.getUint16(26,true)+h.getUint16(28,true),raw=file.slice(start,start+e.csz);
+  if(e.method===0)return raw;
+  if(e.method!==8)throw new Error("This zip uses a compression method that is not supported.");
+  if(typeof DecompressionStream==="undefined")throw new Error("This browser is too old to unpack zip files. Update it, or export from Anki as plain text.");
+  return new Response(raw.stream().pipeThrough(new DecompressionStream("deflate-raw"))).blob();
+}
+// ---- a small SQLite reader: just enough to read the tables of an Anki collection
+function fcSqlite(u8){
+  const dv=new DataView(u8.buffer,u8.byteOffset,u8.byteLength),td=new TextDecoder();
+  if(new TextDecoder().decode(u8.subarray(0,15))!=="SQLite format 3")throw new Error("The package does not contain a readable Anki database.");
+  let ps=dv.getUint16(16);if(ps===1)ps=65536;
+  const U=ps-u8[20];
+  if(dv.getUint32(56)>1)throw new Error("This database uses UTF-16 text, which is not supported.");
+  const page=n=>(n-1)*ps;let vl=1;
+  function vint(b,p){let v=0;for(let i=0;i<8;i++){const x=b[p+i];v=v*128+(x&127);if(x<128){vl=i+1;return v}}vl=9;return v*256+b[p+8]}
+  function record(b){
+    const hs=vint(b,0);let hp=vl,dp=hs;const types=[];
+    while(hp<hs){types.push(vint(b,hp));hp+=vl}
+    const vals=new Array(types.length);
+    for(let i=0;i<types.length;i++){
+      const t=types[i];let v=null;
+      if(t===0)v=null;
+      else if(t>=1&&t<=6){const n=[0,1,2,3,4,6,8][t];v=0;for(let k=0;k<n;k++)v=v*256+b[dp+k];if(b[dp]&128)v-=Math.pow(2,8*n);dp+=n}
+      else if(t===7){v=new DataView(b.buffer,b.byteOffset+dp,8).getFloat64(0);dp+=8}
+      else if(t===8)v=0;else if(t===9)v=1;
+      else if(t>=12&&t%2===0){const n=(t-12)/2;v=b.subarray(dp,dp+n);dp+=n}
+      else if(t>=13){const n=(t-13)/2;v=td.decode(b.subarray(dp,dp+n));dp+=n}
+      vals[i]=v;
+    }
+    return vals;
+  }
+  function leafCell(off){
+    const P=vint(u8,off);let q=off+vl;const rowid=vint(u8,q);q+=vl;
+    const X=U-35;let payload;
+    if(P<=X)payload=u8.subarray(q,q+P);
+    else{
+      const M=Math.floor((U-12)*32/255)-23,K=M+((P-M)%(U-4)),local=K<=X?K:M;
+      payload=new Uint8Array(P);payload.set(u8.subarray(q,q+local));
+      let ov=dv.getUint32(q+local),got=local;
+      while(ov&&got<P){const pb=page(ov),take=Math.min(U-4,P-got);payload.set(u8.subarray(pb+4,pb+4+take),got);got+=take;ov=dv.getUint32(pb)}
+    }
+    return{rowid,vals:record(payload)};
+  }
+  function* walk(pn,depth){
+    if(depth>20)throw new Error("The database looks damaged.");
+    const base=page(pn),h=pn===1?100:0,type=u8[base+h],nc=dv.getUint16(base+h+3);
+    if(type===0x0d){for(let i=0;i<nc;i++)yield leafCell(base+dv.getUint16(base+h+8+2*i))}
+    else if(type===0x05){
+      for(let i=0;i<nc;i++)yield*walk(dv.getUint32(base+dv.getUint16(base+h+12+2*i)),depth+1);
+      yield*walk(dv.getUint32(base+h+8),depth+1);
+    }else throw new Error("The database looks damaged.");
+  }
+  const tables={};
+  for(const r of walk(1,0)){const v=r.vals;if(v[0]==="table")tables[v[1]]={root:v[3],sql:v[4]}}
+  return{tables,rows:root=>walk(root,0)};
+}
+const FC_MIME={png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",gif:"image/gif",webp:"image/webp",svg:"image/svg+xml",bmp:"image/bmp",mp3:"audio/mpeg",ogg:"audio/ogg",oga:"audio/ogg",wav:"audio/wav",m4a:"audio/mp4",aac:"audio/aac",flac:"audio/flac",opus:"audio/ogg"};
+const fcMime=n=>FC_MIME[(String(n).split(".").pop()||"").toLowerCase()]||"application/octet-stream";
+// ---- read an .apkg into a plan: cards ready to store, plus the list of media files to copy
+async function fcReadApkg(file){
+  const zi=await fcZipIndex(file);
+  const dbName=zi.has("collection.anki21")?"collection.anki21":zi.has("collection.anki2")?"collection.anki2":null;
+  if(!dbName)throw new Error(zi.has("collection.anki21b")?FC_NEWFMT:"This zip has no Anki collection inside, so it is not an Anki package.");
+  const u8=new Uint8Array(await(await fcZipBlob(file,zi.get(dbName))).arrayBuffer()),sq=fcSqlite(u8),T=sq.tables;
+  if(!T.col||!T.notes||!T.cards)throw new Error(zi.has("collection.anki21b")?FC_NEWFMT:"This Anki database has an unexpected layout.");
+  let col=null;for(const r of sq.rows(T.col.root)){col=r;break}
+  if(!col)throw new Error("The Anki collection is empty.");
+  let models,decks;try{models=JSON.parse(col.vals[9]||"{}");decks=JSON.parse(col.vals[10]||"{}")}catch(e){models={}}
+  if(!models||!Object.keys(models).length)throw new Error(FC_NEWFMT);
+  const crtDay=fcDay((+col.vals[1]||0)*1000),notes=new Map();
+  for(const r of sq.rows(T.notes.root))notes.set(r.rowid,{guid:r.vals[1],mid:String(r.vals[2]),tags:String(r.vals[5]||"").trim(),f:String(r.vals[6]||"").split("\x1f")});
+  if(zi.has("collection.anki21b")&&notes.size<=2){
+    const first=[...notes.values()][0];if(!first||/newer version|update.*anki|anki.*update/i.test(first.f.join(" ")))throw new Error(FC_NEWFMT);
+  }
+  const deckName=did=>{const d=decks[String(did)];return d&&d.name?String(d.name).replace(/\x1f/g,"::"):"Default"};
+  const cards=[],skipped={blank:0,model:0};let sched=0;
+  for(const r of sq.rows(T.cards.root)){
+    const v=r.vals,nid=v[1],did=v[2],ord=v[3],type=v[6],queue=v[7],due=v[8],ivl=v[9],factor=v[10],reps=v[11],lapses=v[12],odue=v[14],odid=v[15];
+    const n=notes.get(nid);if(!n){skipped.model++;continue}
+    const m=models[n.mid];if(!m||!Array.isArray(m.flds)||!Array.isArray(m.tmpls)){skipped.model++;continue}
+    const fields={};m.flds.forEach((f,i)=>{fields[f.name]=n.f[i]||""});
+    const cloze=m.type===1,tm=cloze?m.tmpls[0]:m.tmpls[ord];if(!tm){skipped.model++;continue}
+    const dn=deckName(odid>0?odid:did),ctx={ord:cloze?ord+1:ord,answer:false,tags:n.tags,deck:dn,card:tm.name||""};
+    const front=fcTemplate(tm.qfmt,fields,ctx);
+    if(!/<img|\[sound:/i.test(front)&&fcPlain(front)===""){skipped.blank++;continue}
+    const back=fcTemplate(tm.afmt,fields,Object.assign({},ctx,{front,answer:true}));
+    const s={};
+    if(type===2||type===3){s.st=2;s.ivl=Math.max(1,Math.min(36500,ivl>0?ivl:1));s.due=crtDay+((odid>0&&odue>0?odue:due)||0);s.ease=Math.max(1.3,Math.min(5,factor>=1300?factor/1000:2.5));s.reps=reps||0;s.lapses=lapses||0;sched++}
+    else if(type===1){s.st=1;s.step=0;s.due=Date.now();s.reps=reps||0;s.lapses=lapses||0;sched++}
+    if(queue===-1)s.susp=1;
+    cards.push({key:n.guid+":"+ord,deck:dn,f:fcClean(fcSound(front)),b:fcClean(fcSound(back)),tags:n.tags,s});
+  }
+  let media=[];
+  if(zi.has("media")){
+    try{const mp=JSON.parse(await(await fcZipBlob(file,zi.get("media"))).text());
+      for(const k of Object.keys(mp)){const nm=fcMediaName(mp[k]);if(nm&&zi.has(k))media.push({name:nm,entry:zi.get(k)})}}catch(e){}
+  }
+  return{kind:"apkg",file,cards,media,sched,skipped,deckNames:[...new Set(cards.map(c=>c.deck))]};
+}
+// ---- text export: CSV/TSV with Anki's "#separator:tab", "#html:true", "#tags column:3" style header lines
+function fcParseText(text){
+  text=String(text).replace(/^﻿/,"");
+  const dir={},lines=text.split(/\r?\n/);let i=0;
+  for(;i<lines.length;i++){
+    const l=lines[i];if(!l.startsWith("#"))break;
+    const m=/^#([^:]+):(.*)$/.exec(l);if(m)dir[m[1].trim().toLowerCase()]=m[2].trim();
+  }
+  const body=lines.slice(i).join("\n");
+  let sep="\t";
+  const named={tab:"\t",comma:",",semicolon:";",space:" ",pipe:"|",colon:":"};
+  if(dir.separator){sep=named[dir.separator.toLowerCase()]||dir.separator.charAt(0)||"\t"}
+  else{
+    const first=body.split("\n").find(x=>x.trim())||"",c=ch=>first.split(ch).length-1;
+    sep=c("\t")>=1?"\t":c(";")>c(",")?";":",";
+  }
+  const rows=[];let row=[],cell="",q=false;
+  for(let k=0;k<body.length;k++){
+    const ch=body[k];
+    if(q){if(ch==='"'){if(body[k+1]==='"'){cell+='"';k++}else q=false}else cell+=ch}
+    else if(ch==='"'&&cell==="")q=true;
+    else if(ch===sep){row.push(cell);cell=""}
+    else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&body[k+1]==="\n")k++;row.push(cell);cell="";if(row.length>1||row[0]!=="")rows.push(row);row=[]}
+    else cell+=ch;
+  }
+  if(cell!==""||row.length){row.push(cell);if(row.length>1||row[0]!=="")rows.push(row)}
+  const colOf=k=>{const v=parseInt(dir[k+" column"],10);return v>0?v-1:-1};
+  return{rows,dir,cols:{tags:colOf("tags"),deck:colOf("deck"),guid:colOf("guid"),notetype:colOf("notetype")},html:String(dir.html).toLowerCase()==="true"};
+}
+// roles: array, one per column: "front"|"back"|"tags"|"deck"|"guid"|"skip"
+function fcTextCards(parsed,roles,opt){
+  const out=[],keys=new Set();let dup=0,blank=0;
+  const rows=opt.header?parsed.rows.slice(1):parsed.rows;
+  const conv=t=>opt.html?String(t):fcText(t);
+  for(const r of rows){
+    const take=role=>roles.map((x,i)=>x===role?(r[i]||""):null).filter(x=>x!==null);
+    const fr=take("front"),bk=take("back");
+    const front=fr.map(conv).join("<br>"),back=bk.map(conv).join("<br>");
+    if(fcPlain(front)===""&&!/<img/i.test(front)){blank++;continue}
+    const tags=take("tags").join(" ").trim(),dk=take("deck")[0],gd=take("guid")[0];
+    const key=gd?"g:"+gd+":0":"t:"+fcHash(fcPlain(front)+"\u0001"+fcPlain(back));
+    if(keys.has(key)){dup++;continue}keys.add(key);
+    const f=fcClean(fcSound(front)),b=fcClean(fcSound(front+"<hr id=answer>"+back));
+    out.push({key,deck:(dk&&dk.trim())||opt.deck,f,b,tags:tags.replace(/\s+/g," "),s:{}});
+  }
+  return{cards:out,dup,blank};
+}
+// ---- write a plan into the database
+async function fcCommit(plan,opt,progress){
+  const d=await fcOpen();
+  const existing=new Set(await fcReq(d.transaction("cards").objectStore("cards").index("key").getAllKeys()));
+  await fcLoad();
+  const deckIds=new Map(),fresh=[];let dup=0;
+  for(const c of plan.cards){if(existing.has(c.key)){dup++;continue}existing.add(c.key);fresh.push(c)}
+  let done=0;const total=fresh.length;
+  for(let i=0;i<fresh.length;i+=500){
+    const part=fresh.slice(i,i+500);
+    for(const c of part){
+      let id=deckIds.get(c.deck);if(id===undefined){id=await fcDeckId(c.deck);deckIds.set(c.deck,id)}
+      c.deck=id;if(!opt.keepSched)c.s={susp:c.s&&c.s.susp?1:0};
+    }
+    await fcAddCards(part);done+=part.length;
+    progress&&progress(`Saving cards: ${done.toLocaleString()} of ${total.toLocaleString()}`,total?done/total*(plan.media&&plan.media.length?0.7:1):1);
+    await fcYield();
+  }
+  let media=0;
+  if(plan.media&&plan.media.length){
+    for(let i=0;i<plan.media.length;i++){
+      const m=plan.media[i];
+      try{
+        const blob=await fcZipBlob(plan.file,m.entry),b2=new Blob([blob],{type:fcMime(m.name)});
+        const tx=d.transaction("media","readwrite");tx.objectStore("media").put({name:m.name,blob:b2});await fcTxDone(tx);media++;
+      }catch(e){}
+      if(i%25===0){progress&&progress(`Saving images and sound: ${i+1} of ${plan.media.length}`,0.7+0.3*(i+1)/plan.media.length);await fcYield()}
+    }
+  }
+  S.fcN=FC.sched.size;save();fcAsk();
+  return{added:total,dup,media};
+}
+// ---------- Flashcards: the scheduler (Anki-style spaced repetition) and the study screen ----------
+// Ratings: 1 Again, 2 Hard, 3 Good, 4 Easy. New cards go through learning steps of 1 and 10 minutes; review cards grow by
+// their ease factor; a forgotten card drops to relearning with a 10 minute step and a 1 day interval afterwards.
+const FC_STEPS=[1,10],FC_RELEARN=[10];
+const fcIvl=x=>Math.max(1,Math.min(36500,Math.round(x)));
+function fcSchedule(c,r,now,today){
+  now=now||Date.now();today=today==null?fcDay(now):today;
+  const s=Object.assign({},c),mins=m=>now+Math.round(m*60000);
+  s.reps=(c.reps||0)+1;
+  const grad=d=>{s.st=2;s.step=0;s.ivl=d;s.due=today+d;s.ease=c.ease||2.5};
+  let t;
+  if(c.st===0||c.st===1){
+    t=c.st===0?0:1;const step=c.st===0?0:Math.min(c.step||0,FC_STEPS.length-1);
+    if(r===1){s.st=1;s.step=0;s.due=mins(FC_STEPS[0])}
+    else if(r===2){s.st=1;s.step=step;s.due=mins(step===0&&FC_STEPS.length>1?(FC_STEPS[0]+FC_STEPS[1])/2:FC_STEPS[step])}
+    else if(r===3){if(step+1<FC_STEPS.length){s.st=1;s.step=step+1;s.due=mins(FC_STEPS[step+1])}else grad(1)}
+    else grad(4);
+  }else if(c.st===3){
+    t=3;
+    if(r<=2){s.st=3;s.step=0;s.due=mins(FC_RELEARN[0])}
+    else if(r===3)grad(fcIvl(c.ivl||1));
+    else grad(fcIvl((c.ivl||1)+1));
+    s.ease=c.ease||2.5;
+  }else{
+    t=2;const ease=c.ease||2.5,ivl=Math.max(1,c.ivl||1),late=Math.max(0,today-(c.due||today));
+    if(r===1){s.st=3;s.step=0;s.lapses=(c.lapses||0)+1;s.ease=Math.max(1.3,ease-0.2);s.ivl=1;s.due=mins(FC_RELEARN[0])}
+    else{
+      const hard=fcIvl(Math.max(ivl+1,ivl*1.2)),good=Math.max(hard+1,fcIvl((ivl+late/2)*ease)),easy=Math.max(good+1,fcIvl((ivl+late)*ease*1.3));
+      s.st=2;s.step=0;
+      if(r===2){s.ivl=hard;s.ease=Math.max(1.3,ease-0.15)}
+      else if(r===3){s.ivl=good;s.ease=ease}
+      else{s.ivl=Math.min(36500,easy);s.ease=Math.min(5,ease+0.15)}
+      s.due=today+s.ivl;
+    }
+  }
+  return{s,log:{id:now,cid:c.id,deck:c.deck,r,d:today,t,f:c.st===0?1:0,ivl:s.st===2?s.ivl:0}};
+}
+function fcLabel(c,r,now){
+  const s=fcSchedule(c,r,now).s;
+  if(s.st===1||s.st===3){const m=Math.max(1,Math.round((s.due-(now||Date.now()))/60000));return m>=60?Math.round(m/60)+"h":m+"m"}
+  const d=s.ivl;return d<30?d+"d":d<365?(Math.round(d/30*10)/10)+"mo":(Math.round(d/365*10)/10)+"y";
+}
+// ---- which decks does a row stand for? A deck and everything under it ("ENARSI" includes "ENARSI::OSPF").
+function fcDeckSet(id){
+  const d=FC.decks.get(id);if(!d)return new Set([id]);
+  const out=new Set();FC.decks.forEach(x=>{if(x.name===d.name||x.name.startsWith(d.name+"::"))out.add(x.id)});return out;
+}
+async function fcDoneToday(){
+  const d=await fcOpen(),rows=await fcReq(d.transaction("revlog").objectStore("revlog").index("d").getAll(IDBKeyRange.only(fcDay())));
+  const nw=new Map(),rv=new Map();
+  for(const r of rows){if(r.f===1)nw.set(r.deck,(nw.get(r.deck)||0)+1);if(r.t===2)rv.set(r.deck,(rv.get(r.deck)||0)+1)}
+  return{nw,rv,rows};
+}
+const fcSum=(m,set)=>{let n=0;set.forEach(id=>{n+=m.get(id)||0});return n};
+const fcShuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+// ---- the study session
+const ST={on:false,ids:null,name:"",cram:false,rev:[],nw:[],lrn:new Set(),cur:null,card:null,shown:false,undo:[],n:0,ok:0,t0:0,busy:false};
+async function fcStart(deckId,cram,setArg,nameArg){
+  await fcLoad();
+  const set=setArg||(deckId==null?new Set(FC.decks.keys()):fcDeckSet(deckId)),today=fcDay();
+  Object.assign(ST,{on:true,ids:set,name:nameArg||(deckId==null?"All decks":(FC.decks.get(deckId)||{}).name||"Deck"),cram:!!cram,rev:[],nw:[],lrn:new Set(),cur:null,card:null,shown:false,undo:[],n:0,ok:0,t0:Date.now(),busy:false});
+  if(cram){
+    const all=[];FC.sched.forEach(s=>{if(set.has(s.deck)&&!s.susp)all.push(s.id)});
+    ST.rev=fcShuffle(all).slice(0,50);
+  }else{
+    const done=await fcDoneToday(),limN=Math.max(0,FC.cfg.newPerDay-fcSum(done.nw,set)),limR=Math.max(0,FC.cfg.revPerDay-fcSum(done.rv,set));
+    const rev=[],nw=[];
+    FC.sched.forEach(s=>{
+      if(!set.has(s.deck)||s.susp)return;
+      if(s.st===1||s.st===3)ST.lrn.add(s.id);
+      else if(s.st===2){if(s.due<=today)rev.push(s)}
+      else nw.push(s);
+    });
+    rev.sort((a,b)=>a.due-b.due);ST.rev=fcShuffle(rev.slice(0,limR).map(s=>s.id));
+    nw.sort((a,b)=>a.id-b.id);ST.nw=nw.slice(0,limN).map(s=>s.id);
+  }
+  fcStudyUi(true);try{$("#fc").scrollIntoView({block:"start"})}catch(e){}
+  await fcNext();
+}
+function fcPick(){
+  const now=Date.now();let best=null;
+  for(const id of ST.lrn){const s=FC.sched.get(id);if(s&&s.due<=now&&(!best||s.due<best.due))best=s}
+  if(best){ST.lrn.delete(best.id);return best}
+  while(ST.rev.length){const s=FC.sched.get(ST.rev.shift());if(s&&!s.susp)return s}
+  while(ST.nw.length){const s=FC.sched.get(ST.nw.shift());if(s&&!s.susp&&s.st===0)return s}
+  for(const id of ST.lrn){const s=FC.sched.get(id);if(s&&s.due<=now+20*60000&&(!best||s.due<best.due))best=s}
+  if(best){ST.lrn.delete(best.id);return best}
+  return null;
+}
+async function fcNext(){
+  ST.shown=false;ST.busy=true;
+  const s=fcPick();
+  if(!s){ST.cur=null;ST.card=null;ST.busy=false;return fcStudyUi()}
+  ST.cur=s;ST.card=await fcGet("cards",s.id);
+  if(!ST.card){FC.sched.delete(s.id);return fcNext()}
+  ST.busy=false;await fcStudyUi();
+}
+async function fcAnswer(r){
+  if(!ST.on||!ST.cur||!ST.shown||ST.busy)return;
+  ST.busy=true;
+  const c=ST.cur;ST.n++;if(r>=2)ST.ok++;
+  if(ST.cram){
+    if(r===1)ST.rev.push(c.id);
+    ST.busy=false;return fcNext();
+  }
+  const {s,log}=fcSchedule(c,r);
+  let n=null;
+  try{n=await fcPutSched(s,log)}catch(e){ST.busy=false;alert("Could not save this answer: "+e.message);return}
+  ST.undo.push({old:c,n,day:fcDayYmd(log.d)});if(ST.undo.length>30)ST.undo.shift();
+  const y=fcDayYmd(log.d);S.fcDays[y]=(S.fcDays[y]||0)+1;save();
+  if(s.st===1||s.st===3)ST.lrn.add(s.id);
+  return fcNext();
+}
+async function fcUndo(){
+  if(!ST.on||ST.busy||!ST.undo.length)return;
+  ST.busy=true;
+  const u=ST.undo.pop();
+  try{
+    const d=await fcOpen(),tx=d.transaction(["sched","revlog"],"readwrite");
+    tx.objectStore("sched").put(u.old);if(u.n!=null)tx.objectStore("revlog").delete(u.n);await fcTxDone(tx);
+  }catch(e){ST.busy=false;alert("Could not undo: "+e.message);return}
+  FC.sched.set(u.old.id,u.old);ST.lrn.delete(u.old.id);
+  if(S.fcDays[u.day]){S.fcDays[u.day]--;if(S.fcDays[u.day]<=0)delete S.fcDays[u.day];save()}
+  if(ST.cur&&ST.cur.id!==u.old.id){   // the card on screen goes back to the front of its queue
+    const c=ST.cur;if(c.st===1||c.st===3)ST.lrn.add(c.id);else if(c.st===2)ST.rev.unshift(c.id);else ST.nw.unshift(c.id);
+  }
+  ST.n=Math.max(0,ST.n-1);
+  ST.cur=u.old;ST.card=await fcGet("cards",u.old.id);ST.shown=false;ST.busy=false;fcStudyUi();
+}
+async function fcSuspendCur(){
+  if(!ST.on||!ST.cur||ST.busy)return;
+  const s=Object.assign({},ST.cur,{susp:1});await fcPutSched(s);fcNext();
+}
+function fcExit(){
+  ST.on=false;ST.cur=null;ST.card=null;fcAiClose();fcFreeUrls();
+  const st=$("#fc-study");if(st)st.hidden=true;const h=$("#fc-home");if(h)h.hidden=false;
+  buildFc();
+}
+async function fcStudyUi(first){
+  const box=$("#fc-study");if(!box)return;
+  const home=$("#fc-home");if(home)home.hidden=true;box.hidden=false;
+  const cnt=()=>{const c=ST.cur,k=c?(c.st===0?"n":c.st===2?"r":"l"):"";
+    return ST.cram?`<span class="fc-cnt"><b class="on">${ST.rev.length+(ST.cur?1:0)}</b> left (practice, your schedule is not changed)</span>`
+      :`<span class="fc-cnt"><span class="${k==="n"?"on":""}">New <b>${ST.nw.length+(k==="n"?1:0)}</b></span><span class="${k==="l"?"on":""}">Learning <b>${ST.lrn.size+(k==="l"?1:0)}</b></span><span class="${k==="r"?"on":""}">To review <b>${ST.rev.length+(k==="r"?1:0)}</b></span></span>`};
+  if(first){
+    box.innerHTML=`<div class="fc-bar"><b class="fc-title"></b><span id="fc-counts"></span><span class="fc-sp"></span><button class="btn btn-sm" id="fc-ai-btn" title="Ask Gemini to explain this card">Ask AI</button><button class="btn btn-sm" id="fc-undo" title="Undo (U)">Undo</button><button class="btn btn-sm" id="fc-susp" title="Hide this card from review">Suspend</button><button class="btn btn-sm" id="fc-exit" title="Esc">Done</button></div>
+    <div class="fc-card" id="fc-card"><div class="fc-face" id="fc-face" tabindex="-1"></div></div><div id="fc-act"></div><div class="fc-ai" id="fc-ai" hidden></div>`;
+    box.querySelector(".fc-title").textContent=ST.name+(ST.cram?" · practice":"");
+    $("#fc-exit").onclick=fcExit;$("#fc-undo").onclick=fcUndo;$("#fc-ai-btn").onclick=()=>fcAiToggle($("#fc-ai"),()=>ST.card);$("#fc-susp").onclick=fcSuspendCur;
+    $("#fc-card").onclick=e=>{if(!ST.shown&&ST.cur&&!e.target.closest("audio,details"))fcReveal()};
+    return;
+  }
+  $("#fc-counts").innerHTML=cnt();
+  $("#fc-undo").disabled=!ST.undo.length||ST.cram;$("#fc-susp").disabled=!ST.cur;
+  const act=$("#fc-act"),face=$("#fc-face");
+  if(!ST.cur){
+    let wait=null;const now=Date.now();ST.lrn.forEach(id=>{const s=FC.sched.get(id);if(s&&(wait===null||s.due<wait))wait=s.due});
+    const mins=Math.floor((Date.now()-ST.t0)/60000);
+    face.innerHTML=`<div class="fc-done"><h3>${ST.n?"Well done":"Nothing due"}</h3><p>${ST.n?`You answered <b>${ST.n}</b> card${ST.n>1?"s":""}${ST.n?` (${Math.round(ST.ok/ST.n*100)}% not forgotten)`:""} in ${mins<1?"under a minute":mins+" min"}.`:"There are no cards to review in this deck right now."}${wait!==null&&!ST.cram?` ${ST.lrn.size} card${ST.lrn.size>1?"s are":" is"} waiting for their next step in ${Math.max(1,Math.round((wait-now)/60000))} min.`:""}</p></div>`;
+    act.innerHTML=`<div class="row">${wait!==null&&!ST.cram?`<button class="btn on" id="fc-again">Study waiting cards now</button>`:""}<button class="btn btn-sm" id="fc-back">Back to decks</button></div>`;
+    $("#fc-back").onclick=fcExit;
+    const ag=$("#fc-again");if(ag)ag.onclick=()=>{ST.lrn.forEach(id=>{const s=FC.sched.get(id);if(s)FC.sched.set(id,Object.assign({},s,{due:Date.now()}))});fcNext()};
+    return;
+  }
+  await fcShow(face,ST.card.f);fcAiSync();
+  act.innerHTML=`<div class="row"><button class="btn on fc-showbtn" id="fc-show">Show answer <kbd>Space</kbd></button></div>`;
+  $("#fc-show").onclick=fcReveal;
+  face.scrollTop=0;
+}
+async function fcReveal(){
+  if(!ST.cur||ST.shown||ST.busy)return;
+  ST.shown=true;const c=ST.cur;
+  await fcShow($("#fc-face"),ST.card.b);
+  const names=["Again","Hard","Good","Easy"];
+  $("#fc-act").innerHTML=`<div class="fc-rate">${[1,2,3,4].map(r=>`<button class="btn fc-r${r}" data-r="${r}"><span>${ST.cram?(r===1?"repeat":"next"):fcLabel(c,r)}</span>${names[r-1]} <kbd>${r}</kbd></button>`).join("")}</div>`;
+  $("#fc-act").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>fcAnswer(+b.dataset.r));
+}
+// keyboard while studying: Space or Enter shows the answer (then means Good), 1-4 rate, U undoes, Esc leaves
+document.addEventListener("keydown",e=>{
+  if(!ST.on||curTab!=="fc"||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(document.querySelector("dialog[open]"))return;
+  const t=e.target;if(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))return;
+  const k=e.key;let used=true;
+  if(k===" "||k==="Enter"){if(ST.cur&&!ST.shown)fcReveal();else if(ST.cur&&ST.shown)fcAnswer(3);else used=false}
+  else if(/^[1-4]$/.test(k)){if(ST.cur&&ST.shown)fcAnswer(+k);else if(ST.cur&&k)used=true}
+  else if(k==="u"||k==="U")fcUndo();
+  else if(k==="Escape")fcExit();
+  else used=false;
+  if(used){e.preventDefault();e.stopImmediatePropagation()}
+},true);
+// ---------- Flashcards: the tab (deck list), import dialog, browse, add card, settings ----------
+const FCUI={open:null};
+function fcDlg(id,label){
+  let d=$("#"+id);
+  if(!d){document.body.insertAdjacentHTML("beforeend",`<dialog id="${id}" class="dlg fc-dlg" aria-label="${esc(label)}"></dialog>`);d=$("#"+id);d.addEventListener("click",e=>{if(e.target===d&&!d.dataset.lock)d.close()})}
+  return d;
+}
+const fcN=n=>Number(n).toLocaleString();
+function fcStreak(){
+  let n=0,d=fcDay();if(!S.fcDays[fcDayYmd(d)])d--;
+  while(S.fcDays[fcDayYmd(d)]){n++;d--}return n;
+}
+async function buildFc(){
+  const sec=$("#fc");if(!sec)return;
+  if(!$("#fc-home"))sec.innerHTML=`<div id="fc-home"></div><div id="fc-study" hidden></div>`;
+  if(ST.on||RD.on)return;
+  const home=$("#fc-home");
+  try{await fcLoad()}catch(e){home.innerHTML=`<div class="card"><h3>Flashcards</h3><p class="note">${esc(e.message)}</p></div>`;return}
+  const today=fcDay(),per=new Map();let total=0,susp=0;
+  FC.sched.forEach(s=>{
+    total++;if(s.susp){susp++;return}
+    let o=per.get(s.deck);if(!o)per.set(s.deck,o={n:0,l:0,r:0});
+    if(s.st===0)o.n++;else if(s.st===2){if(s.due<=today)o.r++}else o.l++;
+  });
+  const done=await fcDoneToday();
+  const reads=new Map();try{(await fcReq((await fcStore("meta")).getAll())).forEach(r=>{if(String(r.k).startsWith("read:"))reads.set(String(r.k).slice(5),r)})}catch(e){}
+  // tree of deck names, with "virtual" parents such as ENARSI when only ENARSI::OSPF holds cards
+  const names=new Set();FC.decks.forEach(d=>{const p=d.name.split("::");for(let i=1;i<=p.length;i++)names.add(p.slice(0,i).join("::"))});
+  const list=[...names].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"}));
+  if(FCUI.open===null&&list.length)FCUI.open=new Set(list.length<=14?list:[]);
+  const OP=FCUI.open||new Set();
+  const setOf=nm=>{const ids=new Set();FC.decks.forEach(d=>{if(d.name===nm||d.name.startsWith(nm+"::"))ids.add(d.id)});return ids};
+  const rows=[];let allDue=0,allNew=0;
+  const hidden=nm=>{const p=nm.split("::");for(let i=1;i<p.length;i++)if(!OP.has(p.slice(0,i).join("::")))return true;return false};
+  list.forEach(nm=>{
+    const ids=setOf(nm);let n=0,l=0,r=0,t=0;
+    ids.forEach(id=>{const o=per.get(id);if(o){n+=o.n;l+=o.l;r+=o.r}});
+    const nn=Math.min(n,Math.max(0,FC.cfg.newPerDay-fcSum(done.nw,ids))),rr=Math.min(r,Math.max(0,FC.cfg.revPerDay-fcSum(done.rv,ids)));
+    const depth=nm.split("::").length-1,hasKids=list.some(x=>x.startsWith(nm+"::"));
+    if(depth===0){allDue+=rr+l;allNew+=nn}
+    if(hidden(nm))return;
+    rows.push(`<tr><td class="fc-name" style="padding-left:${10+depth*18}px">${hasKids?`<button class="fc-tg" data-tg="${esc(nm)}" aria-label="${OP.has(nm)?"Collapse":"Expand"} ${esc(nm)}">${OP.has(nm)?"▾":"▸"}</button>`:`<span class="fc-tg"></span>`}${esc(nm.split("::").pop())}${reads.get(nm)?`<span class="fc-prog">${reads.get(nm).f>=reads.get(nm).n?"gone through ✓":"gone through "+fcN(reads.get(nm).f)+" of "+fcN(reads.get(nm).n)}</span>`:""}</td>
+      <td class="fc-c ${nn?"n":""}">${fcN(nn)}</td><td class="fc-c ${l?"l":""}">${fcN(l)}</td><td class="fc-c ${rr?"r":""}">${fcN(rr)}</td>
+      <td class="fc-go"><button class="btn btn-sm ${nn+l+rr?"on":""}" data-study="${esc(nm)}">Study</button><button class="btn btn-sm" data-read="${esc(nm)}" title="Show every card once, in order. No ratings, and your place is remembered">Go through</button><button class="btn btn-sm" data-cram="${esc(nm)}" title="Review 50 random cards without changing the schedule">Random 50</button></td></tr>`);
+  });
+  const week=[];for(let i=13;i>=0;i--){week.push(S.fcDays[fcDayYmd(today-i)]||0)}
+  const mx=Math.max(1,...week),streak=fcStreak(),todayN=S.fcDays[fcDayYmd(today)]||0;
+  home.innerHTML=`<div class="card fc-top"><div><h3>Flashcards</h3><p class="note">Spaced-repetition review, like Anki. Your cards stay in this browser and are included in the backup.</p></div>
+    <div class="row"><button class="btn on" id="fc-imp">Import cards</button><button class="btn btn-sm" id="fc-add">Add a card</button><button class="btn btn-sm" id="fc-brw" ${total?"":"disabled"}>Browse</button><button class="btn btn-sm" id="fc-set">Settings and backup</button></div></div>
+    ${total?`<div class="card"><div class="fc-stats"><div><b>${fcN(total)}</b><span>cards</span></div><div><b>${fcN(allNew)}</b><span>new today</span></div><div><b>${fcN(allDue)}</b><span>due today</span></div><div><b>${fcN(todayN)}</b><span>answered today</span></div><div><b>${streak}</b><span>day streak</span></div>
+      <div class="fc-bars" aria-label="Cards answered in the last 14 days">${week.map(v=>`<i style="height:${Math.max(3,Math.round(v/mx*34))}px" title="${v}"></i>`).join("")}</div></div></div>
+    <div class="card fc-decks"><table><thead><tr><th>Deck</th><th class="fc-c">New</th><th class="fc-c">Learning</th><th class="fc-c">Due</th><th></th></tr></thead><tbody>${rows.join("")}</tbody></table>
+      <div class="row"><button class="btn ${allNew+allDue?"on":""}" id="fc-all">Study everything due</button>${susp?`<span class="note">${fcN(susp)} suspended card${susp>1?"s":""} are hidden from review (see Browse).</span>`:""}</div></div>`
+    :`<div class="card"><h4>Bring your Anki cards in</h4>
+      <p class="note">Click <b>Import cards</b> and pick a file exported from Anki. Both of these work:</p>
+      <ul class="fc-help"><li><b>Anki Deck Package (.apkg)</b>: in Anki choose File → Export, format “Anki Deck Package”, and tick <b>Support older Anki versions</b>. Images, sound and your review history come along.</li>
+      <li><b>Notes in Plain Text (.txt)</b>, or any .csv / .tsv with the question in the first column and the answer in the second.</li></ul>
+      <p class="note">Thousands of cards are fine. Everything happens on this device; nothing is uploaded.</p></div>`}`;
+  $("#fc-imp").onclick=fcImportDlg;$("#fc-add").onclick=fcAddDlg;$("#fc-set").onclick=fcSettingsDlg;
+  const b=$("#fc-brw");if(b)b.onclick=fcBrowseDlg;const a=$("#fc-all");if(a)a.onclick=()=>fcStart(null,false);
+  home.querySelectorAll("[data-tg]").forEach(x=>x.onclick=()=>{const k=x.dataset.tg;FCUI.open.has(k)?FCUI.open.delete(k):FCUI.open.add(k);buildFc()});
+  home.querySelectorAll("[data-study]").forEach(x=>x.onclick=()=>fcStart(null,false,setOf(x.dataset.study),x.dataset.study));
+  home.querySelectorAll("[data-read]").forEach(x=>x.onclick=()=>fcReadStart(x.dataset.read,setOf(x.dataset.read)));
+  home.querySelectorAll("[data-cram]").forEach(x=>x.onclick=()=>fcStart(null,true,setOf(x.dataset.cram),x.dataset.cram));
+}
+// ---- import dialog
+function fcImportDlg(files){
+  const dlg=fcDlg("fc-impdlg","Import flashcards");dlg.dataset.lock="";
+  dlg.innerHTML=`<h3>Import flashcards</h3>
+    <p class="note">Choose an Anki package (<b>.apkg</b>) or a text file (<b>.txt</b>, <b>.csv</b>, <b>.tsv</b>). Cards you already imported are skipped, so importing the same file twice is safe.</p>
+    <div class="row"><input type="file" id="fci-file" multiple accept=".apkg,.colpkg,.txt,.tsv,.csv,.tab,text/plain,text/csv"></div>
+    <div id="fci-list"></div><div id="fci-prog" hidden><div class="fc-pbar"><i id="fci-bar"></i></div><div class="note" id="fci-ptxt"></div></div><div class="msg" id="fci-msg" role="status"></div>
+    <div class="row"><button class="btn on" id="fci-go" disabled>Import</button><button class="btn btn-sm" id="fci-close">Close</button></div>`;
+  const panels=[];
+  const setMsg=(t,err)=>{const m=$("#fci-msg");m.textContent=t||"";m.className="msg"+(err?" err":"")};
+  $("#fci-close").onclick=()=>{if(dlg.dataset.run)return;dlg.close();buildFc()};
+  dlg.oncancel=e=>{if(dlg.dataset.run)e.preventDefault()};
+  async function addFile(file){
+    const id="fcp"+panels.length,box=document.createElement("div");box.className="fci-item";box.innerHTML=`<b>${esc(file.name)}</b> <span class="note">reading…</span>`;$("#fci-list").append(box);
+    const P={file,box,ok:false};panels.push(P);
+    try{
+      if(/\.(apkg|colpkg|zip)$/i.test(file.name)){
+        const plan=await fcReadApkg(file);P.plan=plan;P.kind="apkg";
+        const sk=plan.skipped.blank+plan.skipped.model;
+        box.innerHTML=`<b>${esc(file.name)}</b><div class="note">${fcN(plan.cards.length)} cards in ${plan.deckNames.length} deck${plan.deckNames.length===1?"":"s"}${plan.media.length?`, ${fcN(plan.media.length)} image/sound files`:""}.${sk?` ${fcN(sk)} empty or unsupported cards will be left out.`:""}<br>${esc(plan.deckNames.slice(0,6).join(" · "))}${plan.deckNames.length>6?" …":""}</div>
+          ${plan.sched?`<label class="fc-chk"><input type="checkbox" class="fci-keep" checked> Keep my Anki review history and due dates (${fcN(plan.sched)} cards have some)</label>`:""}`;
+        P.ok=plan.cards.length>0;if(!P.ok)box.innerHTML+=`<div class="msg err">There are no cards in this package.</div>`;
+      }else{
+        const parsed=fcParseText(await file.text());P.parsed=parsed;P.kind="text";
+        if(!parsed.rows.length)throw new Error("The file is empty.");
+        const nc=Math.min(60,Math.max(...parsed.rows.slice(0,200).map(r=>r.length)));
+        const roles=Array.from({length:nc},(_,i)=>"skip");
+        const c=parsed.cols,used=new Set([c.tags,c.deck,c.guid,c.notetype].filter(x=>x>=0));
+        if(c.tags>=0)roles[c.tags]="tags";if(c.deck>=0)roles[c.deck]="deck";if(c.guid>=0)roles[c.guid]="guid";
+        let k=0;for(let i=0;i<nc;i++){if(used.has(i))continue;if(k===0)roles[i]="front";else if(k===1)roles[i]="back";k++}
+        const hdr=!Object.keys(parsed.dir).length&&parsed.rows[0].some(x=>/^(front|back|question|answer|tags?|deck|text|extra)$/i.test(x.trim()));
+        const opts=["front","back","tags","deck","guid","skip"],lbl={front:"Front (question)",back:"Back (answer)",tags:"Tags",deck:"Deck",guid:"ID",skip:"Ignore"};
+        const show=parsed.rows.slice(0,4);
+        box.innerHTML=`<b>${esc(file.name)}</b><div class="note">${fcN(parsed.rows.length)} rows found. Tell me what each column is:</div>
+          <div class="fci-tbl"><table><thead><tr>${roles.map((r,i)=>`<th><select data-col="${i}" aria-label="Column ${i+1}">${opts.map(o=>`<option value="${o}" ${o===r?"selected":""}>${lbl[o]}</option>`).join("")}</select></th>`).join("")}</tr></thead>
+          <tbody>${show.map(r=>`<tr>${roles.map((_,i)=>`<td>${esc(String(r[i]||"").replace(/<[^>]*>/g," ").slice(0,70))}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+          <div class="row"><label class="fc-chk"><input type="checkbox" class="fci-hdr" ${hdr?"checked":""}> First row is a header</label><label class="fc-chk"><input type="checkbox" class="fci-html" ${parsed.html||parsed.rows.slice(0,50).some(r=>r.some(x=>/<(b|i|br|div|span|img)\b/i.test(x)))?"checked":""}> Cells contain HTML</label></div>
+          <label class="fci-deck">Deck name <input type="text" class="fci-dn" value="${esc(file.name.replace(/\.[^.]+$/,"").replace(/[:]+/g,"-").slice(0,80))}" maxlength="120"></label>`;
+        P.ok=true;
+      }
+    }catch(e){box.innerHTML=`<b>${esc(file.name)}</b><div class="msg err">${esc(e.message)}</div>`}
+    $("#fci-go").disabled=!panels.some(p=>p.ok);
+  }
+  $("#fci-file").onchange=async e=>{const fs=[...e.target.files];e.target.value="";for(const f of fs)await addFile(f)};
+  $("#fci-go").onclick=async()=>{
+    const todo=panels.filter(p=>p.ok&&!p.done);if(!todo.length)return;
+    dlg.dataset.run="1";$("#fci-go").disabled=true;$("#fci-file").disabled=true;$("#fci-prog").hidden=false;setMsg("");
+    const report=[];
+    try{
+      for(const p of todo){
+        let plan=p.plan,keep=true;
+        if(p.kind==="text"){
+          const roles=[...p.box.querySelectorAll("[data-col]")].map(s=>s.value);
+          if(!roles.includes("front")){setMsg("Choose which column is the Front (question).",true);throw new Error("stop")}
+          const dn=(p.box.querySelector(".fci-dn").value||"Imported").replace(/\s*::\s*/g,"::").trim()||"Imported";
+          plan=fcTextCards(p.parsed,roles,{header:p.box.querySelector(".fci-hdr").checked,html:p.box.querySelector(".fci-html").checked,deck:dn});
+        }else{const k=p.box.querySelector(".fci-keep");keep=k?k.checked:true}
+        const r=await fcCommit(plan,{keepSched:keep},(t,f)=>{$("#fci-ptxt").textContent=p.file.name+": "+t;$("#fci-bar").style.width=Math.round(f*100)+"%"});
+        p.done=true;
+        report.push(`<b>${esc(p.file.name)}</b>: ${fcN(r.added)} cards added${r.dup+(plan.dup||0)?`, ${fcN(r.dup+(plan.dup||0))} already there or duplicates`:""}${r.media?`, ${fcN(r.media)} media files`:""}${plan.blank?`, ${fcN(plan.blank)} empty rows skipped`:""}.`);
+        p.box.innerHTML=`<div class="fc-ok">✓ ${report[report.length-1]}</div>`;
+      }
+      $("#fci-prog").hidden=true;setMsg("");
+      $("#fci-list").insertAdjacentHTML("beforeend",`<p class="note">All done. Export a backup now to keep a copy of these cards.</p>`);
+      toast("Flashcards imported");
+    }catch(e){if(e.message!=="stop")setMsg("Import stopped: "+e.message,true);$("#fci-prog").hidden=true}
+    delete dlg.dataset.run;$("#fci-file").disabled=false;$("#fci-go").disabled=!panels.some(p=>p.ok&&!p.done);
+    buildFc();
+  };
+  dlg.showModal();
+  if(files&&files.length)(async()=>{for(const f of files)await addFile(f)})();
+}
+// ---- add a card by hand
+async function fcAddDlg(){
+  await fcLoad();
+  const dlg=fcDlg("fc-adddlg","Add a flashcard"),decks=[...FC.decks.values()].map(d=>d.name).sort();
+  dlg.innerHTML=`<h3>Add a flashcard</h3><div class="f2"><label>Deck<input type="text" id="fca-deck" list="fca-dl" maxlength="120" value="${esc(S.fcLastDeck||decks[0]||"ENARSI")}"><datalist id="fca-dl">${decks.map(d=>`<option value="${esc(d)}">`).join("")}</datalist></label>
+    <label>Front (question or scenario)<textarea id="fca-f" rows="4"></textarea></label><label>Back (answer)<textarea id="fca-b" rows="5"></textarea></label><label>Tags (optional, separated by spaces)<input type="text" id="fca-t" maxlength="200"></label></div>
+    <div class="msg" id="fca-msg" role="status"></div><div class="row"><button class="btn on" id="fca-save">Add card</button><button class="btn btn-sm" id="fca-close">Close</button></div>`;
+  $("#fca-close").onclick=()=>{dlg.close();buildFc()};
+  $("#fca-save").onclick=async()=>{
+    const f=$("#fca-f").value.trim(),b=$("#fca-b").value.trim(),m=$("#fca-msg");
+    if(!f||!b){m.className="msg err";m.textContent="Fill in both the front and the back.";return}
+    const dn=($("#fca-deck").value||"Default").trim(),id=await fcDeckId(dn);S.fcLastDeck=dn.slice(0,120);
+    const fh=fcClean(fcText(f)),bh=fcClean(fcText(f)+"<hr id=answer>"+fcText(b));
+    await fcAddCards([{key:"m:"+Date.now().toString(36)+Math.random().toString(36).slice(2,8),deck:id,f:fh,b:bh,tags:$("#fca-t").value.trim()}]);save();
+    $("#fca-f").value="";$("#fca-b").value="";m.className="msg";m.textContent="Added. "+fcN(FC.sched.size)+" cards in total.";$("#fca-f").focus();
+  };
+  dlg.showModal();$("#fca-f").focus();
+}
+// ---- browse and search
+async function fcBrowseDlg(){
+  await fcLoad();
+  const dlg=fcDlg("fc-brwdlg","Browse flashcards"),decks=[...FC.decks.values()].sort((a,b)=>a.name.localeCompare(b.name));
+  dlg.innerHTML=`<h3>Browse cards</h3><div class="row"><input type="text" id="fcb-q" placeholder="Search questions, answers and tags" aria-label="Search cards" style="flex:1;min-width:200px"><select id="fcb-d" aria-label="Deck"><option value="">All decks</option>${decks.map(d=>`<option value="${d.id}">${esc(d.name)}</option>`).join("")}</select></div>
+    <div class="note" id="fcb-n"></div><div id="fcb-list"></div><div class="row"><button class="btn btn-sm" id="fcb-close">Close</button></div>`;
+  $("#fcb-close").onclick=()=>{dlg.close();buildFc()};
+  let tok=0;
+  async function run(){
+    const my=++tok,toks=$("#fcb-q").value.toLowerCase().split(/\s+/).filter(Boolean),dk=+$("#fcb-d").value||0,hit=[];
+    const d=await fcOpen();let more=false;
+    await new Promise((res,rej)=>{
+      const rq=d.transaction("ftx").objectStore("ftx").openCursor();
+      rq.onsuccess=()=>{const c=rq.result;if(!c||my!==tok){res();return}
+        const s=FC.sched.get(c.value.id);
+        if(s&&(!dk||s.deck===dk)&&toks.every(t=>c.value.t.includes(t))){if(hit.length>=100){more=true;res();return}hit.push(c.value.id)}
+        c.continue()};
+      rq.onerror=()=>rej(rq.error);
+    });
+    if(my!==tok)return;
+    const recs=await Promise.all(hit.map(id=>fcGet("cards",id)));
+    $("#fcb-n").textContent=hit.length?`${more?"First 100 matches. Type more to narrow it down.":hit.length+" match"+(hit.length>1?"es":"")}`:"No cards match.";
+    $("#fcb-list").innerHTML=recs.filter(Boolean).map(c=>{
+      const s=FC.sched.get(c.id)||{},dn=(FC.decks.get(c.deck)||{}).name||"",state=s.susp?"suspended":s.st===0?"new":s.st===2?"interval "+s.ivl+"d":"learning";
+      return`<div class="fcb-row" data-id="${c.id}"><div class="fcb-h"><span class="fcb-t">${esc(fcPlain(c.f).slice(0,140))||"(image)"}</span><span class="fcb-m">${esc(dn)} · ${state}</span></div><div class="fcb-body" hidden></div>
+        <div class="fcb-a"><button class="btn btn-sm" data-a="view">Show</button><button class="btn btn-sm" data-a="susp">${s.susp?"Unsuspend":"Suspend"}</button><button class="btn btn-sm" data-a="del">Delete</button></div></div>`}).join("");
+  }
+  $("#fcb-list").onclick=async e=>{
+    const b=e.target.closest("[data-a]");if(!b)return;
+    const row=b.closest(".fcb-row"),id=+row.dataset.id,a=b.dataset.a;
+    if(a==="view"){
+      const body=row.querySelector(".fcb-body");
+      if(!body.hidden){body.hidden=true;b.textContent="Show";return}
+      const c=await fcGet("cards",id);body.hidden=false;b.textContent="Hide";await fcShow(body,c.b);
+    }else if(a==="susp"){
+      const s=FC.sched.get(id);if(!s)return;await fcPutSched(Object.assign({},s,{susp:s.susp?0:1}));run();
+    }else if(a==="del"){
+      if(!confirm("Delete this card for good?"))return;await fcDeleteCards([id]);run();
+    }
+  };
+  let t=0;$("#fcb-q").oninput=()=>{clearTimeout(t);t=setTimeout(run,220)};$("#fcb-d").onchange=run;
+  dlg.showModal();$("#fcb-q").focus();run();
+}
+// ---- settings, storage and backup
+async function fcSettingsDlg(){
+  await fcLoad();
+  const dlg=fcDlg("fc-setdlg","Flashcard settings"),decks=[...FC.decks.values()].sort((a,b)=>a.name.localeCompare(b.name));
+  let est="";try{if(navigator.storage&&navigator.storage.estimate){const e=await navigator.storage.estimate(),p=navigator.storage.persisted?await navigator.storage.persisted():null;
+    est=`Storage used by this app: ${(e.usage/1048576).toFixed(1)} MB of about ${Math.round(e.quota/1048576).toLocaleString()} MB available.${p===true?" The browser has promised to keep it.":p===false?" The browser may clear it if the device runs low on space, so keep backups.":""}`}}catch(e){}
+  dlg.innerHTML=`<h3>Flashcard settings</h3>
+    <div class="f2"><label>New cards per day (per deck you study)<input type="number" id="fcs-n" min="0" max="9999" value="${FC.cfg.newPerDay}"></label><label>Reviews per day<input type="number" id="fcs-r" min="0" max="9999" value="${FC.cfg.revPerDay}"></label></div>
+    <h4>Backup</h4><p class="note">${fcN(FC.sched.size)} cards. Export backup (button in the top bar) saves your progress and all flashcards, with images and sound, in one file. It can be encrypted with a passphrase. ${esc(est)}</p>
+    <div class="row"><button class="btn btn-sm on" id="fcs-exp">Export backup</button><button class="btn btn-sm" id="fcs-persist">Ask the browser to keep my data</button></div>
+    <h4>Remove</h4><div class="row"><select id="fcs-deck" aria-label="Deck to delete">${decks.map(d=>`<option value="${d.id}">${esc(d.name)}</option>`).join("")}</select><button class="btn btn-sm" id="fcs-deldeck" ${decks.length?"":"disabled"}>Delete this deck</button><button class="btn btn-sm" id="fcs-delall" ${decks.length?"":"disabled"}>Delete all flashcards</button></div>
+    <div class="msg" id="fcs-msg" role="status"></div><div class="row"><button class="btn on" id="fcs-save">Save</button><button class="btn btn-sm" id="fcs-close">Close</button></div>`;
+  const msg=(t,err)=>{const m=$("#fcs-msg");m.className="msg"+(err?" err":"");m.textContent=t};
+  $("#fcs-close").onclick=()=>{dlg.close();buildFc()};
+  $("#fcs-save").onclick=async()=>{FC.cfg=fcCleanCfg({newPerDay:$("#fcs-n").value,revPerDay:$("#fcs-r").value});try{await fcSaveCfg();msg("Saved.")}catch(e){msg(e.message,true)}};
+  $("#fcs-exp").onclick=()=>{dlg.close();exportBackup()};
+  $("#fcs-persist").onclick=async()=>{try{const ok=navigator.storage&&navigator.storage.persist?await navigator.storage.persist():false;msg(ok?"Done. The browser will keep your cards unless you clear site data yourself.":"The browser did not agree. Installing the app to your home screen or using it often usually helps. Keep backups either way.",!ok)}catch(e){msg(e.message,true)}};
+  $("#fcs-deldeck").onclick=async()=>{
+    const id=+$("#fcs-deck").value,d=FC.decks.get(id);if(!d)return;
+    const ids=[];FC.sched.forEach(s=>{if(s.deck===id)ids.push(s.id)});
+    if(!confirm(`Delete the deck “${d.name}” and its ${fcN(ids.length)} cards? This cannot be undone (a backup file can restore them).`))return;
+    await fcDeleteCards(ids);const os=await fcStore("decks","readwrite");await fcReq(os.delete(id));FC.decks.delete(id);fcSettingsDlg();
+  };
+  $("#fcs-delall").onclick=async()=>{
+    if(!confirm(`Delete ALL ${fcN(FC.sched.size)} flashcards, with their review history, images and sound? This cannot be undone.`))return;
+    await fcClearAll();FCUI.open=null;dlg.close();buildFc();toast("All flashcards deleted");
+  };
+  dlg.showModal();
+}
+// ---- Today panel row (filled in after the panel opens, because the numbers come from the database)
+async function fcTodayFill(){
+  const el=$("#td-fc");if(!el||!(S.fcN>0))return;
+  try{
+    await fcLoad();const today=fcDay(),done=await fcDoneToday();let n=0,l=0,r=0;
+    FC.sched.forEach(s=>{if(s.susp)return;if(s.st===0)n++;else if(s.st===2){if(s.due<=today)r++}else l++});
+    const nn=Math.min(n,Math.max(0,FC.cfg.newPerDay-fcSum(done.nw,new Set(FC.decks.keys())))),rr=r+l;
+    el.innerHTML=`<h4>Flashcards</h4><div class="td-row"><div>${rr+nn?`<b>${fcN(rr)}</b> due for review and <b>${fcN(nn)}</b> new`:"All caught up ✓"} <span class="note">· ${fcN(S.fcDays[fcDayYmd(today)]||0)} answered today</span></div><button class="btn btn-sm" data-fcgo>Open</button></div>`;
+    el.querySelector("[data-fcgo]").onclick=()=>{$("#todaydlg").close();showTab("fc")};
+  }catch(e){}
+}
+// ---------- Backup and restore that include the flashcards ----------
+// With flashcards, a backup is one stream of JSON lines: progress, decks, cards, schedules, review log, then images and sound.
+// The stream is compressed (gzip) and, if you give a passphrase, encrypted in 1 MB frames (AES-256-GCM). It is written and
+// read piece by piece, so tens of thousands of cards do not need to fit in memory at once. Files without flashcards keep
+// using the plain JSON backup format, and old backups still restore.
+const FC_FRAME=1<<20;
+const fcBe32=n=>new Uint8Array([n>>>24,(n>>>16)&255,(n>>>8)&255,n&255]);
+const fcCat=a=>{if(a.length===1)return a[0];let n=0;a.forEach(x=>n+=x.length);const o=new Uint8Array(n);let p=0;a.forEach(x=>{o.set(x,p);p+=x.length});return o};
+async function fcHasCards(){try{return(await fcCount("sched"))>0}catch(e){return false}}
+async function fcSyncCount(){try{S.fcN=await fcCount("sched");FC.loaded=false;save();buildNudge()}catch(e){}}
+function fcBusy(title){
+  const d=fcDlg("fc-busydlg","Please wait");d.dataset.lock="1";
+  d.innerHTML=`<h3></h3><div class="fc-pbar"><i style="width:100%;animation:fcpulse 1.2s infinite"></i></div><p class="note" id="fcbz-t"></p>`;
+  d.querySelector("h3").textContent=title;d.oncancel=e=>e.preventDefault();d.showModal();
+  return{set:t=>{const e=$("#fcbz-t");if(e)e.textContent=t},close:()=>{d.oncancel=null;d.close()}};
+}
+async function fcBuildBackup(o){
+  const enc=new TextEncoder(),gz=typeof CompressionStream!=="undefined",out=[],prog=o.progress||(()=>{});
+  let key=null,counter=0,buf=[],bufLen=0,held=null;
+  if(o.pass){
+    if(!canCrypto())throw new Error("Encryption is not available in this browser here.");
+    const salt=crypto.getRandomValues(new Uint8Array(16)),iter=250000;key=await deriveKey(o.pass,salt,iter);
+    out.push(enc.encode("BGCE"),new Uint8Array([1,gz?1:0]),salt,fcBe32(iter));
+  }
+  const seal=async(bytes,last)=>{
+    const iv=crypto.getRandomValues(new Uint8Array(12)),aad=new Uint8Array([...fcBe32(counter++),last?1:0]);
+    const ct=new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv,additionalData:aad},key,bytes));out.push(fcBe32(ct.length),iv,ct);
+  };
+  const emit=async u8=>{
+    if(!key){out.push(u8);return}
+    buf.push(u8);bufLen+=u8.length;
+    while(bufLen>=FC_FRAME){const all=fcCat(buf),chunk=all.slice(0,FC_FRAME),rest=all.slice(FC_FRAME);buf=[rest];bufLen=rest.length;if(held)await seal(held,false);held=chunk}
+  };
+  let writer=null,collect=null;
+  if(gz){
+    const cs=new CompressionStream("gzip");writer=cs.writable.getWriter();
+    collect=(async()=>{const rd=cs.readable.getReader();for(;;){const r=await rd.read();if(r.done)break;await emit(r.value)}})();
+  }
+  const put=async lines=>{const d=enc.encode(lines.join("\n")+"\n");if(writer)await writer.write(d);else await emit(d)};
+  const cnt={cards:0,sched:0,decks:0,rev:0,media:0};
+  const job=(async()=>{
+    await put([JSON.stringify({t:"hdr",app:"daily-brain-gym",v:6,at:new Date().toISOString()}),JSON.stringify({t:"state",data:S}),JSON.stringify({t:"cfg",v:FC.cfg})]);
+    const decks=await fcReq((await fcStore("decks")).getAll());cnt.decks=decks.length;
+    if(decks.length)await put(decks.map(d=>JSON.stringify({t:"deck",d})));
+    prog("Packing cards…");
+    await fcEachPage("cards",400,async rows=>{cnt.cards+=rows.length;await put(rows.map(c=>JSON.stringify({t:"card",c})));prog(`Packing cards: ${fcN(cnt.cards)}`)});
+    await fcEachPage("sched",2000,async rows=>{cnt.sched+=rows.length;await put(rows.map(s=>JSON.stringify({t:"sched",s})))});
+    await fcEachPage("revlog",2000,async rows=>{cnt.rev+=rows.length;await put(rows.map(r=>JSON.stringify({t:"rev",r})))});
+    if(o.media)await fcEachPage("media",12,async rows=>{
+      for(const m of rows){const ab=new Uint8Array(await m.blob.arrayBuffer());await put([JSON.stringify({t:"media",name:m.name,type:m.blob.type||"",b64:b64(ab)})]);cnt.media++}
+      prog(`Packing images and sound: ${fcN(cnt.media)}`);
+    });
+    await put([JSON.stringify({t:"end",cards:cnt.cards,sched:cnt.sched,decks:cnt.decks,rev:cnt.rev,media:cnt.media})]);
+    if(writer){await writer.close();await collect}
+    if(key){if(bufLen){if(held)await seal(held,false);held=fcCat(buf)}await seal(held||new Uint8Array(0),true)}
+  })();
+  await job;
+  return new Blob(out,{type:"application/octet-stream"});
+}
+// Reads a backup piece by piece and hands each record to onRec(record). Throws a readable error if the file is wrong.
+async function fcReadBackup(file,pass,onRec){
+  const head=new Uint8Array(await file.slice(0,32).arrayBuffer());
+  const isEnc=head[0]===66&&head[1]===71&&head[2]===67&&head[3]===69,isGz=head[0]===0x1f&&head[1]===0x8b;
+  let rs,gz=isGz;
+  if(isEnc){
+    if(!canCrypto())throw new Error("This browser cannot decrypt here (Web Crypto needs https or a local file in a current browser).");
+    if(head[4]!==1)throw new Error("This backup was made by a newer version of the app.");
+    gz=head[5]===1;
+    const iter=new DataView(head.buffer).getUint32(22);
+    if(!(iter>=100000&&iter<=2000000))throw new Error("The encrypted file is damaged.");
+    const key=await deriveKey(pass,head.slice(6,22),iter);let pos=26,counter=0;
+    rs=new ReadableStream({async pull(ctl){
+      if(pos>=file.size){ctl.close();return}
+      try{
+        const lenB=new DataView(await file.slice(pos,pos+4).arrayBuffer()),len=lenB.getUint32(0);
+        if(pos+16+len>file.size||len<16)throw new Error("short");
+        const iv=new Uint8Array(await file.slice(pos+4,pos+16).arrayBuffer()),ct=new Uint8Array(await file.slice(pos+16,pos+16+len).arrayBuffer());
+        const last=pos+16+len===file.size,aad=new Uint8Array([...fcBe32(counter++),last?1:0]);
+        pos+=16+len;
+        ctl.enqueue(new Uint8Array(await crypto.subtle.decrypt({name:"AES-GCM",iv,additionalData:aad},key,ct)));
+      }catch(e){ctl.error(new Error("Wrong passphrase, or the file is damaged or cut short."))}
+    }});
+  }else if(isGz)rs=file.stream();
+  else if(new TextDecoder().decode(head.subarray(0,10))==='{"t":"hdr"')rs=file.stream();
+  else throw new Error("This file is not a Brain Gym flashcard backup.");
+  if(gz){
+    if(typeof DecompressionStream==="undefined")throw new Error("This browser is too old to unpack the backup. Update it and try again.");
+    rs=rs.pipeThrough(new DecompressionStream("gzip"));
+  }
+  const rd=rs.getReader(),dec=new TextDecoder();let tail="";
+  const line=async l=>{if(!l)return;let r;try{r=JSON.parse(l)}catch(e){throw new Error("The backup is damaged (unreadable data).")}await onRec(r)};
+  try{
+    for(;;){
+      const x=await rd.read();if(x.done)break;
+      tail+=dec.decode(x.value,{stream:true});
+      let i,start=0;while((i=tail.indexOf("\n",start))>=0){await line(tail.slice(start,i));start=i+1}
+      tail=tail.slice(start);
+    }
+  }catch(e){if(isEnc&&!/damaged/.test(e.message)&&!/Wrong passphrase/.test(e.message))throw new Error("Wrong passphrase, or the file is damaged.");throw e}
+  tail+=dec.decode();await line(tail.trim());
+}
+async function fcRestoreFlow(file,pass){
+  const busy=fcBusy("Checking the backup…");
+  try{
+    // pass 1: read everything once without storing, so a bad file or a wrong passphrase changes nothing
+    let state=null,end=null,seen={card:0,sched:0,deck:0,rev:0,media:0},first=true;
+    await fcReadBackup(file,pass,r=>{
+      if(first){first=false;if(r.t!=="hdr"||r.app!=="daily-brain-gym")throw new Error("This file does not look like a Brain Gym backup.")}
+      if(r.t==="state")state=r.data;else if(r.t==="end")end=r;else if(seen[r.t]!==undefined&&r.t!=="state"){seen[r.t]++;if(seen.card%2000===0)busy.set(`Cards found: ${fcN(seen.card)}`)}
+    });
+    if(!end||!state||end.cards!==seen.card||end.sched!==seen.sched||end.media!==seen.media)throw new Error("The backup is incomplete (the file was cut short or damaged).");
+    busy.close();
+    if(!confirm(`Replace your current progress, custom scenarios, chat, API key and flashcards with this backup?\n\nIt holds ${fcN(end.cards)} flashcards${end.media?` and ${fcN(end.media)} images/sound files`:""}.`))return;
+    const b2=fcBusy("Restoring…");
+    try{
+      snapTake("Before import");
+      await fcClearAll();
+      let cards=[],sch=[],decks=[],revs=[],n=0;
+      const d=await fcOpen();
+      const flush=async()=>{
+        if(!(cards.length+sch.length+decks.length+revs.length))return;
+        const tx=d.transaction(["cards","sched","ftx","decks","revlog"],"readwrite");
+        cards.forEach(c=>{tx.objectStore("cards").put(c);tx.objectStore("ftx").put({id:c.id,t:fcPlain((c.f||"")+" "+(c.b||"")+" "+(c.tags||"")).toLowerCase().slice(0,3000)})});
+        sch.forEach(s=>tx.objectStore("sched").put(s));decks.forEach(x=>tx.objectStore("decks").put(x));revs.forEach(x=>tx.objectStore("revlog").put(x));
+        await fcTxDone(tx);cards=[];sch=[];decks=[];revs=[];await fcYield();
+      };
+      await fcReadBackup(file,pass,async r=>{
+        if(r.t==="card"&&r.c&&Number.isFinite(r.c.id)){cards.push({id:r.c.id,key:String(r.c.key||""),deck:r.c.deck,f:String(r.c.f||""),b:String(r.c.b||""),tags:String(r.c.tags||"")});n++}
+        else if(r.t==="sched"&&r.s&&Number.isFinite(r.s.id))sch.push(r.s);
+        else if(r.t==="deck"&&r.d&&Number.isFinite(r.d.id))decks.push({id:r.d.id,name:String(r.d.name||"Deck")});
+        else if(r.t==="rev"&&r.r)revs.push(r.r);
+        else if(r.t==="cfg"&&r.v){FC.cfg=Object.assign({newPerDay:20,revPerDay:200},fcCleanCfg(r.v));await fcSaveCfg()}
+        else if(r.t==="media"&&r.name&&typeof r.b64==="string"){
+          await flush();const nm=fcMediaName(r.name);
+          if(nm){const tx=d.transaction("media","readwrite");tx.objectStore("media").put({name:nm,blob:new Blob([unb64(r.b64)],{type:String(r.type||fcMime(nm))})});await fcTxDone(tx)}
+        }
+        if(cards.length+sch.length+revs.length>=1500){await flush();b2.set(`Restored cards: ${fcN(n)} of ${fcN(end.cards)}`)}
+      });
+      await flush();
+      FC.loaded=false;await fcLoad(true);
+      applyImport({app:"daily-brain-gym",data:state},true);
+      S.fcN=FC.sched.size;save();FCUI.open=null;buildFc();buildNudge();
+    }finally{b2.close()}
+  }catch(e){busy.close();alert("Restore failed: "+e.message)}
+}
+async function fcImportBackup(file,head){
+  const enc=head[0]===66&&head[1]===71&&head[2]===67&&head[3]===69;
+  if(enc){window._pendingImport={fcFile:file};$("#im-pass").value="";$("#im-msg").textContent="";$("#im-msg").className="msg";$("#impdlg").showModal();$("#im-pass").focus();return}
+  return fcRestoreFlow(file,null);
+}
+// ---------- Flashcards: ask Google Gemini to explain a card ----------
+// The card's question, stored answer and any pictures go to Google's Gemini API with your own AI Studio key (the same key as
+// the AI tutor tab). Nothing else leaves the device. The conversation is kept per card while it is on screen.
+const FC_MODELS=[
+  ["gemini-3.8-flash","Gemini 3.8 Flash (balanced, default)"],
+  ["gemini-3.5-flash-lite","Gemini 3.5 Flash-Lite (fast, cheapest)"],
+  ["gemini-3.1-flash-lite","Gemini 3.1 Flash-Lite"],
+  ["gemini-3.6-flash","Gemini 3.6 Flash"],
+  ["gemini-4-argon","Gemini 4 Argon (newest listed)"]
+];
+const fcModel=()=>S.fcModel||S.model||"gemini-3.8-flash";
+const FC_SYS=`You are a senior Cisco network engineer and exam coach. The learner is preparing for Cisco ENARSI (300-410) and other networking exams, and for real enterprise network work. They will show you one flashcard: a question or scenario and the answer stored on the card.
+Rules:
+- Be accurate. Never invent commands, syntax, defaults or show-output. If you are not sure of something, say so.
+- If the stored answer is wrong, incomplete or only true in some cases, say so plainly and give the correct version.
+- Explain the why, not only the what: the mechanism behind the answer, how it behaves on real IOS / IOS-XE devices, and what to check with show commands.
+- When a scenario is given, walk through it step by step like a troubleshooting session: what each detail tells us, the order of investigation, the commands, and what the output would show.
+- Use short markdown sections, bullet points and code blocks for CLI. No padding, no repeating the question back.`;
+const FC_ASK={
+  explain:"Explain the answer to this card in detail. Cover what the question is really asking, why the stored answer is correct, how the underlying mechanism works, and what to watch for on the exam and in real networks.",
+  scenario:"Walk through the scenario step by step as if we were troubleshooting it on real devices: what each detail tells us, the order I would investigate in, the show commands to run and what output would confirm the cause. If the card is not a scenario, build a realistic one around it.",
+  wrong:"Explain why the plausible wrong answers and common mistakes are wrong, and how to tell them apart from the correct answer.",
+  similar:"Write one new practice scenario on the same topic, different from this card. Give only the scenario and the question, then wait for my answer.",
+  real:"Give a short real-world example of where this comes up on a production network, with the relevant configuration and verification commands."
+};
+const AIC={open:false,box:null,get:null,id:null,hist:[],busy:false,mode:""};
+// html -> plain text with line breaks, pictures marked
+function fcHtmlText(html){
+  const d=new DOMParser().parseFromString("<body>"+fcClean(fcSound(html))+"</body>","text/html");
+  d.querySelectorAll("br,hr").forEach(e=>e.replaceWith("\n"));
+  d.querySelectorAll("p,div,li,tr,h1,h2,h3,h4,h5,h6,pre,summary").forEach(e=>e.append("\n"));
+  d.querySelectorAll("td,th").forEach(e=>e.append("  "));
+  d.querySelectorAll("img").forEach(e=>e.replaceWith("[picture: "+(e.getAttribute("data-m")||"image")+"]"));
+  d.querySelectorAll("audio").forEach(e=>e.remove());
+  return d.body.textContent.replace(/[ \t]+\n/g,"\n").replace(/\n{3,}/g,"\n\n").trim();
+}
+async function fcCardContext(card){
+  const f=fcHtmlText(card.f);let b=fcHtmlText(card.b);
+  if(b.startsWith(f))b=b.slice(f.length).trim();
+  const deck=(FC.decks.get(card.deck)||{}).name||"";
+  const names=[];
+  new DOMParser().parseFromString("<body>"+fcClean(card.f)+fcClean(card.b)+"</body>","text/html").querySelectorAll("img[data-m]").forEach(i=>{const n=i.getAttribute("data-m");if(!names.includes(n))names.push(n)});
+  const images=[];
+  for(const n of names.slice(0,4)){
+    try{
+      const m=await fcGet("media",n);
+      if(m&&m.blob&&m.blob.size<=4*1048576&&/^image\/(png|jpeg|webp|gif)$/.test(m.blob.type))images.push({inlineData:{mimeType:m.blob.type,data:b64(new Uint8Array(await m.blob.arrayBuffer()))}});
+    }catch(e){}
+  }
+  return{text:`FLASHCARD${deck?"\nDeck: "+deck:""}${card.tags?"\nTags: "+card.tags:""}\n\nQuestion / scenario:\n${f||"(see picture)"}\n\nStored answer:\n${b||"(see picture)"}${images.length?"\n\n(The pictures from the card are attached.)":""}`,images};
+}
+async function fcGemini(contents,model){
+  if(!S.apiKey)throw new Error("Add your Google AI Studio API key first.");
+  const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
+  let last=null;
+  for(let a=0;a<3;a++){
+    let r,j;
+    try{
+      r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":S.apiKey},body:JSON.stringify({systemInstruction:{parts:[{text:FC_SYS}]},contents,generationConfig:{temperature:0.4}})});
+      try{j=await r.json()}catch(e){j={}}
+    }catch(e){throw new Error("Could not reach Google. Check your connection. ("+e.message+")")}
+    if(r.ok){
+      const c=j.candidates&&j.candidates[0],txt=c&&c.content&&c.content.parts?c.content.parts.map(p=>p.text||"").join(""):"";
+      if(!txt)throw new Error(j.promptFeedback&&j.promptFeedback.blockReason?"Blocked: "+j.promptFeedback.blockReason:"The model sent an empty answer. Try again or pick another model.");
+      return txt;
+    }
+    last=(j.error&&j.error.message)||("HTTP "+r.status);
+    if(r.status===404)throw new Error(last+" Pick another model, or use Load models to see what your key can use.");
+    if(r.status!==429&&r.status!==503)throw new Error(last);
+    await new Promise(res=>setTimeout(res,1500*(a+1)));
+  }
+  throw new Error(last+" (still busy after 3 tries; wait a moment and send again)");
+}
+function fcAiRender(){
+  const chat=$("#fcai-chat");if(!chat)return;
+  chat.innerHTML=AIC.hist.length?"":'<div class="note">Pick a button above, or ask your own question. The AI sees the question, the stored answer and any pictures on this card.</div>';
+  AIC.hist.forEach(m=>{const d=document.createElement("div");d.className="msg "+(m.role==="user"?"user":"ai");d.innerHTML=m.role==="user"?esc(m.text).replace(/\n/g,"<br>"):md(m.text);chat.append(d)});
+  if(AIC.busy){const d=document.createElement("div");d.className="msg ai";d.textContent="Thinking…";chat.append(d)}
+  chat.scrollTop=chat.scrollHeight;
+}
+async function fcAiSend(text,shown){
+  if(AIC.busy||!text.trim())return;
+  const card=AIC.get&&AIC.get();if(!card){return}
+  AIC.hist.push({role:"user",text:shown||text,send:text});AIC.busy=true;fcAiRender();
+  const st=$("#fcai-st");if(st)st.textContent="";
+  const myCard=AIC.id;
+  try{
+    const ctx=await fcCardContext(card),contents=[];
+    AIC.hist.filter(m=>!m.err).forEach((m,i)=>{
+      if(m.role==="user"){
+        const parts=[{text:(contents.length===0?ctx.text+"\n\n---\n":"")+(m.send||m.text)}];
+        if(contents.length===0)parts.push(...ctx.images);
+        contents.push({role:"user",parts});
+      }else contents.push({role:"model",parts:[{text:m.text}]});
+    });
+    const ans=await fcGemini(contents,fcModel());
+    if(AIC.id===myCard)AIC.hist.push({role:"ai",text:ans});
+  }catch(e){if(AIC.id===myCard){AIC.hist.pop();AIC.err=e.message;const s=$("#fcai-st");if(s){s.className="msg err";s.textContent=e.message}}}
+  AIC.busy=false;AIC.mode="";fcAiRender();
+}
+function fcAiBuild(){
+  const box=AIC.box;if(!box)return;
+  const cur=fcModel(),known=FC_MODELS.some(m=>m[0]===cur);
+  box.innerHTML=`<div class="fc-ai-head"><b>Ask Gemini about this card</b><span class="fc-sp"></span>
+    <select id="fcai-model" aria-label="Gemini model">${(known?FC_MODELS:[[cur,cur+" (your choice)"],...FC_MODELS]).map(m=>`<option value="${esc(m[0])}" ${m[0]===cur?"selected":""}>${esc(m[1])}</option>`).join("")}</select>
+    <button class="btn btn-sm" id="fcai-load" title="Ask Google which models your key can use">Load models</button><button class="btn btn-sm" id="fcai-x" aria-label="Close the AI panel">Close</button></div>
+  ${S.apiKey?"":`<div class="fc-ai-key"><div class="note">Paste your Google AI Studio key once (free at aistudio.google.com/apikey). It is stored in this browser and is the same key the AI tutor tab uses.</div><div class="row"><input type="password" id="fcai-key" placeholder="AIza..." autocomplete="off"><button class="btn btn-sm on" id="fcai-savekey">Save key</button></div></div>`}
+  <div class="fc-ai-quick row"><button class="btn btn-sm on" data-ask="explain">Explain the answer in detail</button><button class="btn btn-sm" data-ask="scenario">Walk through the scenario</button><button class="btn btn-sm" data-ask="wrong">Why are the others wrong?</button><button class="btn btn-sm" data-ask="check">Check my answer</button><button class="btn btn-sm" data-ask="real">Real-world example</button><button class="btn btn-sm" data-ask="similar">Give me a similar scenario</button></div>
+  <div class="chat fc-ai-chat" id="fcai-chat" aria-live="polite"></div><div class="msg err" id="fcai-st" role="status"></div>
+  <div class="fc-ai-in"><textarea id="fcai-in" rows="2" placeholder="Ask a follow-up… (Ctrl+Enter to send)"></textarea><button class="btn on" id="fcai-send">Send</button></div>
+  <div class="note">Sends this card's text and pictures to Google's Gemini API using your key. Answers can contain mistakes: check commands and outputs before you rely on them.</div>`;
+  $("#fcai-st").textContent="";$("#fcai-st").className="msg";
+  $("#fcai-x").onclick=()=>fcAiClose();
+  $("#fcai-model").onchange=e=>{S.fcModel=e.target.value;save()};
+  const sk=$("#fcai-savekey");if(sk)sk.onclick=()=>{const v=$("#fcai-key").value.trim();if(!v)return;S.apiKey=v;save();fcAiBuild();toast("Key saved")};
+  $("#fcai-load").onclick=async()=>{
+    const st=$("#fcai-st");
+    if(!S.apiKey){st.className="msg err";st.textContent="Save your API key first.";return}
+    st.className="msg";st.textContent="Asking Google which models your key can use…";
+    try{
+      const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=200",{headers:{"x-goog-api-key":S.apiKey}}),j=await r.json();
+      if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));
+      const ms=(j.models||[]).filter(m=>(m.supportedGenerationMethods||[]).includes("generateContent")&&/^models\/gemini/i.test(m.name)&&!/tts|image|audio|live|embedding|robotics|computer|native/i.test(m.name)).map(m=>m.name.replace(/^models\//,"")).sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}));
+      if(!ms.length)throw new Error("Google returned no usable Gemini models for this key.");
+      const sel=$("#fcai-model"),cur=fcModel();
+      sel.innerHTML=(ms.includes(cur)?"":`<option value="${esc(cur)}" selected>${esc(cur)} (current)</option>`)+ms.map(m=>`<option value="${esc(m)}" ${m===cur?"selected":""}>${esc(m)}</option>`).join("");
+      st.textContent=ms.length+" models available to your key. Pick one.";
+    }catch(e){st.className="msg err";st.textContent="Could not load models: "+e.message}
+  };
+  box.querySelectorAll("[data-ask]").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.ask;
+    if(k==="check"){AIC.mode="check";const t=$("#fcai-in");t.placeholder="Type your own answer to this card here, then press Send…";t.focus();return}
+    fcAiSend(FC_ASK[k],b.textContent);
+  });
+  const go=()=>{const t=$("#fcai-in"),v=t.value.trim();if(!v)return;t.value="";
+    if(AIC.mode==="check")fcAiSend("Here is my own answer to this card:\n\n"+v+"\n\nEvaluate it against the stored answer and against what is technically correct: what I got right, what is missing or wrong, a score out of 10, and a corrected full answer.","My answer: "+v);
+    else fcAiSend(v)};
+  $("#fcai-send").onclick=go;
+  $("#fcai-in").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();go()}});
+  fcAiRender();
+}
+function fcAiToggle(box,get){
+  if(AIC.open&&AIC.box===box){fcAiClose();return}
+  AIC.box=box;AIC.get=get;AIC.open=true;box.hidden=false;
+  const c=get&&get();AIC.id=c?c.id:null;AIC.hist=[];AIC.mode="";AIC.busy=false;
+  fcAiBuild();
+  try{box.scrollIntoView({block:"nearest"})}catch(e){}
+}
+function fcAiClose(){AIC.open=false;if(AIC.box)AIC.box.hidden=true;AIC.box=null;AIC.hist=[];AIC.mode=""}
+// called whenever another card appears: the conversation belongs to one card
+function fcAiSync(){
+  if(!AIC.open||!AIC.get)return;
+  const c=AIC.get();const id=c?c.id:null;
+  if(id!==AIC.id){AIC.id=id;AIC.hist=[];AIC.mode="";AIC.busy=false;const st=$("#fcai-st");if(st){st.textContent="";st.className="msg"}fcAiRender()}
+}
+// ---------- Flashcards: "Go through" mode ----------
+// Every card of a deck, one by one, in order, each shown once. No ratings and no schedule. Your place is remembered, so you
+// can stop and carry on later and you never meet a card again until you choose to start over. New cards added later
+// to the deck simply continue the list.
+const RD={on:false,name:"",order:[],p:0,f:0,shown:false,card:null,busy:false,key:""};
+async function fcReadStart(name,set){
+  await fcLoad();
+  const list=[];FC.sched.forEach(s=>{if(set.has(s.deck))list.push(s)});
+  if(!list.length){toast("There are no cards in this deck");return}
+  const dn=id=>(FC.decks.get(id)||{}).name||"";
+  list.sort((a,b)=>dn(a.deck).localeCompare(dn(b.deck),undefined,{numeric:true,sensitivity:"base"})||a.id-b.id);
+  RD.order=list.map(s=>s.id);RD.name=name;RD.key="read:"+name;
+  const rec=await fcGet("meta",RD.key);let f=0;
+  if(rec){const i=rec.last?RD.order.indexOf(rec.last):-1;f=i>=0?i+1:Math.min(Math.max(0,rec.f||0),RD.order.length)}
+  Object.assign(RD,{on:true,f,p:f,shown:false,card:null,busy:false});
+  fcReadFrame();
+  try{$("#fc").scrollIntoView({block:"start"})}catch(e){}
+  await fcReadShow();
+}
+async function fcReadSave(){
+  const os=await fcStore("meta","readwrite");
+  await fcReq(os.put({k:RD.key,last:RD.f>0?RD.order[Math.min(RD.f,RD.order.length)-1]:0,f:RD.f,n:RD.order.length,at:Date.now()}));
+}
+function fcReadFrame(){
+  const home=$("#fc-home");if(home)home.hidden=true;
+  const box=$("#fc-study");box.hidden=false;
+  box.innerHTML=`<div class="fc-bar"><b class="fc-title"></b><span class="fc-cnt" id="rd-pos"></span><span class="fc-sp"></span><button class="btn btn-sm" id="rd-ai">Ask AI</button><button class="btn btn-sm" id="rd-exit" title="Esc">Done</button></div>
+  <div class="fc-pbar"><i id="rd-bar"></i></div>
+  <div class="fc-card" id="fc-card"><div class="fc-face" id="fc-face" tabindex="-1"></div></div><div id="fc-act"></div>
+  <div class="fc-ai" id="fc-ai" hidden></div>`;
+  box.querySelector(".fc-title").textContent=RD.name+" · go through";
+  $("#rd-exit").onclick=fcReadExit;
+  $("#rd-ai").onclick=()=>fcAiToggle($("#fc-ai"),()=>RD.card);
+  $("#fc-card").onclick=e=>{if(!RD.shown&&RD.card&&!e.target.closest("audio,details"))fcReadReveal()};
+}
+async function fcReadShow(){
+  const n=RD.order.length,act=$("#fc-act"),face=$("#fc-face");RD.shown=false;RD.card=null;
+  $("#rd-bar").style.width=Math.round(Math.min(RD.f,n)/n*100)+"%";
+  if(RD.p>=n){
+    $("#rd-pos").textContent=`${fcN(n)} of ${fcN(n)}`;fcAiSync();
+    face.innerHTML=`<div class="fc-done"><h3>You went through all ${fcN(n)} cards ✓</h3><p>Each card was shown once. Start again whenever you want another pass.</p></div>`;
+    act.innerHTML=`<div class="row"><button class="btn btn-sm" id="rd-prev">← Last card</button><button class="btn on" id="rd-restart">Start again from the first card</button><button class="btn btn-sm" id="rd-back">Back to decks</button></div>`;
+    $("#rd-prev").onclick=fcReadPrev;$("#rd-back").onclick=fcReadExit;
+    $("#rd-restart").onclick=async()=>{if(!confirm("Start this deck again from card 1?"))return;RD.f=0;RD.p=0;const os=await fcStore("meta","readwrite");await fcReq(os.delete(RD.key));fcReadShow()};
+    return;
+  }
+  RD.busy=true;
+  const id=RD.order[RD.p];RD.card=await fcGet("cards",id);
+  if(!RD.card){RD.order.splice(RD.p,1);RD.busy=false;return fcReadShow()}   // card deleted meanwhile
+  RD.busy=false;
+  const both=!!S.fcBoth;
+  $("#rd-pos").innerHTML=`Card <b>${fcN(RD.p+1)}</b> of <b>${fcN(n)}</b>`;
+  await fcShow(face,both?RD.card.b:RD.card.f);RD.shown=both;
+  face.scrollTop=0;
+  fcReadActions();fcAiSync();
+}
+function fcReadActions(){
+  const act=$("#fc-act");
+  act.innerHTML=`<div class="fc-nav"><button class="btn" id="rd-prev" ${RD.p?"":"disabled"} title="Left arrow">← Previous</button>
+    ${RD.shown?"":`<button class="btn on fc-showbtn" id="rd-show">Show answer <kbd>Space</kbd></button>`}
+    <button class="btn ${RD.shown?"on":""}" id="rd-next" title="Right arrow or Enter">${RD.p+1>=RD.order.length?"Finish":"Next card"} →</button></div>
+    <div class="row fc-navopts"><label class="fc-chk"><input type="checkbox" id="rd-both" ${S.fcBoth?"checked":""}> Show the answer straight away</label>
+    <label class="fc-chk">Go to card <input type="number" id="rd-jump" min="1" max="${RD.order.length}" value="${RD.p+1}" style="width:80px"></label><button class="btn btn-sm" id="rd-go">Go</button></div>`;
+  $("#rd-prev").onclick=fcReadPrev;$("#rd-next").onclick=fcReadNext;
+  const sh=$("#rd-show");if(sh)sh.onclick=fcReadReveal;
+  $("#rd-both").onchange=e=>{S.fcBoth=e.target.checked;save();fcReadShow()};
+  const jump=()=>{const v=Math.floor(+$("#rd-jump").value);if(!(v>=1&&v<=RD.order.length))return;RD.p=v-1;if(RD.p>RD.f){RD.f=RD.p;fcReadSave()}fcReadShow()};
+  $("#rd-go").onclick=jump;$("#rd-jump").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();e.stopPropagation();jump()}});
+}
+async function fcReadReveal(){
+  if(!RD.card||RD.shown||RD.busy)return;
+  RD.shown=true;await fcShow($("#fc-face"),RD.card.b);fcReadActions();
+}
+async function fcReadNext(){
+  if(RD.busy||RD.p>=RD.order.length)return;
+  RD.p++;
+  if(RD.p>RD.f){RD.f=RD.p;try{await fcReadSave()}catch(e){alert("Could not save your place: "+e.message)}}
+  const y=fcDayYmd(fcDay());S.fcDays[y]=(S.fcDays[y]||0)+1;save();
+  return fcReadShow();
+}
+function fcReadPrev(){if(RD.busy||RD.p<=0)return;RD.p--;fcReadShow()}
+function fcReadExit(){
+  RD.on=false;RD.card=null;fcAiClose();fcFreeUrls();
+  const st=$("#fc-study");if(st)st.hidden=true;const h=$("#fc-home");if(h)h.hidden=false;
+  buildFc();
+}
+// keys: Space shows the answer and then moves on, Right/Enter next, Left previous, Esc leaves
+document.addEventListener("keydown",e=>{
+  if(!RD.on||curTab!=="fc"||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(document.querySelector("dialog[open]"))return;
+  const t=e.target;if(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))return;
+  const k=e.key;let used=true;
+  if(k===" "){if(RD.card&&!RD.shown)fcReadReveal();else fcReadNext()}
+  else if(k==="ArrowRight"||k==="Enter")fcReadNext();
+  else if(k==="ArrowLeft")fcReadPrev();
+  else if(k==="Escape")fcReadExit();
+  else used=false;
+  if(used){e.preventDefault();e.stopImmediatePropagation()}
+},true);
 // ================= Init =================
 wireBackup();wireA11y();applyTheme();buildIV();buildAI();buildScr();buildCourse();buildStats();buildNudge();render();
 // ---------- v13: keep the current day and the active subject tab in view on narrow screens ----------
@@ -4489,5 +5426,17 @@ wireBackup();wireA11y();applyTheme();buildIV();buildAI();buildScr();buildCourse(
     let t=0;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(()=>keep(box,sel),30)}).observe(box,opts);keep(box,sel)}
   watch("grid",".port.cur",{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});
   watch("tabs",".tab-btn.active",{subtree:true,attributes:true,attributeFilter:["class"]});
+})();
+// ---------- v15: the 60-day grid is folded away by default; "Days" opens it ----------
+(function(){
+  const KEY="brainGym60_ui",g=document.getElementById("grid"),b=document.getElementById("days-toggle");
+  if(!g||!b)return;
+  let open=false;try{open=JSON.parse(localStorage.getItem(KEY)||"{}").days===true}catch(e){}
+  const apply=()=>{
+    g.hidden=!open;b.setAttribute("aria-expanded",String(open));b.textContent=open?"Days ▴":"Days ▾";
+    if(open){const c=g.querySelector(".port.cur");if(c&&g.scrollWidth>g.clientWidth+1)g.scrollLeft=Math.max(0,c.offsetLeft-(g.clientWidth-c.offsetWidth)/2)}
+  };
+  b.onclick=()=>{open=!open;try{localStorage.setItem(KEY,JSON.stringify({days:open}))}catch(e){}apply()};
+  apply();
 })();
 </script><script>if("serviceWorker"in navigator&&/^https?:$/.test(location.protocol))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script></body></html>
