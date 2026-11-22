@@ -510,6 +510,23 @@ dialog.dlg .f2 label{display:flex;flex-direction:column;gap:4px;align-items:flex
 dialog.dlg .f2 label input{width:120px}
 @media(max-width:700px){#keys{display:none}}
 @media(max-width:380px){.tools{gap:4px}.tools .btn{padding-left:9px;padding-right:9px}}
+
+/* ===== v15.3: phone button alignment, AI scenario finder ===== */
+.ivai-act{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.ivai-card{margin:10px 0}.ivai-q,.ivai-s{white-space:pre-wrap;overflow-wrap:anywhere}.ivai-s{margin-top:6px;font-size:14px}
+#ivaibox .f{display:grid;grid-template-columns:1fr auto;gap:8px}#ivaibox .f select{height:38px}
+@media(max-width:700px){
+  #ivaibox .f{grid-template-columns:1fr}
+  .ivai-act .btn{flex:1 1 30%}
+  /* study / go-through bar: title and counts on their own lines, buttons in even columns */
+  .fc-bar{gap:8px}.fc-bar .fc-title,.fc-bar #fc-counts,.fc-bar .fc-cnt{flex:1 1 100%}.fc-bar .fc-sp{display:none}
+  .fc-bar .btn{flex:1 1 28%;min-width:0;height:40px;justify-content:center}
+  /* interview controls: select full width, buttons in two even columns */
+  #iv>.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  #iv>.row select{grid-column:1/-1;width:100%}
+  #iv>.row .btn{width:100%;justify-content:center;height:40px}
+  #iv>.row .note{grid-column:1/-1}
+}
 </style><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"></head><body>
 <a class="skip" href="#tabs">Skip to the subject tabs</a><div id="live" class="sr" aria-live="polite"></div>
 <header class="topbar"><div class="topbar-in">
@@ -2653,6 +2670,7 @@ function buildIV(){
   <div class="row"><select id="ivcat">${cats.map(c=>`<option${c===ivCat?" selected":""}>${esc(c)}</option>`).join("")}</select>
   <button class="btn btn-sm" id="ivrand">Random scenario</button>
   <button class="btn btn-sm" id="ivadd">＋ Add my own scenario</button>
+  <button class="btn btn-sm" id="ivai" title="Let Gemini search Google for real interview scenarios">✨ Find with AI</button>
   <button class="btn btn-sm" id="ivmock">Timed mock interview</button>
   <span class="note" id="ivstat"></span></div>
   <div id="ivform" class="card" hidden>
@@ -2663,6 +2681,7 @@ function buildIV(){
     <textarea id="nf-s" placeholder="Solution / model answer (plain text, line breaks kept)"></textarea>
     <div class="row"><button class="btn btn-sm on" id="nf-save">Save scenario</button><button class="btn btn-sm" id="nf-cancel">Cancel</button></div>
   </div>
+  <div id="ivaibox" class="card" hidden></div>
   <div id="mockhist"></div><div id="ivlist"></div>`;
   const list=$("#ivlist");
   all.filter(x=>ivCat==="All"||x.c===ivCat).forEach(x=>{
@@ -2697,6 +2716,7 @@ function buildIV(){
   $("#ivadd").onclick=()=>{if($("#ivform").hidden)openIvForm(null);else{ivEdit=null;$("#ivform").hidden=true}};
   $("#nf-cancel").onclick=()=>{$("#ivform").hidden=true};
   $("#nf-save").onclick=saveIvForm;
+  $("#ivai").onclick=ivAiToggle;
   $("#ivmock").onclick=openMock;renderMockHist();
 }
 function showTab(k){document.querySelector(`.tab-btn[data-sec="${k}"]`).click()}
@@ -5255,19 +5275,25 @@ async function fcCardContext(card){
   }
   return{text:`FLASHCARD${deck?"\nDeck: "+deck:""}${card.tags?"\nTags: "+card.tags:""}\n\nQuestion / scenario:\n${f||"(see picture)"}\n\nStored answer:\n${b||"(see picture)"}${images.length?"\n\n(The pictures from the card are attached.)":""}`,images};
 }
-async function fcGemini(contents,model){
+async function fcGemini(contents,model,opt){
+  opt=opt||{};
   if(!S.apiKey)throw new Error("Add your Google AI Studio API key first.");
   const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
   let last=null;
   for(let a=0;a<3;a++){
     let r,j;
     try{
-      r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":S.apiKey},body:JSON.stringify({systemInstruction:{parts:[{text:FC_SYS}]},contents,generationConfig:{temperature:0.4}})});
+      r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":S.apiKey},body:JSON.stringify(Object.assign({systemInstruction:{parts:[{text:opt.sys||FC_SYS}]},contents,generationConfig:{temperature:opt.temp==null?0.4:opt.temp}},opt.tools?{tools:opt.tools}:{}))});
       try{j=await r.json()}catch(e){j={}}
     }catch(e){throw new Error("Could not reach Google. Check your connection. ("+e.message+")")}
     if(r.ok){
       const c=j.candidates&&j.candidates[0],txt=c&&c.content&&c.content.parts?c.content.parts.map(p=>p.text||"").join(""):"";
       if(!txt)throw new Error(j.promptFeedback&&j.promptFeedback.blockReason?"Blocked: "+j.promptFeedback.blockReason:"The model sent an empty answer. Try again or pick another model.");
+      if(opt.full){
+        const gm=c.groundingMetadata||{},seen=new Set(),src=[];
+        (gm.groundingChunks||[]).forEach(g=>{const w=g.web;if(w&&/^https?:\/\//i.test(w.uri||"")&&!seen.has(w.uri)){seen.add(w.uri);src.push({u:w.uri,t:String(w.title||w.uri).slice(0,120)})}});
+        return{text:txt,sources:src,queries:gm.webSearchQueries||[]};
+      }
       return txt;
     }
     last=(j.error&&j.error.message)||("HTTP "+r.status);
@@ -5564,6 +5590,78 @@ async function fcEditDlg(id){
   });
   delete dlg.dataset.lock;dlg.onclose=null;
 }
+// ---------- Interview scenarios: ask Gemini to search Google and draft scenarios ----------
+const IV_AI_SYS=`You help a network engineer prepare for job interviews (network automation, routing and switching, Cisco, troubleshooting).
+Use Google Search to find REAL interview questions and scenarios on the topic given. Rewrite each one in your own words (never copy text from a page).
+Rules: be technically correct. The solution must be a model answer a strong candidate would give: steps in order, the actual commands or checks (Cisco IOS / IOS-XE unless told otherwise), and the reasoning why. If you are not sure of a detail, say so inside the solution instead of guessing. Plain text only, no markdown symbols like ** or #.
+Output ONLY blocks in exactly this format, nothing before or after:
+###SCENARIO
+TITLE: short title
+CATEGORY: one or two words
+QUESTION: the scenario as an interviewer would ask it, with the symptoms or data given
+SOLUTION: the model answer, line breaks allowed
+###END`;
+function ivParseScen(t){
+  const out=[];
+  String(t).split(/^\s*###SCENARIO\s*$/m).slice(1).forEach(b=>{
+    b=b.split(/^\s*###END\s*$/m)[0];
+    const m=b.match(/^\s*TITLE:\s*([\s\S]*?)\n\s*CATEGORY:\s*([\s\S]*?)\n\s*QUESTION:\s*([\s\S]*?)\n\s*SOLUTION:\s*([\s\S]*)$/);
+    if(!m)return;
+    const x={t:m[1].trim().slice(0,160),c:m[2].trim().slice(0,40)||"AI found",q:m[3].trim().slice(0,4000),s:m[4].trim().slice(0,8000)};
+    if(x.t&&x.q&&x.s)out.push(x);
+  });
+  return out;
+}
+let IVAI={res:[],src:[],busy:false,dirty:false};
+function ivAiClose(){$("#ivaibox").hidden=true;if(IVAI.dirty){IVAI.dirty=false;buildIV()}}
+function ivAiToggle(){
+  const box=$("#ivaibox");if(!box.hidden){ivAiClose();return}
+  box.hidden=false;
+  box.innerHTML=`<b>Find interview scenarios with AI</b>
+    <div class="note">Gemini searches Google, then writes scenarios in its own words. Nothing is saved until you press Save, so read the solution first. AI can get details wrong; check commands in a lab.</div>
+    <div class="f"><input type="text" id="ivai-t" maxlength="200" placeholder="Topic (e.g. OSPF neighbour stuck in EXSTART, BGP route filtering, Ansible idempotency)">
+    <select id="ivai-n"><option value="1">1 scenario</option><option value="3" selected>3 scenarios</option><option value="5">5 scenarios</option></select></div>
+    <div class="ivai-act"><button class="btn btn-sm on" id="ivai-go">Search and draft</button><button class="btn btn-sm" id="ivai-x">Close</button></div>
+    <div class="msg" id="ivai-msg" role="status"></div><div id="ivai-out"></div>`;
+  $("#ivai-x").onclick=ivAiClose;
+  $("#ivai-t").onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();ivAiRun()}};
+  $("#ivai-go").onclick=ivAiRun;$("#ivai-t").focus();
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+async function ivAiRun(){
+  if(IVAI.busy)return;
+  const topic=$("#ivai-t").value.trim(),n=+$("#ivai-n").value||3,msg=$("#ivai-msg"),out=$("#ivai-out");
+  if(!topic){msg.textContent="Type a topic first.";msg.className="msg err";return}
+  if(!S.apiKey){msg.textContent="Add your Google AI Studio API key in the AI tutor tab first.";msg.className="msg err";return}
+  IVAI.busy=true;$("#ivai-go").disabled=true;msg.className="msg";msg.textContent="Searching Google and writing…";out.innerHTML="";
+  try{
+    const r=await fcGemini([{role:"user",parts:[{text:`Topic: ${topic}\nWrite ${n} different interview scenario${n>1?"s":""} about it. Search Google first.`}]}],fcModel(),{sys:IV_AI_SYS,tools:[{google_search:{}}],full:true,temp:0.5});
+    IVAI.res=ivParseScen(r.text);IVAI.src=r.sources;
+    if(!IVAI.res.length){msg.textContent="The AI did not return scenarios in a readable form. Try again, or a different model.";msg.className="msg err";return}
+    msg.textContent=`${IVAI.res.length} scenario${IVAI.res.length>1?"s":""} drafted. Read each one, then save it or edit it first.`;
+    ivAiShow();
+  }catch(e){msg.textContent=e.message+(/google_search|tool/i.test(e.message)?" (This model may not support Google Search; pick another in the Flashcards AI panel.)":"");msg.className="msg err"}
+  finally{IVAI.busy=false;const g=$("#ivai-go");if(g)g.disabled=false}
+}
+function ivAiShow(){
+  const out=$("#ivai-out");out.innerHTML="";
+  IVAI.res.forEach((x,i)=>{
+    const d=document.createElement("div");d.className="card ivai-card";
+    d.innerHTML=`<h5></h5><p class="ivai-q"></p><details><summary>Model answer</summary><div class="ivai-s"></div></details>
+      <div class="ivai-act"><button class="btn btn-sm on" data-s>Save</button><button class="btn btn-sm" data-e>Edit first</button><button class="btn btn-sm" data-d>Discard</button></div>`;
+    d.querySelector("h5").textContent=x.t;d.querySelector("h5").insertAdjacentHTML("beforeend",`<span class="pill"></span>`);d.querySelector(".pill").textContent=x.c;
+    d.querySelector(".ivai-q").textContent=x.q;d.querySelector(".ivai-s").textContent=x.s;
+    const rec=()=>({c:x.c,t:x.t,q:x.q,s:x.s+ivSrcLine()});
+    d.querySelector("[data-s]").onclick=()=>{S.custom.push(Object.assign({id:"c"+Date.now()+i},rec()));save();updBadges();d.innerHTML='<div class="note">Saved to your scenarios ✓ (category: '+esc(x.c)+')</div>';IVAI.dirty=true};
+    d.querySelector("[data-e]").onclick=()=>{const r=rec();openIvForm({t:r.t,c:r.c,q:r.q,s:r.s})};
+    d.querySelector("[data-d]").onclick=()=>{d.remove()};
+    out.append(d);
+  });
+  if(IVAI.src.length){const s=document.createElement("details");s.className="note";s.innerHTML="<summary>Pages Google found ("+IVAI.src.length+")</summary>";
+    IVAI.src.forEach(u=>{const a=document.createElement("a");a.href=u.u;a.target="_blank";a.rel="noopener noreferrer";a.textContent=u.t;a.style.display="block";s.append(a)});out.append(s)}
+}
+const ivSrcLine=()=>IVAI.src.length?"\n\nSources searched: "+IVAI.src.slice(0,4).map(u=>u.u).join(" ; "):"";
+
 // ================= Init =================
 wireBackup();wireA11y();applyTheme();buildIV();buildAI();buildScr();buildCourse();buildStats();buildNudge();render();
 // ---------- v13: keep the current day and the active subject tab in view on narrow screens ----------
