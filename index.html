@@ -504,6 +504,12 @@ main{padding-top:12px}
 }
 .fci-chk{display:flex;gap:8px;align-items:center;margin:8px 0;font-size:14px}
 dialog.fc-dlg input[type=date],dialog.fc-dlg input[type=text]{height:36px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);padding:0 10px;font-size:15px}
+/* v15.2: phone header buttons wrap instead of hiding Export/Import off-screen; settings fields line up */
+@media(max-width:700px){.tools{flex-wrap:wrap!important;overflow:visible!important}.tools .btn{flex:0 1 auto}}
+dialog.dlg .f2 label{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+dialog.dlg .f2 label input{width:120px}
+@media(max-width:700px){#keys{display:none}}
+@media(max-width:380px){.tools{gap:4px}.tools .btn{padding-left:9px;padding-right:9px}}
 </style><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"></head><body>
 <a class="skip" href="#tabs">Skip to the subject tabs</a><div id="live" class="sr" aria-live="polite"></div>
 <header class="topbar"><div class="topbar-in">
@@ -4750,10 +4756,10 @@ async function fcStudyUi(first){
     return ST.cram?`<span class="fc-cnt"><b class="on">${ST.rev.length+(ST.cur?1:0)}</b> left (practice, your schedule is not changed)</span>`
       :`<span class="fc-cnt"><span class="${k==="n"?"on":""}">New <b>${ST.nw.length+(k==="n"?1:0)}</b></span><span class="${k==="l"?"on":""}">Learning <b>${ST.lrn.size+(k==="l"?1:0)}</b></span><span class="${k==="r"?"on":""}">To review <b>${ST.rev.length+(k==="r"?1:0)}</b></span></span>`};
   if(first){
-    box.innerHTML=`<div class="fc-bar"><b class="fc-title"></b><span id="fc-counts"></span><span class="fc-sp"></span><button class="btn btn-sm" id="fc-ai-btn" title="Ask Gemini to explain this card">Ask AI</button><button class="btn btn-sm" id="fc-undo" title="Undo (U)">Undo</button><button class="btn btn-sm" id="fc-susp" title="Hide this card from review">Suspend</button><button class="btn btn-sm" id="fc-exit" title="Esc">Done</button></div>
+    box.innerHTML=`<div class="fc-bar"><b class="fc-title"></b><span id="fc-counts"></span><span class="fc-sp"></span><button class="btn btn-sm" id="fc-ai-btn" title="Ask Gemini to explain this card">Ask AI</button><button class="btn btn-sm" id="fc-edit" title="Fix a mistake in this card">Edit</button><button class="btn btn-sm" id="fc-undo" title="Undo (U)">Undo</button><button class="btn btn-sm" id="fc-susp" title="Hide this card from review">Suspend</button><button class="btn btn-sm" id="fc-exit" title="Esc">Done</button></div>
     <div class="fc-card" id="fc-card"><div class="fc-face" id="fc-face" tabindex="-1"></div></div><div id="fc-act"></div><div class="fc-ai" id="fc-ai" hidden></div>`;
     box.querySelector(".fc-title").textContent=ST.name+(ST.cram?" · practice":"");
-    $("#fc-exit").onclick=fcExit;$("#fc-undo").onclick=fcUndo;$("#fc-ai-btn").onclick=()=>fcAiToggle($("#fc-ai"),()=>ST.card);$("#fc-susp").onclick=fcSuspendCur;
+    $("#fc-exit").onclick=fcExit;$("#fc-undo").onclick=fcUndo;$("#fc-edit").onclick=fcEditCurrent;$("#fc-ai-btn").onclick=()=>fcAiToggle($("#fc-ai"),()=>ST.card);$("#fc-susp").onclick=fcSuspendCur;
     $("#fc-card").onclick=e=>{if(!ST.shown&&ST.cur&&!e.target.closest("audio,details"))fcReveal()};
     return;
   }
@@ -4795,6 +4801,18 @@ document.addEventListener("keydown",e=>{
   else used=false;
   if(used){e.preventDefault();e.stopImmediatePropagation()}
 },true);
+
+// Edit the card on screen without leaving the session (study screen).
+async function fcEditCurrent(){
+  if(!ST.on||!ST.card||ST.busy)return;
+  const id=ST.card.id;ST.busy=true;
+  try{
+    await fcEditDlg(id);
+    const c=await fcGet("cards",id);if(!c)return;
+    ST.card=c;const s=FC.sched.get(id);if(s&&ST.cur&&ST.cur.id===id)ST.cur=s;
+    const face=$("#fc-face");if(face)await fcShow(face,ST.shown?c.b:c.f);
+  }finally{ST.busy=false}
+}
 // ---------- Flashcards: the tab (deck list), import dialog, browse, add card, settings ----------
 const FCUI={open:null};
 function fcDlg(id,label){
@@ -5367,12 +5385,16 @@ async function fcReadSave(){
 function fcReadFrame(){
   const home=$("#fc-home");if(home)home.hidden=true;
   const box=$("#fc-study");box.hidden=false;
-  box.innerHTML=`<div class="fc-bar"><b class="fc-title"></b><span class="fc-cnt" id="rd-pos"></span><span class="fc-sp"></span><button class="btn btn-sm" id="rd-ai">Ask AI</button><button class="btn btn-sm" id="rd-exit" title="Esc">Done</button></div>
+  box.innerHTML=`<div class="fc-bar"><b class="fc-title"></b><span class="fc-cnt" id="rd-pos"></span><span class="fc-sp"></span><button class="btn btn-sm" id="rd-ai">Ask AI</button><button class="btn btn-sm" id="rd-edit" title="Fix a mistake in this card">Edit</button><button class="btn btn-sm" id="rd-exit" title="Esc">Done</button></div>
   <div class="fc-pbar"><i id="rd-bar"></i></div>
   <div class="fc-card" id="fc-card"><div class="fc-face" id="fc-face" tabindex="-1"></div></div><div id="fc-act"></div>
   <div class="fc-ai" id="fc-ai" hidden></div>`;
   box.querySelector(".fc-title").textContent=RD.name+" · go through";
   $("#rd-exit").onclick=fcReadExit;
+  $("#rd-edit").onclick=async()=>{
+    if(!RD.card||RD.busy)return;const id=RD.card.id;RD.busy=true;
+    try{await fcEditDlg(id);const c=await fcGet("cards",id);if(c){RD.card=c;await fcShow($("#fc-face"),RD.shown?c.b:c.f)}}finally{RD.busy=false}
+  };
   $("#rd-ai").onclick=()=>fcAiToggle($("#fc-ai"),()=>RD.card);
   $("#fc-card").onclick=e=>{if(!RD.shown&&RD.card&&!e.target.closest("audio,details"))fcReadReveal()};
 }
