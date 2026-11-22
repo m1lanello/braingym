@@ -476,13 +476,34 @@ main{padding-top:12px}
 .fc-navopts{justify-content:center;margin-top:10px}
 .fc-ai{border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:12px 14px;margin-top:14px}
 .fc-ai[hidden]{display:none}
-.fc-ai-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}.fc-ai-head select{max-width:100%;height:32px}
+.fc-ai-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}.fc-ai-head select{max-width:100%;height:auto;min-height:38px;padding-top:6px;padding-bottom:6px;line-height:1.3}
 .fc-ai-quick{margin:6px 0}
 .fc-ai-chat{max-height:min(55vh,520px);overflow:auto;margin:8px 0}
 .fc-ai-in{display:flex;gap:8px;align-items:flex-end}.fc-ai-in textarea{flex:1;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);padding:8px 10px;font:inherit;resize:vertical}
 .fc-ai-key{margin:6px 0}.fc-ai-key input{height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);padding:0 10px;min-width:220px}
 .fc-ai .msg.err:empty{display:none}
 @media(max-width:700px){.fc-nav .btn{flex:1 1 40%;min-width:0}.fc-ai-in{flex-direction:column;align-items:stretch}}
+
+/* ===== v15.1: deck list as cards (no table), rename button ===== */
+.fc-dh{margin:0 0 6px}
+.fc-dlist{display:flex;flex-direction:column;gap:8px}
+.fc-dk{border:1px solid var(--line2);border-radius:12px;padding:10px 12px;background:var(--panel2);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center}
+.fc-dk-h{display:flex;align-items:center;gap:2px;min-width:0}
+.fc-dk-n{font-weight:650;font-size:15.5px;overflow-wrap:anywhere;min-width:0}
+.fc-ed{border:0;background:none;color:var(--mute);cursor:pointer;font-size:15px;padding:2px 8px;border-radius:8px}.fc-ed:hover{background:var(--line2);color:var(--ink)}
+.fc-dk-c{grid-column:1;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.fc-go{grid-column:2;grid-row:1/3;display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;align-items:center}.fc-go .btn{margin:0}
+.fc-pill{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--mute);white-space:nowrap}.fc-pill b{font-variant-numeric:tabular-nums}
+.fc-pill.n:not(.z){color:#3b82f6;border-color:#3b82f6}.fc-pill.l:not(.z){color:#d97706;border-color:#d97706}.fc-pill.r:not(.z){color:var(--ok);border-color:var(--ok)}
+.fc-pill.z{opacity:.55}
+.fc-decks .row{margin-top:12px}
+@media(max-width:700px){
+  .fc-dk{grid-template-columns:minmax(0,1fr)}
+  .fc-go,.fc-dk-c{grid-column:1;grid-row:auto}.fc-go{justify-content:flex-start}
+  .fc-go .btn[data-cram]{display:inline-flex}.fc-go .btn{flex:1 1 auto}
+}
+.fci-chk{display:flex;gap:8px;align-items:center;margin:8px 0;font-size:14px}
+dialog.fc-dlg input[type=date],dialog.fc-dlg input[type=text]{height:36px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);padding:0 10px;font-size:15px}
 </style><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"></head><body>
 <a class="skip" href="#tabs">Skip to the subject tabs</a><div id="live" class="sr" aria-live="polite"></div>
 <header class="topbar"><div class="topbar-in">
@@ -4815,9 +4836,10 @@ async function buildFc(){
     const depth=nm.split("::").length-1,hasKids=list.some(x=>x.startsWith(nm+"::"));
     if(depth===0){allDue+=rr+l;allNew+=nn}
     if(hidden(nm))return;
-    rows.push(`<tr><td class="fc-name" style="padding-left:${10+depth*18}px">${hasKids?`<button class="fc-tg" data-tg="${esc(nm)}" aria-label="${OP.has(nm)?"Collapse":"Expand"} ${esc(nm)}">${OP.has(nm)?"▾":"▸"}</button>`:`<span class="fc-tg"></span>`}${esc(nm.split("::").pop())}${reads.get(nm)?`<span class="fc-prog">${reads.get(nm).f>=reads.get(nm).n?"gone through ✓":"gone through "+fcN(reads.get(nm).f)+" of "+fcN(reads.get(nm).n)}</span>`:""}</td>
-      <td class="fc-c ${nn?"n":""}">${fcN(nn)}</td><td class="fc-c ${l?"l":""}">${fcN(l)}</td><td class="fc-c ${rr?"r":""}">${fcN(rr)}</td>
-      <td class="fc-go"><button class="btn btn-sm ${nn+l+rr?"on":""}" data-study="${esc(nm)}">Study</button><button class="btn btn-sm" data-read="${esc(nm)}" title="Show every card once, in order. No ratings, and your place is remembered">Go through</button><button class="btn btn-sm" data-cram="${esc(nm)}" title="Review 50 random cards without changing the schedule">Random 50</button></td></tr>`);
+    const rd0=reads.get(nm),act=nn+l+rr;
+    rows.push(`<div class="fc-dk" style="margin-left:${Math.min(depth,4)*14}px"><div class="fc-dk-h">${hasKids?`<button class="fc-tg" data-tg="${esc(nm)}" aria-label="${OP.has(nm)?"Collapse":"Expand"} ${esc(nm)}">${OP.has(nm)?"▾":"▸"}</button>`:`<span class="fc-tg"></span>`}<span class="fc-dk-n" title="${esc(nm)}">${esc(nm.split("::").pop())}</span><button class="fc-ed" data-ren="${esc(nm)}" title="Deck options: rename, postpone, reset" aria-label="Options for ${esc(nm)}">✎</button></div>
+      <div class="fc-dk-c"><span class="fc-pill n ${nn?"":"z"}"><b>${fcN(nn)}</b> new</span><span class="fc-pill l ${l?"":"z"}"><b>${fcN(l)}</b> learning</span><span class="fc-pill r ${rr?"":"z"}"><b>${fcN(rr)}</b> due</span>${rd0?`<span class="fc-prog">${rd0.f>=rd0.n?"gone through ✓":"gone through "+fcN(rd0.f)+" of "+fcN(rd0.n)}</span>`:""}</div>
+      <div class="fc-go"><button class="btn btn-sm ${act?"on":""}" data-study="${esc(nm)}">Study</button><button class="btn btn-sm" data-read="${esc(nm)}" title="Show every card once, in order. No ratings, and your place is remembered">Go through</button><button class="btn btn-sm" data-cram="${esc(nm)}" title="Review 50 random cards without changing the schedule">Random 50</button></div></div>`);
   });
   const week=[];for(let i=13;i>=0;i--){week.push(S.fcDays[fcDayYmd(today-i)]||0)}
   const mx=Math.max(1,...week),streak=fcStreak(),todayN=S.fcDays[fcDayYmd(today)]||0;
@@ -4825,7 +4847,7 @@ async function buildFc(){
     <div class="row"><button class="btn on" id="fc-imp">Import cards</button><button class="btn btn-sm" id="fc-add">Add a card</button><button class="btn btn-sm" id="fc-brw" ${total?"":"disabled"}>Browse</button><button class="btn btn-sm" id="fc-set">Settings and backup</button></div></div>
     ${total?`<div class="card"><div class="fc-stats"><div><b>${fcN(total)}</b><span>cards</span></div><div><b>${fcN(allNew)}</b><span>new today</span></div><div><b>${fcN(allDue)}</b><span>due today</span></div><div><b>${fcN(todayN)}</b><span>answered today</span></div><div><b>${streak}</b><span>day streak</span></div>
       <div class="fc-bars" aria-label="Cards answered in the last 14 days">${week.map(v=>`<i style="height:${Math.max(3,Math.round(v/mx*34))}px" title="${v}"></i>`).join("")}</div></div></div>
-    <div class="card fc-decks"><table><thead><tr><th>Deck</th><th class="fc-c">New</th><th class="fc-c">Learning</th><th class="fc-c">Due</th><th></th></tr></thead><tbody>${rows.join("")}</tbody></table>
+    <div class="card fc-decks"><h4 class="fc-dh">Decks</h4><div class="fc-dlist">${rows.join("")}</div>
       <div class="row"><button class="btn ${allNew+allDue?"on":""}" id="fc-all">Study everything due</button>${susp?`<span class="note">${fcN(susp)} suspended card${susp>1?"s":""} are hidden from review (see Browse).</span>`:""}</div></div>`
     :`<div class="card"><h4>Bring your Anki cards in</h4>
       <p class="note">Click <b>Import cards</b> and pick a file exported from Anki. Both of these work:</p>
@@ -4835,6 +4857,7 @@ async function buildFc(){
   $("#fc-imp").onclick=fcImportDlg;$("#fc-add").onclick=fcAddDlg;$("#fc-set").onclick=fcSettingsDlg;
   const b=$("#fc-brw");if(b)b.onclick=fcBrowseDlg;const a=$("#fc-all");if(a)a.onclick=()=>fcStart(null,false);
   home.querySelectorAll("[data-tg]").forEach(x=>x.onclick=()=>{const k=x.dataset.tg;FCUI.open.has(k)?FCUI.open.delete(k):FCUI.open.add(k);buildFc()});
+  home.querySelectorAll("[data-ren]").forEach(x=>x.onclick=()=>fcRenameDlg(x.dataset.ren));
   home.querySelectorAll("[data-study]").forEach(x=>x.onclick=()=>fcStart(null,false,setOf(x.dataset.study),x.dataset.study));
   home.querySelectorAll("[data-read]").forEach(x=>x.onclick=()=>fcReadStart(x.dataset.read,setOf(x.dataset.read)));
   home.querySelectorAll("[data-cram]").forEach(x=>x.onclick=()=>fcStart(null,true,setOf(x.dataset.cram),x.dataset.cram));
@@ -4954,7 +4977,7 @@ async function fcBrowseDlg(){
     $("#fcb-list").innerHTML=recs.filter(Boolean).map(c=>{
       const s=FC.sched.get(c.id)||{},dn=(FC.decks.get(c.deck)||{}).name||"",state=s.susp?"suspended":s.st===0?"new":s.st===2?"interval "+s.ivl+"d":"learning";
       return`<div class="fcb-row" data-id="${c.id}"><div class="fcb-h"><span class="fcb-t">${esc(fcPlain(c.f).slice(0,140))||"(image)"}</span><span class="fcb-m">${esc(dn)} · ${state}</span></div><div class="fcb-body" hidden></div>
-        <div class="fcb-a"><button class="btn btn-sm" data-a="view">Show</button><button class="btn btn-sm" data-a="susp">${s.susp?"Unsuspend":"Suspend"}</button><button class="btn btn-sm" data-a="del">Delete</button></div></div>`}).join("");
+        <div class="fcb-a"><button class="btn btn-sm" data-a="view">Show</button><button class="btn btn-sm" data-a="susp">${s.susp?"Unsuspend":"Suspend"}</button><button class="btn btn-sm" data-a="edit">Edit</button><button class="btn btn-sm" data-a="del">Delete</button></div></div>`}).join("");
   }
   $("#fcb-list").onclick=async e=>{
     const b=e.target.closest("[data-a]");if(!b)return;
@@ -4965,6 +4988,7 @@ async function fcBrowseDlg(){
       const c=await fcGet("cards",id);body.hidden=false;b.textContent="Hide";await fcShow(body,c.b);
     }else if(a==="susp"){
       const s=FC.sched.get(id);if(!s)return;await fcPutSched(Object.assign({},s,{susp:s.susp?0:1}));run();
+    }else if(a==="edit"){await fcEditDlg(id);run();
     }else if(a==="del"){
       if(!confirm("Delete this card for good?"))return;await fcDeleteCards([id]);run();
     }
@@ -5416,6 +5440,108 @@ document.addEventListener("keydown",e=>{
   else used=false;
   if(used){e.preventDefault();e.stopImmediatePropagation()}
 },true);
+// ---------- Flashcards: rename decks, edit cards ----------
+const fcDeckName=v=>String(v||"").replace(/\s*::\s*/g,"::").replace(/^:+|:+$/g,"").replace(/\s+/g," ").trim().slice(0,120);
+async function fcRenameDeck(oldName,newName){
+  newName=fcDeckName(newName);if(!newName)throw new Error("The name cannot be empty");
+  if(newName===oldName)return 0;
+  if(newName.startsWith(oldName+"::"))throw new Error("A deck cannot be moved inside itself");
+  const hit=[];FC.decks.forEach(d=>{if(d.name===oldName||d.name.startsWith(oldName+"::"))hit.push(d)});
+  if(!hit.length)throw new Error("Deck not found");
+  const d=await fcOpen(),tx=d.transaction(["decks","meta"],"readwrite"),ds=tx.objectStore("decks"),ms=tx.objectStore("meta"),upd=[];
+  for(const x of hit){const nn=newName+x.name.slice(oldName.length);const rec=Object.assign({},x,{name:nn});ds.put(rec);upd.push(rec)}
+  // keep the "gone through" place of a renamed deck
+  const k="read:"+oldName,g=ms.get(k);
+  g.onsuccess=()=>{if(g.result){ms.delete(k);ms.put(Object.assign({},g.result,{k:"read:"+newName}))}};
+  await fcTxDone(tx);
+  upd.forEach(r=>FC.decks.set(r.id,r));
+  if(FCUI.open&&FCUI.open.has(oldName)){FCUI.open.delete(oldName);FCUI.open.add(newName)}
+  return upd.length;
+}
+// Change the schedule of many cards at once. fn(copyOfSched) edits it; returns how many cards changed.
+async function fcBulkSched(ids,fn){
+  const d=await fcOpen();let n=0;
+  for(let i=0;i<ids.length;i+=2000){
+    const tx=d.transaction("sched","readwrite"),os=tx.objectStore("sched"),got=[];
+    for(const id of ids.slice(i,i+2000)){const s=FC.sched.get(id);if(!s)continue;const c=Object.assign({},s);if(fn(c)!==false){os.put(c);got.push(c)}}
+    await fcTxDone(tx);got.forEach(c=>FC.sched.set(c.id,c));n+=got.length;
+  }
+  return n;
+}
+const fcDeckIds=nm=>{const ids=[];FC.sched.forEach(s=>{const d=FC.decks.get(s.deck);if(d&&(d.name===nm||d.name.startsWith(nm+"::")))ids.push(s.id)});return ids};
+async function fcPostpone(nm,days){
+  const today=fcDay(),now=Date.now();
+  return fcBulkSched(fcDeckIds(nm),c=>{
+    if(c.susp)return false;
+    if(c.st===2&&c.due<=today){c.due=today+days;c.ivl=Math.max(c.ivl||0,days)}
+    else if((c.st===1||c.st===3)){c.st=2;c.step=0;c.ivl=days;c.due=today+days}
+    else return false;
+  });
+}
+async function fcResetDeck(nm){
+  return fcBulkSched(fcDeckIds(nm),c=>{Object.assign(c,{st:0,due:c.id,ivl:0,ease:2.5,reps:0,lapses:0,step:0})});
+}
+function fcRenameDlg(nm){
+  const dlg=fcDlg("fc-rendlg","Rename deck"),parts=nm.split("::"),last=parts.pop(),parent=parts.join("::");
+  dlg.innerHTML=`<h3>Deck options</h3><p class="note">${parent?`Inside <b></b>. `:""}To rename: use <b>::</b> in the name to put it inside another deck (for example <i>ENARSI::OSPF</i>). Sub-decks follow along.</p>
+    <label class="fci-deck">Name<input type="text" id="fcr-name" maxlength="120"></label><div class="row"><button class="btn on" id="fcr-ok">Save name</button></div>
+    <h4>Due cards</h4><p class="note">Push everything that is due today (and cards still being learned) in this deck, with its sub-decks, to a later day. Nothing is deleted, and the new interval is at least that many days.</p>
+    <div class="row"><button class="btn btn-sm" data-pp="1">Postpone 1 day</button><button class="btn btn-sm" data-pp="3">3 days</button><button class="btn btn-sm" data-pp="7">7 days</button><button class="btn btn-sm" data-pp="14">14 days</button></div>
+    <h4>Start over</h4><p class="note">Turn every card in this deck back into a new card, as if you had never studied it.</p>
+    <div class="row"><button class="btn btn-sm" id="fcr-reset">Reset progress of this deck</button></div>
+    <div class="msg" id="fcr-msg" role="status"></div><div class="row"><button class="btn btn-sm" id="fcr-x">Close</button></div>`;
+  if(parent)dlg.querySelector("p b").textContent=parent;
+  const inp=$("#fcr-name");inp.value=last;
+  const go=async()=>{
+    try{await fcRenameDeck(nm,(parent?parent+"::":"")+inp.value);dlg.close();buildFc()}
+    catch(e){const m=$("#fcr-msg");m.textContent=e.message;m.className="msg err"}
+  };
+  const say=(t,err)=>{const m=$("#fcr-msg");m.textContent=t;m.className="msg"+(err?" err":"")};
+  dlg.querySelectorAll("[data-pp]").forEach(b=>b.onclick=async()=>{const d=+b.dataset.pp;
+    try{const n=await fcPostpone(nm,d);say(n?`Moved ${fcN(n)} card${n>1?"s":""} ${d} day${d>1?"s":""} ahead.`:"Nothing was due in this deck.");buildFc()}catch(e){say(e.message,true)}});
+  $("#fcr-reset").onclick=async()=>{const ids=fcDeckIds(nm).length;
+    if(!ids||!confirm(`Turn all ${fcN(ids)} cards of “${nm}” back into new cards? Their review history is kept, but the schedule starts over.`))return;
+    try{const n=await fcResetDeck(nm);say(`${fcN(n)} cards are new again.`);buildFc()}catch(e){say(e.message,true)}};
+  $("#fcr-ok").onclick=go;$("#fcr-x").onclick=()=>dlg.close();
+  inp.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();go()}};
+  dlg.showModal();inp.focus();inp.select();
+}
+// Edit one card. Text is stored as small HTML (bold, lists, images by name); it is cleaned again on save.
+async function fcEditDlg(id){
+  const c=await fcGet("cards",id);if(!c)return;
+  const dlg=fcDlg("fc-eddlg","Edit card");dlg.dataset.lock="1";
+  dlg.innerHTML=`<h3>Edit card</h3><p class="note">Front and back are small HTML: <code>&lt;b&gt;bold&lt;/b&gt;</code>, <code>&lt;br&gt;</code> for a new line, lists and tables work. Pictures keep their <code>data-m</code> name, so leave those parts as they are.</p>
+    <label class="fci-deck">Front<textarea id="fce-f" rows="6"></textarea></label><label class="fci-deck">Back<textarea id="fce-b" rows="8"></textarea></label>
+    <label class="fci-deck">Tags<input type="text" id="fce-t" maxlength="200"></label><label class="fci-deck">Next review date <input type="date" id="fce-d"> <span class="note" id="fce-dn"></span></label>
+    <label class="fci-chk"><input type="checkbox" id="fce-new"> Make this a new card again</label><div class="msg" id="fce-msg" role="status"></div>
+    <div class="row"><button class="btn on" id="fce-ok">Save</button><button class="btn btn-sm" id="fce-x">Cancel</button></div>`;
+  const sc=FC.sched.get(id)||{},isRev=sc.st===2;
+  if(isRev)$("#fce-d").value=fcDayYmd(sc.due);else $("#fce-dn").textContent=sc.st===0?"(new card: pick a date to turn it into a review card)":"(learning now: pick a date to move it)";
+  $("#fce-f").value=c.f;$("#fce-b").value=c.b;$("#fce-t").value=c.tags||"";
+  await new Promise(res=>{
+    $("#fce-x").onclick=()=>dlg.close();dlg.onclose=res;
+    $("#fce-ok").onclick=async()=>{
+      try{
+        const f=fcClean($("#fce-f").value),b=fcClean($("#fce-b").value),tags=$("#fce-t").value.trim().slice(0,200);
+        if(!fcPlain(f)&&!/data-m|<img/i.test(f))throw new Error("The front is empty");
+        const d=await fcOpen(),tx=d.transaction(["cards","ftx"],"readwrite");
+        tx.objectStore("cards").put(Object.assign({},c,{f,b,tags}));
+        tx.objectStore("ftx").put({id,t:fcPlain(f+" "+b+" "+tags).toLowerCase().slice(0,3000)});
+        await fcTxDone(tx);
+        const dv=$("#fce-d").value,today=fcDay();
+        if($("#fce-new").checked)await fcBulkSched([id],x=>{Object.assign(x,{st:0,due:x.id,ivl:0,ease:2.5,reps:0,lapses:0,step:0})});
+        else if(dv&&(!isRev||dv!==fcDayYmd(sc.due))){
+          const p=dv.split("-").map(Number),dn=Math.floor(Date.UTC(p[0],p[1]-1,p[2])/864e5);   // same day numbering as fcDayYmd
+          if(!(dn>=today-3650&&dn<=today+36500))throw new Error("That date is out of range");
+          await fcBulkSched([id],x=>{x.st=2;x.step=0;x.due=dn;x.ivl=Math.max(1,dn-today);x.ease=x.ease||2.5;x.reps=Math.max(1,x.reps||0)});
+        }
+        dlg.close();
+      }catch(e){const m=$("#fce-msg");m.textContent=e.message;m.className="msg err"}
+    };
+    dlg.showModal();
+  });
+  delete dlg.dataset.lock;dlg.onclose=null;
+}
 // ================= Init =================
 wireBackup();wireA11y();applyTheme();buildIV();buildAI();buildScr();buildCourse();buildStats();buildNudge();render();
 // ---------- v13: keep the current day and the active subject tab in view on narrow screens ----------
