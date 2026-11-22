@@ -527,6 +527,23 @@ dialog.dlg .f2 label input{width:120px}
   #iv>.row .btn{width:100%;justify-content:center;height:40px}
   #iv>.row .note{grid-column:1/-1}
 }
+
+/* ===== v15.4: roomier AI answer box ===== */
+.fc-ai .msg{max-width:100%;font-size:16px;line-height:1.6}
+.fc-ai .msg.user{margin-left:auto;max-width:92%}
+.fc-ai-chat{max-height:min(70vh,720px);min-height:120px;padding-right:2px}
+.fc-ai .msg.ai pre{max-width:100%;overflow-x:auto;font-size:13.5px}
+.fc-ai .msg.ai table{display:block;max-width:100%;overflow-x:auto}
+@media(max-width:700px){.fc-ai{margin-left:-14px;margin-right:-14px;border-radius:12px;padding:12px 10px}.fc-ai .msg{padding:10px 12px}}
+.fc-ai.big{position:fixed;inset:0;z-index:60;margin:0;border-radius:0;display:flex;flex-direction:column;padding:12px max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:var(--panel);overflow:hidden}
+.fc-ai.big .fc-ai-chat{flex:1 1 auto;max-height:none;min-height:0}
+.fc-ai.big .fc-ai-in textarea{min-height:56px}
+body.fc-aibig{overflow:hidden}
+.fc-ai-chat{background:none!important;border:0!important;padding:0!important;box-shadow:none!important}
+.fc-ai.big .fc-ai-quick{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding-bottom:4px}.fc-ai.big .fc-ai-quick .btn{flex:0 0 auto}
+.fc-ai.big>.note,.fc-ai.big .fc-ai-key .note{display:none}
+.fc-ai.big .fc-ai-head{margin-bottom:4px}
+.fc-ai.big>*{flex-shrink:0}.fc-ai.big>.fc-ai-chat{flex:1 1 auto;flex-shrink:1}
 </style><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"></head><body>
 <a class="skip" href="#tabs">Skip to the subject tabs</a><div id="live" class="sr" aria-live="polite"></div>
 <header class="topbar"><div class="topbar-in">
@@ -5335,7 +5352,7 @@ function fcAiBuild(){
   const cur=fcModel(),known=FC_MODELS.some(m=>m[0]===cur);
   box.innerHTML=`<div class="fc-ai-head"><b>Ask Gemini about this card</b><span class="fc-sp"></span>
     <select id="fcai-model" aria-label="Gemini model">${(known?FC_MODELS:[[cur,cur+" (your choice)"],...FC_MODELS]).map(m=>`<option value="${esc(m[0])}" ${m[0]===cur?"selected":""}>${esc(m[1])}</option>`).join("")}</select>
-    <button class="btn btn-sm" id="fcai-load" title="Ask Google which models your key can use">Load models</button><button class="btn btn-sm" id="fcai-x" aria-label="Close the AI panel">Close</button></div>
+    <button class="btn btn-sm" id="fcai-load" title="Ask Google which models your key can use">Load models</button><button class="btn btn-sm" id="fcai-big" aria-pressed="false" title="Make the AI panel fill the screen">Full screen</button><button class="btn btn-sm" id="fcai-x" aria-label="Close the AI panel">Close</button></div>
   ${S.apiKey?"":`<div class="fc-ai-key"><div class="note">Paste your Google AI Studio key once (free at aistudio.google.com/apikey). It is stored in this browser and is the same key the AI tutor tab uses.</div><div class="row"><input type="password" id="fcai-key" placeholder="AIza..." autocomplete="off"><button class="btn btn-sm on" id="fcai-savekey">Save key</button></div></div>`}
   <div class="fc-ai-quick row"><button class="btn btn-sm on" data-ask="explain">Explain the answer in detail</button><button class="btn btn-sm" data-ask="scenario">Walk through the scenario</button><button class="btn btn-sm" data-ask="wrong">Why are the others wrong?</button><button class="btn btn-sm" data-ask="check">Check my answer</button><button class="btn btn-sm" data-ask="real">Real-world example</button><button class="btn btn-sm" data-ask="similar">Give me a similar scenario</button></div>
   <div class="chat fc-ai-chat" id="fcai-chat" aria-live="polite"></div><div class="msg err" id="fcai-st" role="status"></div>
@@ -5343,6 +5360,10 @@ function fcAiBuild(){
   <div class="note">Sends this card's text and pictures to Google's Gemini API using your key. Answers can contain mistakes: check commands and outputs before you rely on them.</div>`;
   $("#fcai-st").textContent="";$("#fcai-st").className="msg";
   $("#fcai-x").onclick=()=>fcAiClose();
+  const big=$("#fcai-big"),setBig=on=>{box.classList.toggle("big",on);document.body.classList.toggle("fc-aibig",on);big.textContent=on?"Back":"Full screen";big.setAttribute("aria-pressed",String(on));const ch=$("#fcai-chat");if(ch)ch.scrollTop=ch.scrollHeight};
+  big.onclick=()=>setBig(!box.classList.contains("big"));
+  if(AIC.big)setBig(true);
+  big.addEventListener("click",()=>{AIC.big=box.classList.contains("big")});
   $("#fcai-model").onchange=e=>{S.fcModel=e.target.value;save()};
   const sk=$("#fcai-savekey");if(sk)sk.onclick=()=>{const v=$("#fcai-key").value.trim();if(!v)return;S.apiKey=v;save();fcAiBuild();toast("Key saved")};
   $("#fcai-load").onclick=async()=>{
@@ -5378,7 +5399,7 @@ function fcAiToggle(box,get){
   fcAiBuild();
   try{box.scrollIntoView({block:"nearest"})}catch(e){}
 }
-function fcAiClose(){AIC.open=false;if(AIC.box)AIC.box.hidden=true;AIC.box=null;AIC.hist=[];AIC.mode=""}
+function fcAiClose(){AIC.open=false;AIC.big=false;document.body.classList.remove("fc-aibig");if(AIC.box){AIC.box.classList.remove("big");AIC.box.hidden=true}AIC.box=null;AIC.hist=[];AIC.mode=""}
 // called whenever another card appears: the conversation belongs to one card
 function fcAiSync(){
   if(!AIC.open||!AIC.get)return;
