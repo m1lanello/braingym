@@ -38,6 +38,9 @@ The app also keeps its own rolling snapshots (last 5) in Stats.
 Playbooks and scripts were checked for syntax and run against stand-ins, not against real
 Ansible/Netmiko/napalm/Nornir/TextFSM/pytest installs or real devices. Try them in a lab first.
 
+## Update notice
+When a new version is pushed to GitHub Pages, an open app shows "A new version is ready" with an Update now button (checked on open, when you return to the tab, and every 30 minutes). Needs the hosted copy, not the single file.
+
 ## Flashcards (v15 additions)
 - **Go through**: shows every card of a deck once, in order, no ratings; your place is saved, "Start again" resets it.
 - **Ask AI** (study and go-through screens): sends the card to Google Gemini using your own API key (same key as the AI tutor tab). Pick a model or press "Load models" to list what your key supports. Card text/images go to Google; answers can be wrong, check them.

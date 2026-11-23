@@ -567,7 +567,7 @@ body.fc-aibig{overflow:hidden}
     <button class="btn btn-sm" id="keys" title="Keyboard shortcuts (?)">Keys</button>
     <button class="btn btn-sm" id="exp" title="Download a JSON backup (includes your API key)">Export</button>
     <button class="btn btn-sm" id="imp" title="Restore from a JSON backup">Import</button>
-    <input type="file" id="impf" accept=".bgbak,.json,application/json,application/octet-stream,application/gzip,application/x-gzip" hidden>
+    <input type="file" id="impf" hidden>
   </div>
 </div></header>
 <main>
@@ -4928,7 +4928,7 @@ function fcImportDlg(files){
   const dlg=fcDlg("fc-impdlg","Import flashcards");dlg.dataset.lock="";
   dlg.innerHTML=`<h3>Import flashcards</h3>
     <p class="note">Choose an Anki package (<b>.apkg</b>) or a text file (<b>.txt</b>, <b>.csv</b>, <b>.tsv</b>). Cards you already imported are skipped, so importing the same file twice is safe.</p>
-    <div class="row"><input type="file" id="fci-file" multiple accept=".apkg,.colpkg,.txt,.tsv,.csv,.tab,text/plain,text/csv"></div>
+    <div class="row"><input type="file" id="fci-file" multiple></div>
     <div id="fci-list"></div><div id="fci-prog" hidden><div class="fc-pbar"><i id="fci-bar"></i></div><div class="note" id="fci-ptxt"></div></div><div class="msg" id="fci-msg" role="status"></div>
     <div class="row"><button class="btn on" id="fci-go" disabled>Import</button><button class="btn btn-sm" id="fci-close">Close</button></div>`;
   const panels=[];
@@ -5724,4 +5724,24 @@ wireBackup();wireA11y();applyTheme();buildIV();buildAI();buildScr();buildCourse(
   b.onclick=()=>{open=!open;try{localStorage.setItem(KEY,JSON.stringify({days:open}))}catch(e){}apply()};
   apply();
 })();
-</script><script>if("serviceWorker"in navigator&&/^https?:$/.test(location.protocol))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script></body></html>
+</script><script>(function(){
+if(!("serviceWorker" in navigator)||!/^https?:$/.test(location.protocol))return;
+var had=!!navigator.serviceWorker.controller,shown=false;
+function banner(){
+  if(shown)return;shown=true;
+  var d=document.createElement("div");d.setAttribute("role","status");
+  d.style.cssText="position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:99999;max-width:520px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:14px;background:#0f1b2d;color:#fff;font:15px/1.4 system-ui,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.35);border:1px solid #3b82f6";
+  d.innerHTML='<span><b>A new version is ready.</b> Your progress is kept.</span><span style="display:flex;gap:8px"><button id="upd-go" style="border:0;border-radius:10px;padding:8px 14px;font:inherit;font-weight:600;background:#3b82f6;color:#fff;cursor:pointer">Update now</button><button id="upd-later" style="border:1px solid #5b6b82;border-radius:10px;padding:8px 12px;font:inherit;background:none;color:#fff;cursor:pointer">Later</button></span>';
+  document.body.appendChild(d);
+  d.querySelector("#upd-go").onclick=function(){location.reload()};
+  d.querySelector("#upd-later").onclick=function(){d.remove()};
+}
+navigator.serviceWorker.addEventListener("controllerchange",function(){if(had)banner()});
+addEventListener("load",function(){
+  navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(reg){
+    var chk=function(){try{reg.update().catch(function(){})}catch(e){}};
+    document.addEventListener("visibilitychange",function(){if(!document.hidden)chk()});
+    setInterval(chk,30*60*1000);chk();
+  }).catch(function(){});
+});
+})();</script></body></html>
