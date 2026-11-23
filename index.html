@@ -544,6 +544,12 @@ body.fc-aibig{overflow:hidden}
 .fc-ai.big>.note,.fc-ai.big .fc-ai-key .note{display:none}
 .fc-ai.big .fc-ai-head{margin-bottom:4px}
 .fc-ai.big>*{flex-shrink:0}.fc-ai.big>.fc-ai-chat{flex:1 1 auto;flex-shrink:1}
+
+/* ===== v15.5: no tiny scroll box; card text inside the full-screen view ===== */
+.fc-ai-card{margin:6px 0;font-size:14px}.fc-ai-cardtxt{white-space:pre-wrap;overflow-wrap:anywhere;max-height:35vh;overflow:auto;padding:8px 10px;border:1px solid var(--line2);border-radius:10px;background:var(--panel);margin-top:6px}
+.fc-ai-fs{margin:2px 0 8px}
+@media(max-width:700px){.fc-ai:not(.big) .fc-ai-chat{max-height:none;overflow:visible}}
+.fc-ai.big .fc-ai-card{flex:0 0 auto}
 </style><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"></head><body>
 <a class="skip" href="#tabs">Skip to the subject tabs</a><div id="live" class="sr" aria-live="polite"></div>
 <header class="topbar"><div class="topbar-in">
@@ -5324,6 +5330,7 @@ function fcAiRender(){
   const chat=$("#fcai-chat");if(!chat)return;
   chat.innerHTML=AIC.hist.length?"":'<div class="note">Pick a button above, or ask your own question. The AI sees the question, the stored answer and any pictures on this card.</div>';
   AIC.hist.forEach(m=>{const d=document.createElement("div");d.className="msg "+(m.role==="user"?"user":"ai");d.innerHTML=m.role==="user"?esc(m.text).replace(/\n/g,"<br>"):md(m.text);chat.append(d)});
+  if(AIC.hist.length&&!AIC.busy&&AIC.box&&!AIC.box.classList.contains("big")){const r=document.createElement("button");r.className="btn btn-sm fc-ai-fs";r.textContent="Read full screen";r.onclick=()=>$("#fcai-big").click();chat.append(r)}
   if(AIC.busy){const d=document.createElement("div");d.className="msg ai";d.textContent="Thinking…";chat.append(d)}
   chat.scrollTop=chat.scrollHeight;
 }
@@ -5354,16 +5361,17 @@ function fcAiBuild(){
     <select id="fcai-model" aria-label="Gemini model">${(known?FC_MODELS:[[cur,cur+" (your choice)"],...FC_MODELS]).map(m=>`<option value="${esc(m[0])}" ${m[0]===cur?"selected":""}>${esc(m[1])}</option>`).join("")}</select>
     <button class="btn btn-sm" id="fcai-load" title="Ask Google which models your key can use">Load models</button><button class="btn btn-sm" id="fcai-big" aria-pressed="false" title="Make the AI panel fill the screen">Full screen</button><button class="btn btn-sm" id="fcai-x" aria-label="Close the AI panel">Close</button></div>
   ${S.apiKey?"":`<div class="fc-ai-key"><div class="note">Paste your Google AI Studio key once (free at aistudio.google.com/apikey). It is stored in this browser and is the same key the AI tutor tab uses.</div><div class="row"><input type="password" id="fcai-key" placeholder="AIza..." autocomplete="off"><button class="btn btn-sm on" id="fcai-savekey">Save key</button></div></div>`}
+  <details class="fc-ai-card"><summary>Show the card</summary><div id="fcai-cardtxt" class="fc-ai-cardtxt"></div></details>
   <div class="fc-ai-quick row"><button class="btn btn-sm on" data-ask="explain">Explain the answer in detail</button><button class="btn btn-sm" data-ask="scenario">Walk through the scenario</button><button class="btn btn-sm" data-ask="wrong">Why are the others wrong?</button><button class="btn btn-sm" data-ask="check">Check my answer</button><button class="btn btn-sm" data-ask="real">Real-world example</button><button class="btn btn-sm" data-ask="similar">Give me a similar scenario</button></div>
   <div class="chat fc-ai-chat" id="fcai-chat" aria-live="polite"></div><div class="msg err" id="fcai-st" role="status"></div>
   <div class="fc-ai-in"><textarea id="fcai-in" rows="2" placeholder="Ask a follow-up… (Ctrl+Enter to send)"></textarea><button class="btn on" id="fcai-send">Send</button></div>
   <div class="note">Sends this card's text and pictures to Google's Gemini API using your key. Answers can contain mistakes: check commands and outputs before you rely on them.</div>`;
   $("#fcai-st").textContent="";$("#fcai-st").className="msg";
   $("#fcai-x").onclick=()=>fcAiClose();
-  const big=$("#fcai-big"),setBig=on=>{box.classList.toggle("big",on);document.body.classList.toggle("fc-aibig",on);big.textContent=on?"Back":"Full screen";big.setAttribute("aria-pressed",String(on));const ch=$("#fcai-chat");if(ch)ch.scrollTop=ch.scrollHeight};
+  const big=$("#fcai-big"),setBig=on=>{box.classList.toggle("big",on);document.body.classList.toggle("fc-aibig",on);big.textContent=on?"Back":"Full screen";big.setAttribute("aria-pressed",String(on));fcAiRender()};
   big.onclick=()=>setBig(!box.classList.contains("big"));
   if(AIC.big)setBig(true);
-  big.addEventListener("click",()=>{AIC.big=box.classList.contains("big")});
+  big.addEventListener("click",()=>{AIC.big=box.classList.contains("big");AIC.pref=AIC.big});
   $("#fcai-model").onchange=e=>{S.fcModel=e.target.value;save()};
   const sk=$("#fcai-savekey");if(sk)sk.onclick=()=>{const v=$("#fcai-key").value.trim();if(!v)return;S.apiKey=v;save();fcAiBuild();toast("Key saved")};
   $("#fcai-load").onclick=async()=>{
@@ -5390,12 +5398,14 @@ function fcAiBuild(){
     else fcAiSend(v)};
   $("#fcai-send").onclick=go;
   $("#fcai-in").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();go()}});
+  try{const c=AIC.get&&AIC.get();if(c)$("#fcai-cardtxt").textContent="Question:\n"+fcHtmlText(c.f)+"\n\nStored answer:\n"+fcHtmlText(c.b)}catch(e){}
   fcAiRender();
 }
 function fcAiToggle(box,get){
   if(AIC.open&&AIC.box===box){fcAiClose();return}
   AIC.box=box;AIC.get=get;AIC.open=true;box.hidden=false;
   const c=get&&get();AIC.id=c?c.id:null;AIC.hist=[];AIC.mode="";AIC.busy=false;
+  AIC.big=AIC.pref!=null?AIC.pref:matchMedia("(max-width:700px)").matches;
   fcAiBuild();
   try{box.scrollIntoView({block:"nearest"})}catch(e){}
 }
