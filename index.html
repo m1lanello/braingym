@@ -567,7 +567,7 @@ body.fc-aibig{overflow:hidden}
     <button class="btn btn-sm" id="keys" title="Keyboard shortcuts (?)">Keys</button>
     <button class="btn btn-sm" id="exp" title="Download a JSON backup (includes your API key)">Export</button>
     <button class="btn btn-sm" id="imp" title="Restore from a JSON backup">Import</button>
-    <input type="file" id="impf" accept="application/json,.json" hidden>
+    <input type="file" id="impf" accept=".bgbak,.json,application/json,application/octet-stream,application/gzip,application/x-gzip" hidden>
   </div>
 </div></header>
 <main>
@@ -3851,7 +3851,7 @@ function importBackup(file){
 function importJsonBackup(file){
   const rd=new FileReader();
   rd.onload=()=>{
-    let j;try{j=JSON.parse(rd.result)}catch(e){alert("Import failed: this is not a JSON file.");return}
+    let j;try{j=JSON.parse(rd.result)}catch(e){alert("Import failed: this file is not a Brain Gym backup (a .json or .bgbak file made by Export). If it is a .bgbak file, it may be damaged, or you may be using an older copy of the app: open the newest copy and import there.");return}
     if(j&&j.encrypted===true){
       window._pendingImport=j;$("#im-pass").value="";$("#im-msg").textContent="";$("#im-msg").className="msg";$("#impdlg").showModal();$("#im-pass").focus();return;
     }
@@ -5693,6 +5693,14 @@ function ivAiShow(){
 }
 const ivSrcLine=()=>IVAI.src.length?"\n\nSources searched: "+IVAI.src.slice(0,4).map(u=>u.u).join(" ; "):"";
 
+// ---------- shows which version of the app is running, so an old cached copy is easy to spot ----------
+const APP_VERSION="v15.5 · backups with flashcards (.bgbak) supported";
+(function(){
+  const h=document.querySelector("h1,.brand,header b");
+  const t=document.createElement("div");t.className="ver note";t.textContent="App version "+APP_VERSION;
+  t.style.cssText="text-align:center;font-size:12px;opacity:.7;margin:18px 0 28px";
+  (document.querySelector("main")||document.body).appendChild(t);
+})();
 // ================= Init =================
 wireBackup();wireA11y();applyTheme();buildIV();buildAI();buildScr();buildCourse();buildStats();buildNudge();render();
 // ---------- v13: keep the current day and the active subject tab in view on narrow screens ----------
