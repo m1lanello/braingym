@@ -5724,7 +5724,55 @@ wireBackup();wireA11y();applyTheme();buildIV();buildAI();buildScr();buildCourse(
   b.onclick=()=>{open=!open;try{localStorage.setItem(KEY,JSON.stringify({days:open}))}catch(e){}apply()};
   apply();
 })();
-</script><script>(function(){
+</script><script>
+// ---------- v15.6: swipe left/right anywhere to change tab (phones and tablets) ----------
+(function(){
+  var KEY="brainGym60_swipe",on=true;
+  try{on=localStorage.getItem(KEY)!=="off"}catch(e){}
+  var x0=0,y0=0,t0=0,ok=false;
+  function blocked(el){
+    for(var e=el;e&&e!==document.body&&e!==document.documentElement;e=e.parentElement){
+      var tag=e.tagName;
+      if(/^(INPUT|TEXTAREA|SELECT|CANVAS|AUDIO|VIDEO|DIALOG)$/.test(tag))return true;
+      if(e.isContentEditable||e.id==="tabs"||e.id==="grid"||e.classList.contains("fc-ai"))return true;
+      var cs=getComputedStyle(e);
+      if((cs.overflowX==="auto"||cs.overflowX==="scroll")&&e.scrollWidth>e.clientWidth+2)return true;
+    }
+    return false;
+  }
+  function busy(){
+    if(document.querySelector("dialog[open]"))return true;
+    if(typeof ST!=="undefined"&&ST.on)return true;
+    if(typeof RD!=="undefined"&&RD.on)return true;
+    if(window.visualViewport&&visualViewport.scale>1.02)return true;
+    var s=window.getSelection&&getSelection();if(s&&String(s).length>0)return true;
+    return false;
+  }
+  addEventListener("touchstart",function(e){
+    if(!on||e.touches.length!==1){ok=false;return}
+    var t=e.touches[0];x0=t.clientX;y0=t.clientY;t0=Date.now();
+    ok=!busy()&&!blocked(e.target);
+  },{passive:true});
+  addEventListener("touchcancel",function(){ok=false},{passive:true});
+  addEventListener("touchend",function(e){
+    if(!ok)return;ok=false;
+    var t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;
+    if(Date.now()-t0>800||Math.abs(dx)<80||Math.abs(dx)<Math.abs(dy)*2)return;
+    var b=[].slice.call(document.querySelectorAll("#tabs .tab-btn")),i=b.findIndex(function(x){return x.classList.contains("active")});
+    var n=i+(dx<0?1:-1);if(i<0||n<0||n>=b.length)return;
+    b[n].click();window.scrollTo(0,0);
+  },{passive:true});
+  // on/off switch at the bottom of the page
+  var f=document.querySelector(".ver");
+  if(f){
+    var s=document.createElement("button");s.className="btn btn-sm";s.style.marginLeft="10px";
+    var upd=function(){s.textContent="Swipe between tabs: "+(on?"on":"off");s.setAttribute("aria-pressed",String(on))};
+    s.onclick=function(){on=!on;try{localStorage.setItem(KEY,on?"on":"off")}catch(e){}upd()};
+    upd();f.appendChild(s);
+  }
+})();
+</script>
+<script>(function(){
 if(!("serviceWorker" in navigator)||!/^https?:$/.test(location.protocol))return;
 var had=!!navigator.serviceWorker.controller,shown=false;
 function banner(){
